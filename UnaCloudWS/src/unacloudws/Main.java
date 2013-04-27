@@ -5,9 +5,9 @@
 
 package unacloudws;
 
-import development.TemplateWS;
+import com.losandes.wss.TemplateWS;
+import com.losandes.wss.VirtualMachineExecutionWS;
 import java.util.List;
-import development.VirtualMachineExecutionWS;
 
 
 /**
@@ -20,17 +20,8 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
-        List<TemplateWS> ts=UnaCloudOperationsTest.getTemplateLists("ga.sotelo69", "asdasdasd");
-        for(TemplateWS t:ts)System.out.println(t.getTemplateName()+" "+t.getTemplateCode());
-        //UnaCloudOperations.turnOnVirtualCluster("ga.sotelo69", "asdasdasd",63,20,0,0,0,24*3);
-        for(VirtualMachineExecutionWS vme:UnaCloudOperationsTest.getVirtualMachineExecutions("ga.sotelo69", "asdasdasd",63)){
-            System.out.println(vme.getVirtualMachineExecutionCode());
-            UnaCloudOperationsTest.writeFileOnVirtualMachine("ga.sotelo69", "asdasdasd",vme.getVirtualMachineExecutionCode(),"/unacloudhello222","Hoa");
-        }
-        /*System.out.println(UnaCloudOperations.getTotalUnaCloudResources(20,4,1024));
-        System.out.println(UnaCloudOperations.getAvailableUnaCloudResources(20,4,1024));*/
-
+        System.out.println(UnaCloudOperations.getTotalUnaCloudResources(20,4,1024));
+        System.out.println(UnaCloudOperations.getAvailableUnaCloudResources(20,4,1024));
         /*List<TemplateWS> ts=UnaCloudOperations.getTemplateLists("fh.castillo27", "tyffilygiogyi");
         for(TemplateWS t:ts)System.out.println(t.getTemplateName()+" "+t.getTemplateCode());
         Integer a=UnaCloudOperations.getAvailableVirtualMachines(48,0,0,0,"fh.castillo27","tyffilygiogyi");

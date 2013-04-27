@@ -3,9 +3,9 @@
   <services/>
   <clients>
     <client name="UnaCloudWS">
-      <wsdl-url>http://157.253.236.161/UnaCloudWSService/UnaCloudWS?wsdl</wsdl-url>
-      <local-wsdl-file>157.253.236.161/UnaCloudWSService/UnaCloudWS.wsdl</local-wsdl-file>
-      <package-name forceReplace="true">development</package-name>
+      <wsdl-url>http://localhost/UnaCloudWSService/UnaCloudWS?wsdl</wsdl-url>
+      <local-wsdl-file>localhost/UnaCloudWSService/UnaCloudWS.wsdl</local-wsdl-file>
+      <package-name>com.losandes.wss</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -18,43 +18,11 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>http://157.253.236.161/UnaCloudWSService/UnaCloudWS?wsdl</wsimport-option-value>
+          <wsimport-option-value>http://localhost/UnaCloudWSService/UnaCloudWS?wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xendorsed</wsimport-option-name>
           <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>package</wsimport-option-name>
-          <wsimport-option-value>development</wsimport-option-value>
-        </wsimport-option>
-      </wsimport-options>
-    </client>
-    <client name="UnaCloudWS_1">
-      <wsdl-url>http://157.253.236.160/UnaCloudWSService/UnaCloudWS?wsdl</wsdl-url>
-      <local-wsdl-file>157.253.236.160/UnaCloudWSService/UnaCloudWS.wsdl</local-wsdl-file>
-      <package-name forceReplace="true">production</package-name>
-      <catalog-file>catalog.xml</catalog-file>
-      <wsimport-options>
-        <wsimport-option>
-          <wsimport-option-name>extension</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>verbose</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>http://157.253.236.160/UnaCloudWSService/UnaCloudWS?wsdl</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xendorsed</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>package</wsimport-option-name>
-          <wsimport-option-value>production</wsimport-option-value>
         </wsimport-option>
       </wsimport-options>
     </client>

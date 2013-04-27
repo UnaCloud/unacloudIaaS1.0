@@ -8,18 +8,14 @@ import com.losandes.persistence.entity.VirtualMachine;
 import com.losandes.persistence.entity.VirtualMachineExecution;
 import com.losandes.user.IUserServices;
 import com.losandes.utils.Queries;
-import com.losandes.virtualmachineexecution.IVirtualMachineExecutionServices;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-import javax.ejb.TransactionManagement;
 import static com.losandes.utils.Constants.*;
+import java.util.Random;
 
 /**
  * @author Edgar Eduardo Rosales Rosero
@@ -36,8 +32,7 @@ public class VirtualMachineServices implements IVirtualMachineServices {
     private IVirtualMachineServices virtualMachineServices;
     @EJB
     private VirtualMachineOperationsLocal virtualMachineOperations;
-    @EJB
-    private IVirtualMachineExecutionServices ivmes;
+
     /**
      * Responsible for exposing the Virtual Machine create persistence services
      */
@@ -273,22 +268,42 @@ public class VirtualMachineServices implements IVirtualMachineServices {
         virtualMachineOperations.turnOnCluster(vmCores, vmRAM, executionTime, userServices.getUserByID(userName), toTurnOn.toArray(new VirtualMachine[0]));
         return "";
     }
-
-    @Override
-    public void writeFileOnVirtualMachine(String virtualMachineExecutionId,String path,String content){
-        virtualMachineOperations.writeFileOnVirtualMachine(virtualMachineExecutionId, path, content);
+    
+    public List<VirtualMachine> randomOrder(List<VirtualMachine> vms)
+    {
+        List<VirtualMachine> temp = new ArrayList<VirtualMachine>();
+        Random rnd = new Random();
+        int ran = rnd.nextInt(vms.size());
+        for(int i = 0; i <vms.size(); i++)
+        {
+            int j = i+ran;
+            if (j >= vms.size())
+            {
+                j = j-vms.size();
+            }
+            temp.add(i, vms.get(j));
+        }
+        return temp;
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     @Override
-    public VirtualMachineExecution[] turnOnVirtualClusterBySize(int template, int executionTime, int numberInstances, int vmCores, int HDsize, int vmRAM, String userName,boolean retry) {
-        System.out.println("Inicie");
+    public VirtualMachineExecution[] turnOnVirtualClusterBySize(int template, int executionTime, int numberInstances, int vmCores, int HDsize, int vmRAM, String userName, boolean order) {
         List<VirtualMachine> vms = getAvailableVirtualMachines(template, HDsize, vmCores, vmRAM);
         VirtualMachine[] avms = new VirtualMachine[Math.min(numberInstances, vms.size())];
-        for (int e = 0; e < avms.length; e++)avms[e] = vms.get(e);
-        if(retry&&numberInstances-avms.length>0)virtualMachineOperations.turnOnPhysicalMachines(template, executionTime, numberInstances-avms.length, vmCores, HDsize, vmRAM, userName);
-        for(VirtualMachine vm:vms)System.out.println(vm);
-        System.out.println("Fin");
+        if(order == true){
+            List<VirtualMachine> temp = randomOrder(vms);            
+            for (int e = 0; e < avms.length; e++) {
+                 avms[e] = temp.get(e);
+            }            
+        }
+        else 
+        {
+             for (int e = 0; e < avms.length; e++) {
+                 avms[e] = vms.get(e);
+            }
+        }
+        
+        if(numberInstances-avms.length>0)virtualMachineOperations.turnOnPhysicalMachines(template, executionTime, numberInstances-avms.length, vmCores, HDsize, vmRAM, userName);
         return virtualMachineOperations.turnOnCluster(vmCores, vmRAM, executionTime, userServices.getUserByID(userName), avms);
     }
 
@@ -303,7 +318,5 @@ public class VirtualMachineServices implements IVirtualMachineServices {
         System.out.println("getAllVirtualMachineExecutions");
         return persistenceServices.executeNativeSQLList(Queries.getAllVirtualMachinesExecutions(), VirtualMachineExecution.class);
     }
-
-    
 }// end of VirtualMachineServices
 

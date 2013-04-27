@@ -6,10 +6,8 @@ package com.losandes.machineconfigurators;
 
 import com.losandes.communication.security.utils.*;
 import com.losandes.communication.security.SecureSocket;
-import com.losandes.deploy.IPGenerationPolicy;
 import com.losandes.multicast.UnicastSender;
 import com.losandes.persistence.entity.VirtualMachine;
-import com.losandes.virtualmachine.PairMachineExecution;
 import com.losandes.virtualmachineexecution.IVirtualMachineExecutionServices;
 import com.losandes.vo.HostTable;
 import java.io.File;
@@ -49,6 +47,11 @@ public abstract class AbstractSOConfigurator {
     protected String mac;
 
     /**
+     * Temporal file used to write volatile data
+     */
+    protected File archivoTemporal;
+
+    /**
      * virtual machine executions services used to report configuration process status
      */
     protected IVirtualMachineExecutionServices virtualMachineExecutionServices;
@@ -71,30 +74,61 @@ public abstract class AbstractSOConfigurator {
     protected void init(VirtualMachine virtualMachine, HostTable hosts) {
         this.virtualMachine = virtualMachine;
         this.hosts = hosts;
+        archivoTemporal = new File("./data/temp" + virtualMachine.getPhysicalMachine().getPhysicalMachineIP() + ".txt");
+        archivoTemporal.getParentFile().mkdirs();
     }
 
     /**
-     * Writes the given content on the path on the managed virtual machine
-     * @param path
+     * Changes the MAC address of the virtual machine configured by this abstract configurator
+     * @param prefijo
      */
-    public void writeMachineFile(String path,byte[] content){
-        writeMachineFile(virtualMachine, clouderClientPort, fileTransferSocket, path, content);
-    }
-    /**
-     * Writes the given content on the path on the managed virtual machine
-     * @param path
-     */
-    public static void writeMachineFile(VirtualMachine virtualMachine,int clientPort,int clientFileTransferPort,String path,byte[] content){
+    protected void changeMac(String prefijo) {
         try {
-            SecureSocket socket = new SecureSocket(virtualMachine.getPhysicalMachine().getPhysicalMachineIP(),clientPort);
+            SecureSocket socket = new SecureSocket(virtualMachine.getPhysicalMachine().getPhysicalMachineIP(),clouderClientPort);
             AbstractCommunicator communication = socket.connect();
-            communication.writeUTF("" + VIRTUAL_MACHINE_CONFIGURATION,VMC_WRITE_FILE, virtualMachine.getHypervisor().getHypervisorCode().intValue()+"", virtualMachine.getVirtualMachinePath(),
+            communication.writeUTF(new String[]{"" + VIRTUAL_MACHINE_CONFIGURATION, "CambiarMac", virtualMachine.getVirtualMachinePath(), prefijo, virtualMachine.getPhysicalMachine().getPhysicalMachineHypervisorPath()});
+            mac = communication.readUTF().substring(prefijo.length());
+            mac = mac.replace(" ", "").replace("=", "").toUpperCase();
+            System.out.println(mac);
+            communication.close();
+        } catch (ConnectionException ex) {
+            Logger.getLogger(AbstractSOConfigurator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Returns the MAC address that is configured on the managed virtual machine
+     * @param prefijo
+     */
+    protected void getMac(String prefijo) {
+        try {
+            SecureSocket socket = new SecureSocket(virtualMachine.getPhysicalMachine().getPhysicalMachineIP(),clouderClientPort);
+            AbstractCommunicator communication = socket.connect();
+            communication.writeUTF(new String[]{"" + VIRTUAL_MACHINE_CONFIGURATION, "SacarMac", virtualMachine.getVirtualMachinePath(), prefijo});
+            mac = communication.readUTF().substring(prefijo.length());
+            mac = mac.replace(" ", "").replace("=", "").toUpperCase();
+            System.out.println(mac);
+            communication.close();
+        } catch (ConnectionException ex) {
+            Logger.getLogger(AbstractSOConfigurator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Writes the content of the temporal file on the given path in the managed virtual machine
+     * @param path
+     */
+    public void writeMachineFile(String path) {
+        try {
+            SecureSocket socket = new SecureSocket(virtualMachine.getPhysicalMachine().getPhysicalMachineIP(),clouderClientPort);
+            AbstractCommunicator communication = socket.connect();
+            communication.writeUTF("" + VIRTUAL_MACHINE_CONFIGURATION, "EscribirArchivoMaquina", virtualMachine.getHypervisor().getHypervisorCode().intValue()+"", virtualMachine.getVirtualMachinePath(),
                     virtualMachine.getVirtualMachineSecurity().getVirtualMachineSecurityUser(),
                     virtualMachine.getVirtualMachineSecurity().getVirtualMachineSecurityPassword(),
                     path, virtualMachine.getPhysicalMachine().getPhysicalMachineHypervisorPath());
             communication.readUTF();
             try {
-                UnicastSender.sendFile(virtualMachine.getPhysicalMachine().getPhysicalMachineIP(),content,clientFileTransferPort);
+                UnicastSender.sendFile(virtualMachine.getPhysicalMachine().getPhysicalMachineIP(), archivoTemporal,fileTransferSocket);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -104,6 +138,7 @@ public abstract class AbstractSOConfigurator {
             Logger.getLogger(AbstractSOConfigurator.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /**
      * Starts the managed virtual machine
      */
@@ -111,7 +146,7 @@ public abstract class AbstractSOConfigurator {
         try {
             SecureSocket socket = new SecureSocket(virtualMachine.getPhysicalMachine().getPhysicalMachineIP(),clouderClientPort);
             AbstractCommunicator communication = socket.connect();
-            communication.writeUTF("" + VIRTUAL_MACHINE_CONFIGURATION,VMC_START, virtualMachine.getHypervisor().getHypervisorCode().intValue()+"", virtualMachine.getVirtualMachinePath(), virtualMachine.getPhysicalMachine().getPhysicalMachineHypervisorPath());
+            communication.writeUTF("" + VIRTUAL_MACHINE_CONFIGURATION, "StartMachine", virtualMachine.getHypervisor().getHypervisorCode().intValue()+"", virtualMachine.getVirtualMachinePath(), virtualMachine.getPhysicalMachine().getPhysicalMachineHypervisorPath());
             communication.readUTF();
             communication.close();
             Thread.sleep(30000);
@@ -127,7 +162,7 @@ public abstract class AbstractSOConfigurator {
         try {
             SecureSocket socket = new SecureSocket(virtualMachine.getPhysicalMachine().getPhysicalMachineIP(),clouderClientPort);
             AbstractCommunicator communication = socket.connect();
-            communication.writeUTF(new String[]{"" + VIRTUAL_MACHINE_CONFIGURATION,VMC_STOP, virtualMachine.getHypervisor().getHypervisorCode().intValue()+"",virtualMachine.getVirtualMachinePath(), virtualMachine.getPhysicalMachine().getPhysicalMachineHypervisorPath()});
+            communication.writeUTF(new String[]{"" + VIRTUAL_MACHINE_CONFIGURATION, "StopMachine", virtualMachine.getHypervisor().getHypervisorCode().intValue()+"",virtualMachine.getVirtualMachinePath(), virtualMachine.getPhysicalMachine().getPhysicalMachineHypervisorPath()});
             communication.readUTF();
             communication.close();
         } catch (ConnectionException ex) {
@@ -145,7 +180,7 @@ public abstract class AbstractSOConfigurator {
             AbstractCommunicator communication = socket.connect();
             String[] peticion = new String[8 + comandos.length];
             peticion[0] = "" + VIRTUAL_MACHINE_CONFIGURATION;
-            peticion[1] = VMC_COMMAND;
+            peticion[1] = "comandMachine";
             peticion[2] = virtualMachine.getHypervisor().getHypervisorCode().intValue()+"";
             peticion[3] = virtualMachine.getVirtualMachinePath();
             peticion[4] = virtualMachine.getVirtualMachineSecurity().getVirtualMachineSecurityUser();
@@ -155,25 +190,6 @@ public abstract class AbstractSOConfigurator {
             for (int e = 0; e < comandos.length; e++) {
                 peticion[8 + e] = comandos[e];
             }
-            communication.writeUTF(peticion);
-            communication.readUTF();
-            communication.close();
-        } catch (ConnectionException ex) {
-            Logger.getLogger(AbstractSOConfigurator.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void takeSnapshotOnMachine(String snapshotname) {
-        try {
-            SecureSocket socket = new SecureSocket(virtualMachine.getPhysicalMachine().getPhysicalMachineIP(),clouderClientPort);
-            AbstractCommunicator communication = socket.connect();
-            String[] peticion = new String[6];
-            peticion[0] = "" + VIRTUAL_MACHINE_CONFIGURATION;
-            peticion[1] = VMC_TAKE_SNAPSHOT;
-            peticion[2] = virtualMachine.getHypervisor().getHypervisorCode().intValue()+"";
-            peticion[3] = virtualMachine.getVirtualMachinePath();
-            peticion[4] = virtualMachine.getPhysicalMachine().getPhysicalMachineHypervisorPath();
-            peticion[5] = snapshotname;
             communication.writeUTF(peticion);
             communication.readUTF();
             communication.close();
@@ -195,6 +211,16 @@ public abstract class AbstractSOConfigurator {
     public abstract void configureDHCP();
 
     /**
+     * This method is responsible to change the MAC address of the managed virtual machine
+     */
+    public abstract void changeMac();
+
+    /**
+     * This method is responsible to get the MAC address of the managed virtual machine
+     */
+    public abstract void getMac();
+
+    /**
      * This method is responsible to configure the host name of the managed virtual machine
      */
     public abstract void configureHostName();
@@ -205,66 +231,15 @@ public abstract class AbstractSOConfigurator {
     public abstract void configureHostTable();
 
     /**
+     * This method is responsible to get the IP address of the managed virtual machine
+     */
+    public abstract void getIp();
+
+    /**
      * Sets the instance of virtual machine executions services to be used by this abstract configurator
      * @param vmes
      */
     public void setVirtualMachineExecutionServices(IVirtualMachineExecutionServices vmes){
         virtualMachineExecutionServices=vmes;
-    }
-    /**
-     * Configures this Debian managed virtual machine
-     * @param virtualMachineExecution
-     * @param hosts
-     * @param shutdown
-     */
-    public final void configureMachine(PairMachineExecution virtualMachineExecution, HostTable hosts, boolean shutdown) {
-        virtualMachineExecution.getExecution().setIsPercentage(false);
-        virtualMachineExecution.getExecution().setVirtualMachineExecutionStatus(COPYING_STATE);
-        virtualMachineExecution.getExecution().setShowProgressBar(true);
-        virtualMachineExecution.getExecution().setVirtualMachineExecutionStatusMessage("Starting configuration");
-        virtualMachineExecution.getExecution().setMax(3);
-        virtualMachineExecution.getExecution().setCurrent(1);
-        if(virtualMachineExecutionServices!=null)virtualMachineExecutionServices.updateVirtualMachineExecution(virtualMachineExecution.getExecution());
-        VirtualMachine vm = virtualMachineExecution.getVirtualMachine();
-        init(vm, hosts);
-        /*if(virtualMachine.getMacPolicy()==MACGenerationPolicy.RANDOM)changeMac();
-        else if(virtualMachine.getMacPolicy()==MACGenerationPolicy.STATIC_MACHINE_BASED);*///Completar
-        System.out.println("Start");
-        start();
-        System.out.println("Host name");
-        virtualMachineExecution.getExecution().setVirtualMachineExecutionStatusMessage("Setting hostname");
-        virtualMachineExecution.getExecution().setCurrent(2);
-        if(virtualMachineExecutionServices!=null)virtualMachineExecutionServices.updateVirtualMachineExecution(virtualMachineExecution.getExecution());
-        configureHostName();
-        virtualMachineExecution.getExecution().setVirtualMachineExecutionStatusMessage("Setting IP");
-        virtualMachineExecution.getExecution().setCurrent(3);
-        if(virtualMachineExecutionServices!=null)virtualMachineExecutionServices.updateVirtualMachineExecution(virtualMachineExecution.getExecution());
-        System.out.println(vm.getIpPolicy());
-        if (vm.getIpPolicy() == IPGenerationPolicy.PUBLIC_MACHINE_BASED) {
-            configureIP(vm.getPhysicalMachine().getPhysicalMachineVirtualNetmask(), vm.getVirtualMachineIP());
-        } else if (vm.getIpPolicy() == IPGenerationPolicy.DHCP) {
-            configureDHCP();//Completar
-        } else if (vm.getIpPolicy() == IPGenerationPolicy.PRIVATE) {
-            configureIP(vm.getPhysicalMachine().getPhysicalMachineVirtualNetmask(), vm.getVirtualMachineIP());//Completar
-        }
-        if(!vm.isPersistent()){
-            stop();
-            waitTime(10000);
-            takeSnapshotOnMachine("base");
-        }else doPostConfigure(shutdown);
-        /*System.out.println(virtualMachine.getTemplate().getTemplateType().getTemplateTypeName());
-        if(virtualMachine.getTemplate().getTemplateType().getTemplateTypeName().toLowerCase().equals("grid")){
-        configureHostTable();
-        //Configurar enlaces lógicos
-        }*/
-        
-    }
-    public abstract void doPostConfigure(boolean shutdown);
-    public final void waitTime(long time){
-        try {
-            Thread.sleep(time);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(AbstractSOConfigurator.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 }

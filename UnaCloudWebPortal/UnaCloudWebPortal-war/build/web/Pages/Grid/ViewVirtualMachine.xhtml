@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <body>
+        <ui:composition template="/Pages/main-template.xhtml">
+            <ui:define name="body">
+                <ui:include src="/include/menu.xhtml"/>
+                <table width="800" border="0" align="center" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td width="800" height="19" valign="top"><div align="center">
+                                <h:form>
+                                    <rich:toolBar height="26" itemSeparator="disc">
+                                        <rich:toolBarGroup>
+                                            <h:graphicImage title="Save" value="/img/save.png" onclick="createObject()" styleClass="icon" />
+                                        </rich:toolBarGroup>
+                                        <rich:toolBarGroup>
+                                            <h:commandLink  action="#{VirtualMachineBean.returnVirtualLaboratory}">
+                                                <h:graphicImage style="border:0px" title="Back" value="/img/back.png"/>
+                                            </h:commandLink>
+                                        </rich:toolBarGroup>
+                                    </rich:toolBar>
+                                </h:form>
+                            </div></td>
+                    </tr>
+                    <tr>
+                        <td height="119" valign="top"><div align="center">
+                                <rich:simpleTogglePanel id="stpEdit" opened="true">
+                                    <f:facet name="header">
+                                        View Virtual Machine
+                                    </f:facet>
+                                    <h:form>
+                                        <rich:tabPanel switchType="client">
+                                            <rich:tab styleClass="tigoAzul" label="View Virtual Machine">
+                                                <table width="646" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                                  
+                                                    <tr>
+                                                        <td width="13" height="19"></td>
+                                                        <td width="115"></td>
+                                                        <td width="169"></td>
+                                                        <td width="131"></td>
+                                                        <td width="214"></td>
+                                                        <td width="4"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="19"></td>
+                                                        <td colspan="4" valign="top">
+                                                        <h:inputHidden value="#{VirtualMachineBean.virtualMachine.virtualMachineCode}" />
+                                                         </td>
+                                                        <td></td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td height="19"></td>
+                                                        <td valign="top" class="textospeq">Name:
+                                                        <rich:message styleClass="errorText" for="name"></rich:message></td>
+                                                        <td valign="top" class="textospeq5">
+                                                            <h:inputText maxlength="50" id="name" value="#{VirtualMachineBean.virtualMachine.virtualMachineName}" required="true" requiredMessage="*">
+                                                                <rich:ajaxValidator event="onblur" />
+                                                            </h:inputText>                                                        </td>
+                                                        <td valign="top" class="textospeq">Physical Machine:
+                                                        <rich:message styleClass="errorText" for="machine"></rich:message></td>
+                                                        <td valign="top">
+                                                        <h:outputText value="#{VirtualMachineBean.virtualMachine.physicalMachine.physicalMachineName}"/>                                                        </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="19"></td>
+                                                        <td valign="top" class="textospeq">IP Address:
+                                                        <rich:message styleClass="errorText" for="ip"></rich:message></td>
+                                                        <td valign="top">
+                                                            <h:inputText maxlength="50" id="ip" value="#{VirtualMachineBean.virtualMachine.virtualMachineIP}" required="true" requiredMessage="*">
+                                                                <rich:ajaxValidator event="onblur" />
+                                                            </h:inputText></td>
+                                                        <td valign="top" class="textospeq">MAC Address:
+                                                        <rich:message styleClass="errorText" for="mac"></rich:message></td>
+                                                        <td valign="top"><h:inputText maxlength="50" id="mac" value="#{VirtualMachineBean.virtualMachine.virtualMachineMAC}" required="true" requiredMessage="*">
+                                                                <rich:ajaxValidator event="onblur" />
+                                                            </h:inputText></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="19"></td>
+                                                        <td valign="top" class="textospeq">CPU Cores:
+                                                        <rich:message styleClass="errorText" for="cores"></rich:message></td>
+                                                        <td valign="top">
+                                                            <h:inputText maxlength="50" id="cores" value="#{VirtualMachineBean.virtualMachine.virtualMachineCores}" required="true" requiredMessage="*">
+                                                                <rich:ajaxValidator event="onblur" />
+                                                            </h:inputText></td>
+                                                        <td valign="top" class="textospeq">Hard Disk Space:
+                                                        <rich:message styleClass="errorText" for="disk"></rich:message></td>
+                                                        <td valign="top"><h:inputText maxlength="50" id="disk" value="#{VirtualMachineBean.virtualMachine.virtualMachineHardDisk}" required="true" requiredMessage="*">
+                                                                <rich:ajaxValidator event="onblur" />
+                                                            </h:inputText></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="19"></td>
+                                                        <td valign="top" class="textospeq">RAM Memory:
+                                                        <rich:message styleClass="errorText" for="memory"></rich:message></td>
+                                                        <td valign="top">
+                                                            <h:inputText maxlength="50" id="memory" value="#{VirtualMachineBean.virtualMachine.virtualMachineRAMMemory}" required="true" requiredMessage="*">
+                                                                <rich:ajaxValidator event="onblur" />
+                                                            </h:inputText></td>
+                                                        <td valign="top" class="textospeq">Hypervisor:
+                                                        <rich:message styleClass="errorText" for="hyp"></rich:message></td>
+                                                        <td valign="top">
+                                                            <h:outputText value="#{VirtualMachineBean.virtualMachine.hypervisor.hypervisorName}"/>
+                                                            </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="19"></td>
+                                                        <td valign="top" class="textospeq"> Path:
+                                                        <rich:message styleClass="errorText" for="path"></rich:message></td>
+                                                        <td colspan="3" valign="top">
+                                                            <h:inputText maxlength="98" size="81" id="path" value="#{VirtualMachineBean.virtualMachine.virtualMachinePath}" required="true" requiredMessage="*">
+                                                                <rich:ajaxValidator event="onblur" />
+                                                            </h:inputText></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="19"></td>
+                                                        <td colspan="4" valign="top"><div align="center">
+                                                                <h:outputText styleClass="errorText" value="#{VirtualMachineBean.virtualMachineError}"/>
+                                                            </div></td>
+                                                        <td></td>
+                                                    </tr>                                                             
+                                                </table>
+                                            </rich:tab>
+                                        </rich:tabPanel>
+                                        <a4j:jsFunction name="createObject" action="#{VirtualMachineBean.createOrUpdate}" reRender="stpEdit"  />
+                                    </h:form>
+                                </rich:simpleTogglePanel>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <ui:include src="/include/down.xhtml"/>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

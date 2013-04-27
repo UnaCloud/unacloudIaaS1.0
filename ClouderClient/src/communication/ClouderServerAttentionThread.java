@@ -47,7 +47,6 @@ public class ClouderServerAttentionThread extends Thread {
             //receiving a operation request from the Clouder Server
             //spliting the message in a processable vector
             String[] clouderServerRequestSplitted = communication.readUTFList();
-            System.out.println(Arrays.toString(clouderServerRequestSplitted));
             //clouderClientOperationResult is the result variable for responding to Clouder Server
             // operationDomain = {VIRTUAL_MACHINE_OPERATION, PHYSICAL_MACHINE_OPERATION}
             int operationDomain = 0;

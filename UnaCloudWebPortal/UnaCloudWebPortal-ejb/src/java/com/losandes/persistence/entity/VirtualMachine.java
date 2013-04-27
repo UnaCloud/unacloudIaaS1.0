@@ -89,7 +89,7 @@ public class VirtualMachine implements Serializable {
 
     @Override
     public String toString() {
-        return "com.losandes.persistence.entity.VirtualMachine[id=" + getVirtualMachineCode() +" "+getVirtualMachineName()+ "]";
+        return "com.losandes.persistence.entity.VirtualMachine[id=" + getVirtualMachineCode() + "]";
     }
 
     /**

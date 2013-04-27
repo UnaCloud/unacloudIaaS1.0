@@ -20,8 +20,8 @@
     </target>
     <target name="wsimport-client-UnaCloudWS" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/UnaCloudWS"/>
-        <property name="wsdl-UnaCloudWS" location="xml-resources/web-service-references/UnaCloudWS/wsdl/157.253.236.161/UnaCloudWSService/UnaCloudWS.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/UnaCloudWS" destdir="${build.generated.dir}/jax-wsCache/UnaCloudWS" wsdl="${wsdl-UnaCloudWS}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="http://157.253.236.161/UnaCloudWSService/UnaCloudWS?wsdl" xendorsed="true" package="development">
+        <property name="wsdl-UnaCloudWS" location="xml-resources/web-service-references/UnaCloudWS/wsdl/localhost/UnaCloudWSService/UnaCloudWS.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/UnaCloudWS" destdir="${build.generated.dir}/jax-wsCache/UnaCloudWS" wsdl="${wsdl-UnaCloudWS}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="http://localhost/UnaCloudWSService/UnaCloudWS?wsdl" xendorsed="true">
             <depends file="${wsdl-UnaCloudWS}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/UnaCloudWS"/>
         </wsimport>
@@ -33,24 +33,7 @@
     </target>
     <target name="wsimport-client-clean-UnaCloudWS" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/UnaCloudWS"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/development"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/losandes/wss"/>
     </target>
-    <target name="wsimport-client-UnaCloudWS_1" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/UnaCloudWS_1"/>
-        <property name="wsdl-UnaCloudWS_1" location="xml-resources/web-service-references/UnaCloudWS_1/wsdl/157.253.236.160/UnaCloudWSService/UnaCloudWS.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/UnaCloudWS_1" destdir="${build.generated.dir}/jax-wsCache/UnaCloudWS_1" wsdl="${wsdl-UnaCloudWS_1}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="http://157.253.236.160/UnaCloudWSService/UnaCloudWS?wsdl" xendorsed="true" package="production">
-            <depends file="${wsdl-UnaCloudWS_1}"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/UnaCloudWS_1"/>
-        </wsimport>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/UnaCloudWS_1">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
-    </target>
-    <target name="wsimport-client-clean-UnaCloudWS_1" depends="-init-project">
-        <delete dir="${build.generated.dir}/jax-wsCache/UnaCloudWS_1"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/production"/>
-    </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-UnaCloudWS, wsimport-client-UnaCloudWS_1"/>
+    <target name="wsimport-client-generate" depends="wsimport-client-UnaCloudWS"/>
 </project>

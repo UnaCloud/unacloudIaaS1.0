@@ -5,6 +5,9 @@
 
 package com.losandes.machineconfigurators;
 
+import com.losandes.deploy.IPGenerationPolicy;
+import com.losandes.deploy.MACGenerationPolicy;
+import com.losandes.persistence.entity.VirtualMachine;
 import com.losandes.virtualmachine.PairMachineExecution;
 import com.losandes.virtualmachineexecution.IVirtualMachineExecutionServices;
 import com.losandes.vo.HostTable;
@@ -29,6 +32,13 @@ public interface MachineConfigurator {
      * @param shutdown
      */
     public void configureMachine(PairMachineExecution virtualMachine, HostTable hosts,boolean shutdown);
+
+    /**
+     * Return the IP address of the given virtual machine
+     * @param virtualMachine
+     * @return
+     */
+    public String getIP(VirtualMachine virtualMachine);
 
     /**
      * Utility method.

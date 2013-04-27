@@ -70,9 +70,4 @@ class VMwarePlayer extends Hypervisor{
         if(h.contains(ERROR_MESSAGE))throw new HypervisorOperationException(h.length()<100?h:h.substring(0,100));
     }
 
-    @Override
-    public void takeSnapshotOnMachine(String snapshotname) throws HypervisorOperationException {
-        String h=LocalProcessExecutor.executeCommandOutput(getExecutablePath() + " -T player snapshot " + getVirtualMachinePath() + " " + snapshotname);
-        if(h.contains(ERROR_MESSAGE))throw new HypervisorOperationException(h.length()<100?h:h.substring(0,100));
-    }
 }

@@ -26,6 +26,10 @@
                                 <p:selectOneMenu id="time" styleClass="textospeq" value="#{FastClouderBean.executionTimeSelected}" style="width:200px" required="true" requiredMessage="Execution time needed" >
                                     <f:selectItems value="#{constantsBean.executionTimes}" />
                                 </p:selectOneMenu>
+                                <p:selectBooleanCheckbox value="#{FastClouderBean.algoritmo}">
+                                    <a4j:ajax id="algoritmo" event="valueChange" render="tblObject@body" execute="@this" />
+                                </p:selectBooleanCheckbox>
+                                Random Order
                             </h:panelGrid>
                             <a4j:commandButton id="turnOnButton" image="/img/turn-b.png" value="Turn on" action="#{FastClouderBean.nextAccessInformation}" title="Turn On" />
                         </center></rich:panel>

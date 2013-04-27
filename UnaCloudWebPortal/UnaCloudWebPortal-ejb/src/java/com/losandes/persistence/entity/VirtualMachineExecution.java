@@ -54,6 +54,8 @@ public class VirtualMachineExecution implements Serializable {
     private SystemUser systemUser;
     @ManyToOne(optional = true)
     private VirtualMachine virtualMachine;
+    @ManyToOne(optional = true)
+    private PhysicalMachine physicalMachine;
     @Transient
     private boolean selected;
 
@@ -195,6 +197,20 @@ public class VirtualMachineExecution implements Serializable {
      */
     public void setVirtualMachine(VirtualMachine virtualMachine) {
         this.virtualMachine = virtualMachine;
+    }
+    
+    /**
+     * @return the physicalMachine
+     */
+    public PhysicalMachine getPhysicalMachine() {
+        return physicalMachine;
+    }
+
+    /**
+     * @param physicalMachine the virtualMachine to set
+     */
+    public void setPhysicalMachine(PhysicalMachine physicalMachine) {
+        this.physicalMachine = physicalMachine;
     }
 
     /**

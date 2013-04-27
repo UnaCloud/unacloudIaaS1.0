@@ -75,9 +75,7 @@ public class VMwareWorkstation extends Hypervisor{
         String h=LocalProcessExecutor.executeCommandOutput(getExecutablePath() + " -T ws -gu " + user + " -gp " + pass + " copyFileFromHostToGuest " + getVirtualMachinePath() + " \"" + sourceFile.getAbsolutePath()+"\" " + destinationRoute);
         if(h.contains(ERROR_MESSAGE))throw new HypervisorOperationException(h.length()<100?h:h.substring(0,100));
     }
-    @Override
-    public void takeSnapshotOnMachine(String snapshotname) throws HypervisorOperationException {
-        String h=LocalProcessExecutor.executeCommandOutput(getExecutablePath() + " -T ws snapshot " + getVirtualMachinePath() + " " + snapshotname);
-        if(h.contains(ERROR_MESSAGE))throw new HypervisorOperationException(h.length()<100?h:h.substring(0,100));
-    }
+
+    
+
 }

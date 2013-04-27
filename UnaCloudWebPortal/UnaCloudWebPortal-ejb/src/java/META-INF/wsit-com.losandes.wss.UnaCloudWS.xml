@@ -21,10 +21,6 @@
     <message name="getAvailableUnaCloudResourcesResponse"/>
     <message name="getTotalVirtualMachines"/>
     <message name="getTotalVirtualMachinesResponse"/>
-    <message name="getBusyUnaCloudResources"/>
-    <message name="getBusyUnaCloudResourcesResponse"/>
-    <message name="writeFileOnVirtualMachine"/>
-    <message name="writeFileOnVirtualMachineResponse"/>
     <portType name="UnaCloudWS">
         <operation name="turnOnVirtualCluster">
             <input message="tns:turnOnVirtualCluster"/>
@@ -58,14 +54,6 @@
             <input message="tns:getTotalVirtualMachines"/>
             <output message="tns:getTotalVirtualMachinesResponse"/>
         </operation>
-        <operation name="getBusyUnaCloudResources">
-            <input message="tns:getBusyUnaCloudResources"/>
-            <output message="tns:getBusyUnaCloudResourcesResponse"/>
-        </operation>
-        <operation name="writeFileOnVirtualMachine">
-            <input message="tns:writeFileOnVirtualMachine"/>
-            <output message="tns:writeFileOnVirtualMachineResponse"/>
-        </operation>
     </portType>
     <binding name="UnaCloudWSPortBinding" type="tns:UnaCloudWS">
         <wsp1:PolicyReference URI="#UnaCloudWSPortBindingPolicy"/>
@@ -98,14 +86,6 @@
             <output/>
         </operation>
         <operation name="getTotalVirtualMachines">
-            <input/>
-            <output/>
-        </operation>
-        <operation name="getBusyUnaCloudResources">
-            <input/>
-            <output/>
-        </operation>
-        <operation name="writeFileOnVirtualMachine">
             <input/>
             <output/>
         </operation>

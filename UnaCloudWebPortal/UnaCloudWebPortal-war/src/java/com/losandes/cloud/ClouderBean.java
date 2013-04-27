@@ -57,6 +57,7 @@ public class ClouderBean implements Serializable {
     private String OperatingSystemSelectedName = "N/A";
     private String AvailableVirtualMachineSelectedName = "N/A";
     private String datosAux;
+    private boolean algoritmo;
 
     /** Creates a new instance of ClouderBean */
     public ClouderBean() {
@@ -91,6 +92,7 @@ public class ClouderBean implements Serializable {
         OperatingSystemTypeSelectedName = "N/A";
         OperatingSystemSelectedName = "N/A";
         AvailableVirtualMachineSelectedName = "N/A";
+        algoritmo = false;
         return "ClouderAdmin";
     }
 
@@ -164,7 +166,7 @@ public class ClouderBean implements Serializable {
         System.out.println(operatingSystemTypeSelected+" "+OperatingSystemTypeSelectedName);
         if (!executionInstancesSelected.equals("0")) {
             System.out.println(templateSelected+","+ executionTimeSelected+","+ Integer.parseInt(executionInstancesSelected)+","+ Integer.parseInt(cpuCoresSelected)+","+ Integer.parseInt(hardDiskSizeSelected)+","+Integer.parseInt(ramSelected)+","+ FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
-            virtualMachineServices.turnOnVirtualClusterBySize(templateSelected, executionTimeSelected, Integer.parseInt(executionInstancesSelected), Integer.parseInt(cpuCoresSelected), Integer.parseInt(hardDiskSizeSelected),Integer.parseInt(ramSelected), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(),true);
+            virtualMachineServices.turnOnVirtualClusterBySize(templateSelected, executionTimeSelected, Integer.parseInt(executionInstancesSelected), Integer.parseInt(cpuCoresSelected), Integer.parseInt(hardDiskSizeSelected),Integer.parseInt(ramSelected), FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), algoritmo);
         }
         return "CloudManagement";
     }
@@ -468,6 +470,17 @@ public class ClouderBean implements Serializable {
 
     public void setTemplateObjectSelected(Template templateObjectSelected) {
         this.templateObjectSelected = templateObjectSelected;
+    }
+    
+    public boolean getAlgoritmo() {
+        return algoritmo;
+    }
+
+    /**
+     * @param TemplateSelected the TemplateSelected to set
+     */
+    public void setAlgoritmo(boolean Algoritmo) {
+        this.algoritmo = Algoritmo;
     }
 
     public boolean getRenderTemplateSelected(){

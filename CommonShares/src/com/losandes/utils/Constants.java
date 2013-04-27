@@ -52,14 +52,6 @@ public class Constants {
     public static final int ARTHUR_OPERATION = 3;
     public static final int UPDATE_OPERATION = 4;
     public static final int VIRTUAL_MACHINE_CONFIGURATION=5;
-
-    public static final String VMC_COMMAND="comandMachine";
-    public static final String VMC_START="StartMachine";
-    public static final String VMC_STOP="StopMachine";
-    public static final String VMC_WRITE_FILE="EscribirArchivoMaquina";
-    public static final String VMC_TRANSFER_FILE="RecibirArchivoUnicast";
-    public static final String VMC_TAKE_SNAPSHOT="takeSnapshot";
-
     public static final int STOP_CLIENT=6;
     public static final int GET_VERSION=7;
     //UnaCloud Client database operation request constants

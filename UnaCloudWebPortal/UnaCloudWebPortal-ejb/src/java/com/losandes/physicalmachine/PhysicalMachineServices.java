@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import org.kohsuke.rngom.digested.Main;
 import static com.losandes.utils.Constants.*;
 
 /**
@@ -53,7 +52,7 @@ public class PhysicalMachineServices implements IPhysicalMachineServices {
             return "Physical machine modified";
         }
         else{
-            machine.setMaxvirtualmachineson(1);
+            machine.setMaxvirtualmachineson(3);
             machine.setPhysicalmachinevirtualmachineson(0);
             persistenceServices.create(machine);
             return "Physical machine created";
@@ -312,8 +311,7 @@ public class PhysicalMachineServices implements IPhysicalMachineServices {
 
     private boolean sendMessageToPhysicalMachine(String ip, String msg) {
         try {
-            //SecureSocket ss = new SecureSocket(ip, persistenceServices.getIntValue("CLOUDER_CLIENT_PORT"));
-            SecureSocket ss = new SecureSocket(ip, 25);
+            SecureSocket ss = new SecureSocket(ip, persistenceServices.getIntValue("CLOUDER_CLIENT_PORT"));
             AbstractCommunicator communication = ss.connect();
             communication.writeUTF(msg);
             communication.close();
@@ -360,7 +358,7 @@ public class PhysicalMachineServices implements IPhysicalMachineServices {
         }
         sendMessageToPhysicalMachine(bridge.getPhysicalMachineIP(), msg);
     }
-    
+
     @Override
     public void sendMachineParameters(Map<String, String> map) {
         System.out.println("sendMachineParameters");
@@ -411,16 +409,6 @@ public class PhysicalMachineServices implements IPhysicalMachineServices {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-    public static void main(String...args){
-        new PhysicalMachineServices().turnOnPhysicalMachine("157.253.201.144","2c41388b1536","3cd92b76eb24","2c41388b1515","3cd92b76eb28","3cd92b76eb52","3cd92b76eb1d","3cd92b76eb55","2c41388b14be","3cd92b76eb00","2c41388b1527","3cd92b76eb2c","3cd92b76eb5b","2c41388b152e","3cd92b76eb25","3cd92b76eb30","3cd92b76eaf6","3cd92b76eb1a","3cd92b76eb58","3cd92b76eb20","3cd92b76eac4","000FFE946110","2c41388b1530","000FFE94613F","3cd92b76eb29","3cd92b76eb50","3cd92b76eb66","3cd92b76eadb","3cd92b76eb1c","3cd92b76eb37","3cd92b76eb22","2c41388b146b","3cd92b76eb38","3cd92b76ead7","3cd92b76eb21","3cd92b76eac5","3cd92b76eb56","2c41388b1520","2c41388b1509");
-    }
-    public void turnOnPhysicalMachine(String bridge, String... toWake) {
-        String msg = PHYSICAL_MACHINE_OPERATION + MESSAGE_SEPARATOR_TOKEN + PM_TURN_ON;
-        for (String pm : toWake) {
-            msg += MESSAGE_SEPARATOR_TOKEN + pm;
-        }
-        sendMessageToPhysicalMachine(bridge, msg);
     }
 }//end of PhysicalMachineServices
 

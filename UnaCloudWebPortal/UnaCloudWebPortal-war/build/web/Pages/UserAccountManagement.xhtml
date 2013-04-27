@@ -1,0 +1,42 @@
+<ui:composition template="./main-template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <ui:param name="titulo" value="UnaCloud: Infrastructure as a Service" />
+    <ui:define name="body">
+        <h:outputText style="font-size: 18px" styleClass="titulos" value="Account settings" />
+        <h:form>
+            <h:panelGrid columns="1" id="userPanel">
+                <p:growl id="growl" sticky="false" life="2000"/>
+                <h:panelGrid columns="2" rendered="#{not userAccountSettings.edit}">
+                    <h:outputLabel value="Username:" styleClass="titulos2" />
+                    <h:outputText value="#{userAccountSettings.currentSystemUser.systemUserName}" style="width: 150px"/>
+                    <h:outputLabel value="Password:" styleClass="titulos2" />
+                    <h:outputText value="********" style="width: 150px"/>
+                    <h:outputLabel value="Email:" styleClass="titulos2" />
+                    <h:outputText value="#{userAccountSettings.currentSystemUser.systemUserEmail}" style="width: 150px"/>
+                </h:panelGrid>
+                <a4j:commandButton value="Edit" style="float: right" action="#{userAccountSettings.enterEditionMode}" rendered="#{not userAccountSettings.edit}" render="userPanel"/>
+                <h:panelGrid columns="2" rendered="#{userAccountSettings.edit}">
+                    <h:outputLabel value="Username:" styleClass="titulos2" />
+                    <h:outputText value="#{userAccountSettings.currentSystemUser.systemUserName}" style="width: 150px"/>
+                    <h:outputLabel value="Old password:" styleClass="titulos2" />
+                    <h:inputSecret value="#{userAccountSettings.passwordOld}" style="width: 150px"/>
+                    <h:outputLabel value="New password:" styleClass="titulos2" />
+                    <h:inputSecret value="#{userAccountSettings.passwordNew}" style="width: 150px"/>
+                    <h:outputLabel value="Repeat new password:" styleClass="titulos2" />
+                    <h:inputSecret value="#{userAccountSettings.passwordRepeat}" style="width: 150px"/>
+                    <h:outputLabel value="Email:" styleClass="titulos2" />
+                    <h:inputText value="#{userAccountSettings.currentSystemUser.systemUserEmail}" style="width: 150px"/>
+                </h:panelGrid>
+                <h:panelGrid columns="2" rendered="#{userAccountSettings.edit}" style="float: right">
+                    <a4j:commandButton value="Cancel" style="float: right" action="#{userAccountSettings.cancel}" render="userPanel"/>
+                    <a4j:commandButton value="Save" style="float: right" action="#{userAccountSettings.save}" render="userPanel"/>
+                </h:panelGrid>
+
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

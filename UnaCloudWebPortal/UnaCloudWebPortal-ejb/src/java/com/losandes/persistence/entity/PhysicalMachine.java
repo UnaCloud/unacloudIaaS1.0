@@ -46,6 +46,8 @@ public class PhysicalMachine implements Serializable {
     private Laboratory laboratory;
     @OneToMany(mappedBy = "physicalMachine", fetch = FetchType.LAZY)
     private List<VirtualMachine> virtualMachines;
+    @OneToMany(mappedBy = "physicalMachine", fetch = FetchType.LAZY)
+    private List<VirtualMachineExecution> virtualMachineExecutions;
     @OneToOne
     private OperatingSystem operatingSystem;
     private double expectedFailures;
@@ -291,6 +293,21 @@ public class PhysicalMachine implements Serializable {
     public void setVirtualMachines(List<VirtualMachine> virtualMachines) {
         this.virtualMachines = virtualMachines;
     }
+    
+     /**
+     * @return the virtualMachines
+     */
+    public List<VirtualMachineExecution> getVirtualMachineExecutions() {
+        return virtualMachineExecutions;
+    }
+
+    /**
+     * @param virtualMachines the virtualMachines to set
+     */
+    public void setVirtualMachineExecutions(List<VirtualMachineExecution> virtualMachineExecutions) {
+        this.virtualMachineExecutions = virtualMachineExecutions;
+    }
+    
 
     /**
      * @return the operatingSystem
@@ -298,6 +315,8 @@ public class PhysicalMachine implements Serializable {
     public OperatingSystem getOperatingSystem() {
         return operatingSystem;
     }
+    
+    
 
     /**
      * @param operatingSystem the operatingSystem to set

@@ -33,8 +33,8 @@ public class Context {
      * @return
      */
     public String changeVMXFileContext(String vmCores, String vmMemory,boolean persistent) {
-        String per = persistent?"keep":"autoRevert";
-        String[][] vmxParameters = {/*{VMW_VMX_HW, VMW_VMX_HW_VER},*/ {VMW_VMX_CPU, vmCores}, {VMW_VMX_MEMORY, vmMemory},{"snapshot.action",per},{"priority.ungrabbed","idle"}};
+        String per = persistent?"autoRevert":"keep";
+        String[][] vmxParameters = {{VMW_VMX_HW, VMW_VMX_HW_VER}, {VMW_VMX_CPU, vmCores}, {VMW_VMX_MEMORY, vmMemory},{"snapshot.action",per},{"priority.ungrabbed","idle"}};
         return changeVMXparameter(vmxParameters);
     }
 

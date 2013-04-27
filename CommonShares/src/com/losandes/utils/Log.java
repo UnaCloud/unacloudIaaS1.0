@@ -5,9 +5,6 @@
 
 package com.losandes.utils;
 
-import java.util.Date;
-import java.text.SimpleDateFormat;
-import java.text.DateFormat;
 import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -33,16 +30,5 @@ public class Log {
         }catch(Exception e){
 
         }
-    }
-
-    public static void print2(String msg){
-        try{
-            PrintWriter pw = new PrintWriter(new FileWriter("LocalExecutionsLog.txt",true));
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            Date date = new Date();
-            pw.println(dateFormat.format(date)+" "+msg);
-            pw.close();
-        }catch(Throwable a){}
-
     }
 }

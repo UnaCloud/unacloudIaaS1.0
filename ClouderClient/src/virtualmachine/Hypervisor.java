@@ -87,8 +87,6 @@ public abstract class Hypervisor {
      */
     public abstract void executeCommandOnMachine(String user, String pass, String command) throws HypervisorOperationException;
 
-    public abstract void takeSnapshotOnMachine(String snapshotname) throws HypervisorOperationException;
-
     /**
      * writes a file on the virtual machine file system
      * @param user the operating system privileged user name that is going to write the file

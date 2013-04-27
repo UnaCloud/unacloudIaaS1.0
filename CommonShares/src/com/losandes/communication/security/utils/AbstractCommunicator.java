@@ -87,7 +87,7 @@ public abstract class AbstractCommunicator {
      * @throws ConnectionException Throws an exception if there is an error writing the message
      */
     public void writeUTF(String ... msg)throws ConnectionException{
-        writeString(makeMessage(msg));
+         writeString(makeMessage(msg));
     }
 
     /**

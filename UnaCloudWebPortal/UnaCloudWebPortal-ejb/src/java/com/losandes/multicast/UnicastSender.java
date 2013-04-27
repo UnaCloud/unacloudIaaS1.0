@@ -1,5 +1,12 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package com.losandes.multicast;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
@@ -16,12 +23,17 @@ public class UnicastSender {
      * @param fileTransferSocketPort
      * @throws Exception
      */
-    public static void sendFile(String host,byte[] content,int fileTransferSocketPort)throws Exception{
+    public static void sendFile(String host,File archivo,int fileTransferSocketPort)throws Exception{
         Socket c = new Socket(host,fileTransferSocketPort+1);
+        FileInputStream fr = new FileInputStream(archivo);
         OutputStream os = c.getOutputStream();
         byte[] buffer = new byte[1024*1024];
-        os.write(content,0,content.length);
+        for(int n;(n=fr.read(buffer))!=-1;){
+            os.write(buffer,0,n);
+        }
         os.flush();
         c.close();
+        fr.close();
     }
+
 }

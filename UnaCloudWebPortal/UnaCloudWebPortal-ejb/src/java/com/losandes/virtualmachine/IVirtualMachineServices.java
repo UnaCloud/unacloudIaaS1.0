@@ -23,8 +23,8 @@ public interface IVirtualMachineServices {
 
     public java.lang.String turnOnVirtualCluster(List<PhysicalMachine> physicalMachines, int executionTime, int templateSelected, int vmCores, int HDsize, int vmRAM, String userName);
 
-    public VirtualMachineExecution[] turnOnVirtualClusterBySize(int template, int executionTime, int numberInstances, int vmCores, int HDsize, int vmRAM, String userName,boolean retry);
-    
+    public VirtualMachineExecution[] turnOnVirtualClusterBySize(int template, int executionTime, int numberInstances, int vmCores, int HDsize, int vmRAM, String userName, boolean order);
+
     //public java.lang.String restartVirtualMachine(java.util.ArrayList<PhysicalMachine> physicalMachines, java.lang.String virtualMachineName);
 
     public java.lang.String turnOffVirtualMachineCluster(List<String> virtualMachineExecution);
@@ -54,7 +54,5 @@ public interface IVirtualMachineServices {
     public void setVirtualMachineExecutionState(int executionId, int state, String message);
 
     public List<VirtualMachine> getAllOnVirtualMachines();
-
-    public void writeFileOnVirtualMachine(String virtualMachineExecutionId,String path,String content);
 }// end of IVirtualMachineServices
 

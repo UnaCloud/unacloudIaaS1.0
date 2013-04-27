@@ -7,7 +7,6 @@ package com.losandes.virtualmachine;
 import com.losandes.communication.security.utils.*;
 import com.losandes.communication.security.SecureSocket;
 import com.losandes.fileTransfer.Destination;
-import com.losandes.machineconfigurators.AbstractSOConfigurator;
 import com.losandes.machineconfigurators.MachineConfigurator;
 import com.losandes.multicast.VirtualMachineRetriverLocal;
 import com.losandes.persistence.IPersistenceServices;
@@ -73,6 +72,7 @@ public class VirtualMachineOperations implements VirtualMachineOperationsLocal {
             virtualMachineExecution.setVirtualMachine(virMac);
             virtualMachineExecution.setVirtualMachineExecutionStart(new Date());
             virtualMachineExecution.setVirtualMachineExecutionStatus(DEPLOYING_STATE);
+            virtualMachineExecution.setPhysicalMachine(virMac.getPhysicalMachine());
             if(!cluster[e].isConfigured()||!cluster[e].isLocallyStored())virtualMachineExecution.setVirtualMachineExecutionStatus(COPYING_STATE);
             virtualMachineExecution.setVirtualMachineExecutionStatusMessage("Starting up...");
             virtualMachineExecution.setVirtualMachineExecutionTime(new Date(System.currentTimeMillis() + executionTime * 60l * 60l * 1000l));
@@ -118,7 +118,6 @@ public class VirtualMachineOperations implements VirtualMachineOperationsLocal {
             }
 
         }
-        System.out.println("Estado "+ready.size()+" "+notConfigured.size()+" "+notCopied.size());
         machineOperations.turnOnVirtualMachines(executionTime,vmCores,vmRAM, ready.toArray(new PairMachineExecution[ready.size()]));
         machineOperations.configureVirtualMachines(false,executionTime, notConfigured.toArray(new PairMachineExecution[notConfigured.size()]));
         machineOperations.sendFiles(false,executionTime, notCopied.toArray(new PairMachineExecution[notCopied.size()]));
@@ -165,6 +164,7 @@ public class VirtualMachineOperations implements VirtualMachineOperationsLocal {
             virtualMachineExecution.setShowProgressBar(false);
             persistenceServices.update(virtualMachineExecution);
             PhysicalMachine phyMac = virMac.getPhysicalMachine();
+            System.out.println("encender maquina que esta conf: " + virMac.isConfigured() + " " + phyMac.getPhysicalMachineName());
             AbstractCommunicator communication=null;
             try {
                 SecureSocket socket = new SecureSocket(phyMac.getPhysicalMachineIP(), persistenceServices.getIntValue("CLOUDER_CLIENT_PORT"));
@@ -234,6 +234,7 @@ public class VirtualMachineOperations implements VirtualMachineOperationsLocal {
         String cla = mac.getVirtualMachine().getTemplate().getOperatingSystem().getConfigurationClass();
         if (cla != null) {
             try {
+                System.out.println(cla);
                 Class c = Class.forName("com.losandes.machineconfigurators." + cla);
                 MachineConfigurator mc = (MachineConfigurator) c.getConstructor().newInstance();
                 mc.setVirtualMachineExecutionServices(virtualMachinesExecutionServices);
@@ -247,11 +248,7 @@ public class VirtualMachineOperations implements VirtualMachineOperationsLocal {
             }
         }
     }
-    @Override
-    public void writeFileOnVirtualMachine(String virtualMachineExecutionId,String path,String content){
-        VirtualMachineExecution vme=virtualMachinesExecutionServices.getVirtualMachineExecutionByID(virtualMachineExecutionId);
-        if(vme!=null)AbstractSOConfigurator.writeMachineFile(vme.getVirtualMachine(),persistenceServices.getIntValue("CLOUDER_CLIENT_PORT"),persistenceServices.getIntValue("FILE_TRANSFER_SOCKET"),path,content.getBytes());
-    }
+
     /**
      * Retrieves a virtual machine and stores it as a template on UnaCloud Server.
      * @param toRetrieve
@@ -270,6 +267,7 @@ public class VirtualMachineOperations implements VirtualMachineOperationsLocal {
         virtualMachineRetriever.retrieveVirtualMachine(vme.getVirtualMachine().getPhysicalMachine().getPhysicalMachineIP(), vme.getVirtualMachine().getVirtualMachinePath(), vme.getVirtualMachine().getTemplate().getVmxFileLocation(),vme);
     }
 
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     @Asynchronous
     @Override
     public void turnOnPhysicalMachines(int template, int executionTime, int numberInstances, int vmCores, int HDsize, int vmRAM, String userName) {
@@ -294,11 +292,13 @@ public class VirtualMachineOperations implements VirtualMachineOperationsLocal {
             List<PhysicalMachine> ons=onLabs.get(e.getKey());
             ipms.turnOnPhysicalMachine(ons.get(r.nextInt(ons.size())),e.getValue().toArray(new PhysicalMachine[0]));
         }
-        try {
-            Thread.sleep(1 * 60000);
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
+        List<VirtualMachine> vms = virtualMachineServices.getAvailableVirtualMachines(template, HDsize, vmCores, vmRAM);
+        VirtualMachine[] avms = new VirtualMachine[Math.min(numberInstances, vms.size())];
+        for (int e = 0; e < avms.length; e++) {
+            avms[e] = vms.get(e);
         }
-        virtualMachineServices.turnOnVirtualClusterBySize(template, executionTime, numberInstances, vmCores, HDsize, vmRAM, userName, false);
+        machineOperations.turnOnCluster(vmCores, vmRAM, executionTime, userServices.getUserByID(userName), avms);
     }
+
+
 }

@@ -1,0 +1,60 @@
+<ui:composition template="/Pages/Grid/VirtualGridPhysicalMachine.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <ui:define name="templatemenubar">
+        <rich:toolbar id="menuBar" height="26" itemSeparator="disc">
+            <rich:toolbarGroup>
+                <p:selectOneMenu value="#{gridDeploymentBean.operatingSystemTypeSelected}" label="Operating System Types" style="width: 250px">
+                    <a4j:ajax event="valueChange" render="menuBar,menuBar2,menuBar3" execute="@this" />
+                    <f:selectItems value="#{gridDeploymentBean.gridOperatingSystemTypes}"/>
+                </p:selectOneMenu>
+                <p:selectOneMenu disabled="#{gridDeploymentBean.operatingSystemTypeSelected==-1}" value="#{gridDeploymentBean.operatingSystemSelected}" label="Operating System Versions" style="width: 250px">
+                    <a4j:ajax event="valueChange" render="menuBar,menuBar2,menuBar3" execute="@this" />
+                    <f:selectItems value="#{gridDeploymentBean.gridOperatingSystems}"/>
+                </p:selectOneMenu>
+                <p:selectOneMenu disabled="#{gridDeploymentBean.operatingSystemSelected==-1}" value="#{gridDeploymentBean.templateSelected}" label="CVCs" style="width: 250px">
+                    <a4j:ajax event="valueChange" render="menuBar,menuBar2,menuBar3" execute="@this" />
+                    <f:selectItems value="#{gridDeploymentBean.gridTemplates}"/>
+                </p:selectOneMenu>
+            </rich:toolbarGroup>
+        </rich:toolbar>
+        <rich:toolbar height="26" itemSeparator="disc" id="menuBar2" >
+            <rich:toolbarGroup>
+                <p:selectOneMenu disabled="#{gridDeploymentBean.templateSelected==1}" label="Applications" style="width: 250px">
+                    <f:selectItems value="#{gridDeploymentBean.gridApplications}"/>
+                </p:selectOneMenu>
+                <p:selectOneMenu disabled="#{gridDeploymentBean.templateSelected==1}" value="#{gridDeploymentBean.hardDiskSizeSelected}" label="Hard Disk Sizes" style="width: 250px">
+                    <a4j:ajax event="valueChange" render="menuBar3" execute="@this" />
+                    <f:selectItems value="#{gridDeploymentBean.gridVirtualHardDisk}"/>
+                </p:selectOneMenu>
+                <p:selectOneMenu disabled="#{gridDeploymentBean.templateSelected==1}" value="#{gridDeploymentBean.processorCoresSelected}" label="CPU Cores" style="width: 250px">
+                    <a4j:ajax event="valueChange" render="menuBar3" execute="@this" />
+                    <f:selectItems value="#{gridDeploymentBean.gridProcessorCores}"/>
+                </p:selectOneMenu>
+            </rich:toolbarGroup>
+        </rich:toolbar>
+        <rich:toolbar height="26" itemSeparator="disc" id="menuBar3" >
+            <rich:toolbarGroup>
+                <p:selectOneMenu disabled="#{gridDeploymentBean.templateSelected==1}" value="#{gridDeploymentBean.memoryRAMSelected}" label="RAM Memory Sizes" style="width: 250px">
+                    <a4j:ajax event="valueChange" render="menuBar3" execute="@this" />
+                    <f:selectItems value="#{gridDeploymentBean.gridMemoryRAM}"/>
+                </p:selectOneMenu>
+                <p:selectOneMenu disabled="#{gridDeploymentBean.templateSelected==1}" value="#{gridDeploymentBean.executionTimeSelected}" style="width: 250px">
+                    <f:selectItems value="#{constantsBean.executionTimes}" />
+                </p:selectOneMenu>
+            </rich:toolbarGroup>
+            <rich:toolbarGroup location="right">
+                <h:outputText id="selectNumber" value="Selected: #{gridDeploymentBean.fastVirtualMachinesAviableOverTotal}" />
+                <a4j:commandButton id="turnOnButton" onclick="#{rich:component('panelBloquear')}.show();" oncomplete="#{rich:component('panelBloquear')}.hide();" image="/img/turnOn.png" action="#{gridDeploymentBean.turnOnVirtualMachineGrid}" title="Turn On">
+                    <rich:componentControl event="oncomplete" target="panelBloquear" operation="hide" />
+                </a4j:commandButton>
+                <h:commandButton image="/img/back.png" action="#{gridDeploymentBean.backFromLaboratory}" label="Back" rendered="#{gridDeploymentBean.laboratorySelected}"/>
+            </rich:toolbarGroup>
+        </rich:toolbar>
+    </ui:define>
+</ui:composition>

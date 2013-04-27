@@ -1,12 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?xml version="1.0" encoding="UTF-8"?><!--
         *** GENERATED FROM jax-ws.xml - DO NOT EDIT !                             ***
         *** TO MODIFY wsimport options USE Web Service node -> Edit WS Attributes ***
         *** TO CHANGE TARGETS GENERATED TO jaxws-build.xml COPY THOSE             ***
         *** TARGETS TO ../build.xml AND MODIFY THAT FILE INSTEAD                  ***
 
-        -->
-<project xmlns:xalan="http://xml.apache.org/xslt" xmlns:ejbjarproject2="http://www.netbeans.org/ns/j2ee-ejbjarproject/2" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+        --><project xmlns:xalan="http://xml.apache.org/xslt" xmlns:ejbjarproject2="http://www.netbeans.org/ns/j2ee-ejbjarproject/2" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
     <!--
                 ===================
                 JAX-WS WSGEN SECTION
@@ -14,6 +12,7 @@
             -->
     <target name="wsgen-init" depends="init">
         <mkdir dir="${build.generated.sources.dir}/jax-ws/resources/"/>
+        <property name="j2ee.platform.wsgen.classpath" value="${libs.jaxws21.classpath}"/>
         <taskdef name="wsgen" classname="com.sun.tools.ws.ant.WsGen">
             <classpath path="${j2ee.platform.wsgen.classpath}"/>
         </taskdef>

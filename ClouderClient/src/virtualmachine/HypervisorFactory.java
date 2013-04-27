@@ -95,11 +95,6 @@ public class HypervisorFactory {
         public void copyFileOnVirtualMachine(String user, String pass, String destinationRoute, File sourceFile) throws HypervisorOperationException {
             throw new HypervisorOperationException("Hypervisor "+hypervisorName+" not found");
         }
-
-        @Override
-        public void takeSnapshotOnMachine(String snapshotname) throws HypervisorOperationException {
-            throw new HypervisorOperationException("Hypervisor "+hypervisorName+" not found");
-        }
     }
 
 }

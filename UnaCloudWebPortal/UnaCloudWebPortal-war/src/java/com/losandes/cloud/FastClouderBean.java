@@ -25,6 +25,7 @@ public class FastClouderBean {
     private List<Template> templates;
     private int templateSelected = -1;
     private int executionInstancesNumberSelected = 0;
+    private boolean algoritmo = false;
     private int executionTimeSelected = 0;
 
     /** Creates a new instance of FastClouderBean */
@@ -47,7 +48,7 @@ public class FastClouderBean {
 
     public String nextAccessInformation() {
         if (executionInstancesNumberSelected != 0 && templateSelected!=-1) {
-            virtualMachineServices.turnOnVirtualClusterBySize(templateSelected, executionTimeSelected, executionInstancesNumberSelected,0,0,0, FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(),true);
+            virtualMachineServices.turnOnVirtualClusterBySize(templateSelected, executionTimeSelected, executionInstancesNumberSelected,0,0,0, FacesContext.getCurrentInstance().getExternalContext().getRemoteUser(), algoritmo);
             return "CloudManagement";
         } else {
             return "FastClouderAdmin";
@@ -67,6 +68,28 @@ public class FastClouderBean {
      */
     public void setTemplateSelected(int TemplateSelected) {
         this.templateSelected = TemplateSelected;
+    }
+    
+    /**
+     * @return the algoritmo selected
+     */
+    public boolean getAlgoritmo() {
+        return algoritmo;
+    }
+
+    /**
+     * @param TemplateSelected the algortimo to set
+     */
+    public void setAlgoritmo(boolean Algoritmo) {
+        this.algoritmo = Algoritmo;
+    }
+    
+    /**
+     * 
+     */
+    public void refreshAlgoritmo()
+    {
+        algoritmo = false;
     }
 
     /**

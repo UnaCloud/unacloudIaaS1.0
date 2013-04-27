@@ -10,10 +10,8 @@ import com.losandes.persistence.entity.*;
 import com.losandes.template.ITemplateServices;
 import com.losandes.user.IUserServices;
 import com.losandes.virtualmachine.IVirtualMachineServices;
-import com.losandes.virtualmachineexecution.IVirtualMachineExecutionServices;
 import com.losandes.wsEntities.*;
 import java.util.*;
-import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.jws.*;
@@ -27,7 +25,6 @@ import javax.jws.*;
 public class UnaCloudWS {
     @EJB
     private IVirtualMachineServices ivms;
-    
     @EJB
     private ITemplateServices itserv;
     @EJB
@@ -46,13 +43,14 @@ public class UnaCloudWS {
     int ram, @WebParam(name = "cores")
     int cores, @WebParam(name = "hdSize")
     int hdSize, @WebParam(name = "time")
+    boolean algoritmo, @WebParam(name = "algoritmo")
     int time) {
         if(!userServ.validateUser(username, pass))return null;
         if(ram<0)return null;
         if(cores<0)return null;
         if(hdSize<0)return null;
         if(time<1)return null;
-        VirtualMachineExecution[] vmes = ivms.turnOnVirtualClusterBySize(templateID,time, size, cores, hdSize, ram, username,true);
+        VirtualMachineExecution[] vmes = ivms.turnOnVirtualClusterBySize(templateID,time, size, cores, hdSize, ram, username, algoritmo);
         List<VirtualMachineExecutionWS> ret = new ArrayList<VirtualMachineExecutionWS>();
         for(VirtualMachineExecution vme:vmes){
             VirtualMachineExecutionWS r=new VirtualMachineExecutionWS();
@@ -198,34 +196,6 @@ public class UnaCloudWS {
     /**
      * Web service operation
      */
-    @WebMethod(operationName = "writeFileOnVirtualMachine")
-    public String writeFileOnVirtualMachine(@WebParam(name = "username")
-    String username, @WebParam(name = "password")
-    String password, @WebParam(name = "virtualMachineExecutionId")
-    String virtualMachineExecutionId, @WebParam(name = "path")
-    String path, @WebParam(name = "content")
-    String content) {
-        if(!userServ.validateUser(username, password))return null;
-        ivms.writeFileOnVirtualMachine(virtualMachineExecutionId, path, content);
-        return "Operation successfull";
-    }
-
-    /**
-     * Web service operation
-     */
-    @WebMethod(operationName = "getBusyUnaCloudResources")
-    public Integer getBusyUnaCloudResources(@WebParam(name = "machineDisk")
-    int machineDisk, @WebParam(name = "machineCores")
-    int machineCores, @WebParam(name = "machineRam")
-    int machineRam) {
-        List l =persServices.executeNativeSQLList("select count(*) c from physicalmachine where `PHYSICALMACHINEVIRTUALMACHINESON`=`MAXVIRTUALMACHINESON` and `PHYSICALMACHINERAMMEMORY`/2>="+machineRam+" and `PHYSICALMACHINECORES`>="+machineCores+" and `PHYSICALMACHINEDISK`>="+machineDisk+";",null);
-        if(l.isEmpty())return null;
-        return (int)(long)(Long)l.get(0);
-    }
-
-    /**
-     * Web service operation
-     */
     @WebMethod(operationName = "getTotalVirtualMachines")
     public Integer getTotalVirtualMachines(
             @WebParam(name = "machineDisk")int machineDisk,
@@ -239,7 +209,5 @@ public class UnaCloudWS {
         if(l.isEmpty())return null;
         return (int)(long)(Long)l.get(0);
     }
-
-    
 }
 

@@ -24,5 +24,4 @@ public interface VirtualMachineOperationsLocal {
     public void turnOnVirtualMachines(int executionTime,int cores,int ram, PairMachineExecution ... cluster);
     public void turnOnPhysicalMachines(int template, int executionTime, int numberInstances, int vmCores, int HDsize, int vmRAM, String userName);
     public void retrieveVirtualMachine(VirtualMachine toRetrieve,String user);
-    public void writeFileOnVirtualMachine(String virtualMachineExecutionId,String path,String content);
 }

@@ -32,9 +32,9 @@
         <Node id="Pages/Configuration/QoSConfiguration.xhtml" x="1650" y="450" zoom="true"/>
         <Node id="Pages/main-template.xhtml" x="1400" y="450" zoom="true"/>
         <Node id="Pages/Grid/VirtualLaboratory.xhtml" x="150" y="150" zoom="true"/>
-        <Node id="include/down.xhtml" x="900" y="600" zoom="true"/>
-        <Node id="Pages/Grid/VirtualGridPhysicalMachine.xhtml" x="150" y="1350" zoom="true"/>
         <Node id="Pages/Cloud/Template.xhtml" x="650" y="1200" zoom="true"/>
+        <Node id="Pages/Grid/VirtualGridPhysicalMachine.xhtml" x="150" y="1350" zoom="true"/>
+        <Node id="include/down.xhtml" x="900" y="600" zoom="true"/>
         <Node id="Pages/MainMenu.xhtml" x="400" y="600" zoom="true"/>
         <Node id="Pages/Grid/VirtualGridFastDeployment.xhtml" x="400" y="1200" zoom="true"/>
         <Node id="Pages/Administration/Template.xhtml" x="900" y="750" zoom="true"/>

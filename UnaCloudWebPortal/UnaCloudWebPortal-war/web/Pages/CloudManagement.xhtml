@@ -52,11 +52,11 @@
                 <rich:toolbarGroup location="right">
                     <h:commandButton title="Turn off" label="Turn off" image="/img/turnOffVM.png" action="#{executionBean.turnOffUserVirtualMachine}" />
                     <h:commandButton title="Restart" label="Restart" image="/img/restartVM.png" action="#{executionBean.restartUserVirtualMachine}" />
+                    <h:commandButton title="Monitor" label="Monitor" image="/img/monitorVM.png" action="#{executionBean.monitorUserVirtualMachine}" />
+                    <h:graphicImage title="Execution Time" value="/img/timeVM.png" onclick="#{rich:component('timePanel')}.show();" style="cursor: pointer" />
                     <h:commandButton image="/img/download.png" value="Download" title="Download" >
                         <p:fileDownload value="#{executionBean.file}" />
                     </h:commandButton>
-                    <!-- <h:commandButton title="Monitor" label="Monitor" image="/img/monitorVM.png" action="{executionBean.monitorUserVirtualMachine}" />-->
-                    <!-- <h:graphicImage title="Execution Time" value="/img/timeVM.png" onclick="{rich:component('timePanel')}.show();" style="cursor: pointer" />-->
                 </rich:toolbarGroup>
             </rich:toolbar>
             <rich:dataTable id="tblObject" value="#{executionBean.allUserVirtualMachines}" var="cr" iterationStatusVar="idx" rows="20" noDataLabel="No virtual machines on" >
@@ -120,6 +120,12 @@
                         <h:outputLabel value="Operation" />
                     </f:facet>
                     <h:graphicImage title="Store" value="/img/save2.png" rendered="#{cr.template.customizable and cr.virtualMachineExecutionStatus==1}" style="cursor: pointer" onclick="store(#{cr.virtualMachine.virtualMachineCode})" />
+                </rich:column>
+                <rich:column sortBy="#{cr.physicalMachine}" sortOrder="#{executionBean.nameSortOrder}">
+                    <f:facet name="header">
+                        <a4j:commandLink value="Physical Machine" render="tblObject" action="#{executionBean.sortByName}" />
+                    </f:facet>
+                    <h:outputText value="#{cr.physicalMachine}" />
                 </rich:column>
                 <f:facet name="footer">
                     <rich:dataScroller id="scroller" />

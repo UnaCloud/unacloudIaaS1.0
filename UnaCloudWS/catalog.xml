@@ -10,10 +10,10 @@
     <system systemId="http://157.253.236.161:80/OnDemandDeploymentWebServiceService/OnDemandDeploymentWebService?xsd=1" uri="xml-resources/web-service-references/OnDemandDeploymentWebService/wsdl/157.253.236.161_80/OnDemandDeploymentWebServiceService/OnDemandDeploymentWebService.xsd_1.xsd"/>
     <system systemId="http://157.253.236.161/TemplateOperationsService/TemplateOperations?wsdl" uri="xml-resources/web-service-references/TemplateOperations/wsdl/157.253.236.161/TemplateOperationsService/TemplateOperations.wsdl"/>
     <system systemId="http://157.253.236.161:80/TemplateOperationsService/TemplateOperations?xsd=1" uri="xml-resources/web-service-references/TemplateOperations/wsdl/157.253.236.161_80/TemplateOperationsService/TemplateOperations.xsd_1.xsd"/>
-    <system systemId="http://localhost/UnaCloudWSService/UnaCloudWS?wsdl" uri="xml-resources/web-service-references/UnaCloudWS/wsdl/localhost/UnaCloudWSService/UnaCloudWS.wsdl"/>
-    <system systemId="http://localhost:80/UnaCloudWSService/UnaCloudWS?xsd=1" uri="xml-resources/web-service-references/UnaCloudWS/wsdl/localhost_80/UnaCloudWSService/UnaCloudWS.xsd_1.xsd"/>
-    <system systemId="http://157.253.236.160/UnaCloudWSService/UnaCloudWS?wsdl" uri="xml-resources/web-service-references/UnaCloudWS_1/wsdl/157.253.236.160/UnaCloudWSService/UnaCloudWS.wsdl"/>
-    <system systemId="http://157.253.236.160:80/UnaCloudWSService/UnaCloudWS?xsd=1" uri="xml-resources/web-service-references/UnaCloudWS_1/wsdl/157.253.236.160_80/UnaCloudWSService/UnaCloudWS.xsd_1.xsd"/>
     <system systemId="http://157.253.236.161/UnaCloudWSService/UnaCloudWS?wsdl" uri="xml-resources/web-service-references/UnaCloudWS/wsdl/157.253.236.161/UnaCloudWSService/UnaCloudWS.wsdl"/>
     <system systemId="http://157.253.236.161:80/UnaCloudWSService/UnaCloudWS?xsd=1" uri="xml-resources/web-service-references/UnaCloudWS/wsdl/157.253.236.161_80/UnaCloudWSService/UnaCloudWS.xsd_1.xsd"/>
+    <system systemId="http://157.253.236.160/UnaCloudWSService/UnaCloudWS?wsdl" uri="xml-resources/web-service-references/UnaCloudWS/wsdl/157.253.236.160/UnaCloudWSService/UnaCloudWS.wsdl"/>
+    <system systemId="http://157.253.236.160:80/UnaCloudWSService/UnaCloudWS?xsd=1" uri="xml-resources/web-service-references/UnaCloudWS/wsdl/157.253.236.160_80/UnaCloudWSService/UnaCloudWS.xsd_1.xsd"/>
+    <system systemId="http://localhost/UnaCloudWSService/UnaCloudWS?wsdl" uri="xml-resources/web-service-references/UnaCloudWS/wsdl/localhost/UnaCloudWSService/UnaCloudWS.wsdl"/>
+    <system systemId="http://localhost:80/UnaCloudWSService/UnaCloudWS?xsd=1" uri="xml-resources/web-service-references/UnaCloudWS/wsdl/localhost_80/UnaCloudWSService/UnaCloudWS.xsd_1.xsd"/>
 </catalog>
