@@ -1,0 +1,30 @@
+<ui:composition template="/Pages/Cloud/ClouderWizardConfiguration.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <ui:param name="image" value="/img/VirtualMachines.jpg" />
+    <ui:param name="panelTitle" value="Execution Instances:" />
+    <ui:define name="options" >
+        <h:panelGrid columns="2">
+            <h:outputText styleClass="textospeq" value="Execution Instances:"/>
+            <h:panelGrid columns="2">
+                <rich:inputNumberSpinner id="instances" minValue="0" maxValue="#{ClouderBean.executionInstancesNumber}" value="#{ClouderBean.executionInstancesSelected}" />
+                <h:outputText value="/#{ClouderBean.executionInstancesNumber}" />
+            </h:panelGrid>
+            <h:outputText styleClass="textospeq" value="Execution time:"/>
+            <p:selectOneMenu id="time" styleClass="textospeq" value="#{ClouderBean.executionTimeSelected}" style="width: 150px" >
+                <f:selectItems value="#{constantsBean.executionTimes}" />
+            </p:selectOneMenu>
+        </h:panelGrid>
+    </ui:define>
+    <ui:define name="next" >
+        <h:commandButton value="Back" action="#{ClouderBean.gotoRam}" />
+        <h:commandButton value="Deploy" action="#{ClouderBean.nextAccessInformation}" style="float: right" />
+    </ui:define>
+
+
+</ui:composition>

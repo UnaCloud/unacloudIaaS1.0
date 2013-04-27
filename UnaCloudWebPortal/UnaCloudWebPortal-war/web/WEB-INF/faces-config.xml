@@ -1,0 +1,333 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="2.0"
+    xmlns="http://java.sun.com/xml/ns/javaee" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>administrator</from-outcome>
+            <to-view-id>/Pages/MainMenu.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>serverConfiguration</from-outcome>
+            <to-view-id>/Pages/Configuration/ServerConfiguration.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>qosConfiguration</from-outcome>
+            <to-view-id>/Pages/Configuration/QoSConfiguration.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>securityConfiguration</from-outcome>
+            <to-view-id>/Pages/Configuration/SecurityConfiguration.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>Template</from-outcome>
+            <to-view-id>/Pages/Administration/Template.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>userSettings</from-outcome>
+            <to-view-id>/Pages/UserAccountManagement.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>clientInstallGuide</from-outcome>
+            <to-view-id>/Pages/Configuration/ClientInstallGuide.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>Statistics</from-outcome>
+            <to-view-id>/Pages/Administration/Statistics.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>logout</from-outcome>
+            <to-view-id>/forward.jsp</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ClouderAdmin</from-outcome>
+            <to-view-id>/Pages/Cloud/OperatingSystemType.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>FastClouderAdmin</from-outcome>
+            <to-view-id>/Pages/Cloud/ClouderFastConfiguration.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>CloudManagement</from-outcome>
+            <to-view-id>/Pages/CloudManagement.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ViewVirtualMachineCloud</from-outcome>
+            <to-view-id>/Pages/ViewVirtualMachineCloud.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ManagePhysicalMachine</from-outcome>
+            <to-view-id>/Pages/Administration/PhysicalMachine.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ManageSecurityAccess</from-outcome>
+            <to-view-id>/Pages/Administration/VirtualMachineSecurity.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ManageOperatingSystems</from-outcome>
+            <to-view-id>/Pages/Administration/OperatingSystem.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ManageApplications</from-outcome>
+            <to-view-id>/Pages/Administration/Application.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ManageVirtualMachine</from-outcome>
+            <to-view-id>/Pages/Administration/VirtualMachine.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>MonitorCloudIaaS</from-outcome>
+            <to-view-id>/Pages/Administration/VirtualMachineExecution.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>TimeVirtualMachineCloud</from-outcome>
+            <to-view-id>/Pages/TimeVirtualMachineCloud.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>systemUserError</from-outcome>
+            <to-view-id>/Pages/login.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ManageSystemUsers</from-outcome>
+            <to-view-id>/Pages/Administration/user_management.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ManageLaboratories</from-outcome>
+            <to-view-id>/Pages/Administration/Laboratory.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ManageHypervisors</from-outcome>
+            <to-view-id>/Pages/Administration/Hypervisor.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>DeployManualCloudIaaS</from-outcome>
+            <to-view-id>/Pages/Grid/VirtualGridDeployment.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>DeployFastManualCloudIaaS</from-outcome>
+            <to-view-id>/Pages/Grid/VirtualGridFastDeployment.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>OperateInfrastructure</from-outcome>
+            <to-view-id>/Pages/Administration/LaboratorySelection.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>MonitorInfrastructure</from-outcome>
+            <to-view-id>/Pages/Administration/MonitorLaboratorySelection.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <managed-bean>
+        <managed-bean-name>SecurityBean</managed-bean-name>
+        <managed-bean-class>com.losandes.security.SecurityBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>UserBean</managed-bean-name>
+        <managed-bean-class>com.losandes.user.UserBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>LaboratoryBean</managed-bean-name>
+        <managed-bean-class>com.losandes.laboratory.LaboratoryBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>PhysicalMachineBean</managed-bean-name>
+        <managed-bean-class>com.losandes.physicalmachine.PhysicalMachineBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>OperatingSystemBean</managed-bean-name>
+        <managed-bean-class>com.losandes.operatingsystem.OperatingSystemBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <navigation-rule>
+        <from-view-id>/Pages/Administration/LaboratorySelection.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>PhysicalLaboratory</from-outcome>
+            <to-view-id>/Pages/Administration/PhysicalLaboratory.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/Pages/Administration/PhysicalLaboratory.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ViewPhysicalMachine</from-outcome>
+            <to-view-id>/Pages/Administration/ViewPhysicalMachine.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/Pages/Administration/MonitorLaboratorySelection.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>MonitorPhysicalLaboratory</from-outcome>
+            <to-view-id>/Pages/Administration/MonitorPhysicalLaboratory.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/Pages/Administration/MonitorPhysicalLaboratory.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>MonitorPhysicalMachine</from-outcome>
+            <to-view-id>/PagesAdministration/MonitorPhysicalMachine.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/Pages/Grid/VirtualLaboratory.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ViewVirtualMachine</from-outcome>
+            <to-view-id>/Pages/Grid/ViewVirtualMachine.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <managed-bean>
+        <managed-bean-name>ClouderBean</managed-bean-name>
+        <managed-bean-class>com.losandes.cloud.ClouderBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <navigation-rule>
+        <from-view-id>/Pages/Administration/ViewPhysicalMachine.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>returnPhysicalLaboratory</from-outcome>
+            <to-view-id>/Pages/Administration/PhysicalLaboratory.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/Pages/Administration/MonitorPhysicalMachine.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>returnMonitorPhysicalLaboratory</from-outcome>
+            <to-view-id>/Pages/Administration/MonitorPhysicalLaboratory.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/Pages/Grid/ViewVirtualMachine.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>returnVirtualLaboratory</from-outcome>
+            <to-view-id>/Pages/Grid/VirtualLaboratory.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <managed-bean>
+        <managed-bean-name>VirtualMachineBean</managed-bean-name>
+        <managed-bean-class>com.losandes.virtualmachine.VirtualMachineBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>TemplateBean</managed-bean-name>
+        <managed-bean-class>com.losandes.template.TemplateBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>HypervisorBean</managed-bean-name>
+        <managed-bean-class>com.losandes.hypervisor.HypervisorBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>VirtualMachineSecurityBean</managed-bean-name>
+        <managed-bean-class>com.losandes.virtualmachinesecurity.VirtualMachineSecurityBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>ApplicationBean</managed-bean-name>
+        <managed-bean-class>com.losandes.application.ApplicationBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>ApplicationBean</managed-bean-name>
+        <managed-bean-class>com.losandes.application.ApplicationBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>serverConfigurationBean</managed-bean-name>
+        <managed-bean-class>com.losandes.configuration.ServerConfigurationBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>securityConfigurationBean</managed-bean-name>
+        <managed-bean-class>com.losandes.configuration.SecurityConfigurationBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>FastClouderBean</managed-bean-name>
+        <managed-bean-class>com.losandes.cloud.FastClouderBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>AdministrativeCloudManagedBean</managed-bean-name>
+        <managed-bean-class>administration.AdministrativeCloudManagedBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <validator>
+        <validator-id>selectOneMenuValidator</validator-id>
+        <validator-class>validator.SelectOneMenuValidator</validator-class>
+    </validator>
+    <managed-bean>
+        <managed-bean-name>logoutBean</managed-bean-name>
+        <managed-bean-class>com.losandes.utils.LogoutBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>gridDeploymentBean</managed-bean-name>
+        <managed-bean-class>com.losandes.grid.GridDeploymentBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <converter>
+        <converter-id>templateConverter</converter-id>
+        <converter-class>com.losandes.utils.TemplateConverter</converter-class>
+    </converter>
+    <converter>
+        <converter-id>integerConverter</converter-id>
+        <converter-for-class>javax.faces.IntegerConverter</converter-for-class>
+    </converter>
+    <managed-bean>
+        <managed-bean-name>staticticsBean</managed-bean-name>
+        <managed-bean-class>administration.StaticticsBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>executionBean</managed-bean-name>
+        <managed-bean-class>com.losandes.virtualmachine.ExecutionBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>ClientInstallationBean</managed-bean-name>
+        <managed-bean-class>administration.ClientInstallationBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>userAccountSettings</managed-bean-name>
+        <managed-bean-class>com.losandes.user.UserAccountSettings</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>clouderWizardBean</managed-bean-name>
+        <managed-bean-class>com.losandes.cloud.ClouderWizardBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+</faces-config>

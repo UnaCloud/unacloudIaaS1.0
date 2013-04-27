@@ -1,0 +1,23 @@
+<ui:composition template="/Pages/Cloud/ClouderWizardConfiguration.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <ui:param name="image" value="/img/OperatingSystem2.jpg" />
+    <ui:param name="panelTitle" value="Operating system selection :" />
+    <ui:define name="options" >
+        <h:selectOneRadio id="osversion" styleClass="textospeq" value="#{ClouderBean.operatingSystemSelected}" layout="pageDirection" required="true" requiredMessage="You should choose an operating system">
+            <a4j:ajax event="valueChange" render="outPanel" execute="@this" />
+            <f:selectItems value="#{ClouderBean.operatingSystems}"/>
+        </h:selectOneRadio>
+    </ui:define>
+    <ui:define name="next" >
+        <h:commandButton value="Back" action="#{ClouderBean.gotoOperatingSystemType}" />
+        <h:commandButton value="Next" action="#{ClouderBean.gotoTemplate}" style="float: right" />
+    </ui:define>
+
+
+</ui:composition>

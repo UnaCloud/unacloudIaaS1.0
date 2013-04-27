@@ -1,0 +1,88 @@
+<ui:composition template="/Pages/Administration/EntityTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <ui:param name="dialogSize" value="450" />
+    <ui:param name="clase" value="#{PhysicalMachineBean}" />
+    <ui:param name="formId" value="PhysicalMachine" />
+    <ui:param name="editTitle" value="Physical Machine Data" />
+    <ui:define name="editionPane" >
+        <h:graphicImage url="/img/PhysicalMachine.png" />
+        <h:panelGrid id="infoGrid" columns="2">
+            <h:outputLabel styleClass="textospeq" value="Name:" />
+            <h:inputText maxlength="50" styleClass="textospeq5" style="width: 300px" id="pmname" value="#{PhysicalMachineBean.physicalMachine.physicalMachineName}" disabled="#{not empty PhysicalMachineBean.physicalMachine.physicalMachineName}" required="true" requiredMessage="Physical machine name required" />
+            <h:outputLabel styleClass="textospeq" value="Laboratory:" />
+            <h:selectOneMenu id="Laboratory" value="#{PhysicalMachineBean.laboratory.laboratoryCode}">
+                <f:selectItem itemLabel="Browse..." itemValue="0" />
+                <f:selectItems value="#{PhysicalMachineBean.laboratories}" />
+                <f:validator validatorId="selectOneMenuValidator" />
+            </h:selectOneMenu>
+            <h:outputLabel styleClass="textospeq" value="IP Address:" />
+            <h:inputText styleClass="textospeq5" style="width: 300px"  maxlength="50" id="ip" value="#{PhysicalMachineBean.physicalMachine.physicalMachineIP}" required="true" requiredMessage="Physical machine IP required" />
+            <h:outputLabel styleClass="textospeq" value="MAC Address:" />
+            <h:inputText styleClass="textospeq5" style="width: 300px" maxlength="50" id="mac" value="#{PhysicalMachineBean.physicalMachine.physicalMachineMAC}" required="true" requiredMessage="Physical machine MAC required" />
+            <h:outputLabel styleClass="textospeq" value="CPU Cores:" />
+            <h:inputText styleClass="textospeq5" style="width: 300px" maxlength="50" id="cores" value="#{PhysicalMachineBean.physicalMachine.physicalMachineCores}" required="true" requiredMessage="Physical machine cores required" >
+                <f:validateLongRange for="cores" minimum="1" maximum="100" />
+            </h:inputText>
+            <h:outputLabel styleClass="textospeq" value="Hard Disk Space:" />
+            <h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="0">
+                <h:inputText styleClass="textospeq5" style="width: 280px" id="disk" value="#{PhysicalMachineBean.physicalMachine.physicalMachineDisk}" required="true" requiredMessage="Physical machine disk size required">
+                    <f:validateLongRange for="disk" minimum="1" maximum="10024" />
+                </h:inputText>
+                <h:outputLabel styleClass="textospeq" value="GB" />
+            </h:panelGrid>
+            <h:outputLabel styleClass="textospeq" value="RAM Memory:" />
+            <h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="0">
+                <h:inputText styleClass="textospeq5" style="width: 280px" id="memory" value="#{PhysicalMachineBean.physicalMachine.physicalMachineRAMMemory}" required="true" requiredMessage="Physical machine RAM required" >
+                    <f:validateLongRange for="memory" minimum="1" maximum="1048576" />
+                </h:inputText>
+                <h:outputLabel styleClass="textospeq" value=" MB" />
+            </h:panelGrid>
+            <h:outputLabel styleClass="textospeq" value="Architecture:" />
+            <h:inputText styleClass="textospeq5" maxlength="50" style="width: 300px" id="ach" value="#{PhysicalMachineBean.physicalMachine.physicalMachineArchitecture}" required="true" requiredMessage="Physical machine architecture required" />
+            <h:outputLabel styleClass="textospeq" value="Hypervisor Path:" />
+            <h:inputText styleClass="textospeq5" maxlength="200" style="width: 300px" id="hyp" value="#{PhysicalMachineBean.physicalMachine.physicalMachineHypervisorPath}" required="true" requiredMessage="Physical machine Hypervisor type required" />
+            <h:outputLabel styleClass="textospeq" value="Operating System:" />
+            <h:selectOneMenu id="OperatingSystem" value="#{PhysicalMachineBean.operatingSystem.operatingSystemCode}">
+                <f:selectItem itemLabel="Browse..." itemValue="0" />
+                <f:selectItems value="#{PhysicalMachineBean.operatingSystems}" />
+                <f:validator validatorId="selectOneMenuValidator" />
+            </h:selectOneMenu>
+            <h:outputLabel styleClass="textospeq" value="Virtual IP:" />
+            <h:inputText styleClass="textospeq5" maxlength="50" style="width: 300px" id="row" value="#{PhysicalMachineBean.physicalMachine.physicalMachineVirtualIP}" required="true" requiredMessage="Physical machine row required" />
+            <h:outputLabel styleClass="textospeq" value="Virtual netmask:" />
+            <h:inputText styleClass="textospeq5" maxlength="50" style="width: 300px" id="column" value="#{PhysicalMachineBean.physicalMachine.physicalMachineVirtualNetmask}" required="true" requiredMessage="Physical machine column required" />
+        </h:panelGrid>
+    </ui:define>
+    <ui:define name="dataView">
+        <rich:dataTable id="tblObject" value="#{PhysicalMachineBean.allphysicalMachines}" var="cr" rows="20">
+            <rich:column style="text-align:center" width="300" sortBy="#{cr.physicalMachineName}">
+                <f:facet name="header">
+                    <h:outputLabel styleClass="textospeq" value="Physical Machine Name" />
+                </f:facet>
+                <h:outputText value="#{cr.physicalMachineName}" styleClass="textospeq5" />
+            </rich:column>
+            <rich:column style="text-align:center" width="300" sortBy="#{cr.laboratory.laboratoryName}">
+                <f:facet name="header">
+                    <h:outputLabel styleClass="textospeq" value="Physical Machine Type" />
+                </f:facet>
+                <h:outputText value="#{cr.laboratory.laboratoryName}" styleClass="textospeq5" />
+            </rich:column>
+            <rich:column style="text-align:center" width="200" >
+                <f:facet name="header" >
+                    <h:outputLabel styleClass="textospeq" value="Options" />
+                </f:facet>
+                <h:graphicImage title="Edit" value="/img/edit.png" onclick="srcById('#{cr.physicalMachineName}')" style="cursor: pointer" />
+                <h:graphicImage title="Remove" value="/img/delete.png" onclick="deleteObject('#{cr.physicalMachineName}')" style="cursor: pointer" />
+            </rich:column>
+            <f:facet name="footer">
+                <rich:dataScroller id="scroller" />
+            </f:facet>
+        </rich:dataTable>
+    </ui:define>
+</ui:composition>

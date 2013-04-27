@@ -1,0 +1,95 @@
+<ui:composition template="/Pages/Administration/EntityTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <ui:param name="dialogSize" value="420" />
+    <ui:param name="clase" value="#{UserBean}" />
+    <ui:param name="formId" value="SystemUser" />
+    <ui:param name="editTitle" value="System Users Information Management" />
+    <ui:define name="editionPane" >
+        <h:graphicImage url="/img/Users.png" />
+        <h:panelGrid columns="2" id="infoGrid">
+            <h:outputLabel value="User Name :" styleClass="textospeq5" />
+            <h:inputText maxlength="50" id="name" value="#{UserBean.user.systemUserName}" required="true" requiredMessage="System user name required" disabled="#{not empty UserBean.user.systemUserName}"/>
+            <h:outputLabel value="User Password:" styleClass="textospeq5" />
+            <h:inputSecret maxlength="50" id="pass" value="#{UserBean.newPassword}" />
+            <h:outputLabel value="User Roles :" styleClass="textospeq5" />
+            <rich:pickList value="#{UserBean.user.userGroups}" sourceCaption="Available types" targetCaption="Selected types" listWidth="100px" listHeight="200px" >
+                <f:selectItems value="#{UserBean.allUserTypes}" var="typ" itemValue="#{typ}" itemLabel="#{typ.systemUserTypeName}" />
+                <f:converter converterId="systemUserTypeConverter" />
+            </rich:pickList>
+        </h:panelGrid>
+        <a4j:jsFunction name="createObject" action="#{UserBean.createOrUpdate}" render="stpEdit,tblObject"  />
+    </ui:define>
+    <ui:define name="dataView">
+        <rich:dataTable id="tblObject" value="#{UserBean.allSystemUsers}" var="cr">
+            <rich:column style="text-align:center" width="300" sortBy="#{cr.systemUserName}">
+                <f:facet name="header">
+                    User Name
+                </f:facet>
+                #{cr.systemUserName}
+            </rich:column>
+            <rich:column style="text-align:center" width="300" >
+                <f:facet name="header">
+                    User Role
+                </f:facet>
+                <a4j:repeat value="#{cr.userGroups}" var="ll" >
+                    <h:outputText value="#{ll.systemUserTypeName}" /><br/>
+                </a4j:repeat>
+            </rich:column>
+            <rich:column style="text-align:center" width="300" >
+                <f:facet name="header">
+                    Templates
+                </f:facet>
+                <a4j:repeat value="#{cr.templates}" var="ll"  >
+                    <h:outputText value="#{ll.templateName}" /><br/>
+                </a4j:repeat>
+            </rich:column>
+            <rich:column style="text-align:center" width="200" >
+                <f:facet name="header" >
+                    Options
+                </f:facet>
+                <h:graphicImage title="Edit user info" value="/img/edit.png" onclick="srcById('#{cr.systemUserName}')" style="cursor: pointer" />
+                <h:graphicImage title="Manage templates" value="/img/templateIcon.gif" onclick="srcByIdTemplates('#{cr.systemUserName}')" style="cursor: pointer" />
+                <h:graphicImage title="Remove" value="/img/delete.png" onclick="deleteObject('#{cr.systemUserName}')" style="cursor: pointer" />
+            </rich:column>
+        </rich:dataTable>
+        <a4j:jsFunction name="srcByIdTemplates" action="#{UserBean.findByID}" oncomplete="templateEdit.show();" render="templateGrid" >
+            <a4j:param name="p1" assignTo="#{UserBean.id}" />
+        </a4j:jsFunction>
+        <a4j:jsFunction name="deleteObject" action="#{UserBean.deleteSystemUser}" render="tblObject" oncomplete="" >
+            <a4j:param name="p2" assignTo="#{UserBean.id}" />
+        </a4j:jsFunction>
+    </ui:define>
+    <ui:define name="otherItems">
+        <h:form id="id">
+            <p:dialog showEffect="puff" id="templateEdit" widgetVar="templateEdit" modal="true" header="Manage templates" width="630"  >
+                <center>
+                    <h:graphicImage url="/img/PhysicalMachine.png" />
+                        <h:panelGrid id="templateGrid" columns="1">
+                            <h:panelGrid columns="2">
+                                <h:outputLabel styleClass="textospeq5" value="User name:" />
+                                <h:outputText styleClass="textospeq" id="usname" value="#{UserBean.user.systemUserName}" />
+                            </h:panelGrid>
+                            <h:outputLabel styleClass="textospeq5" value="User templates:" />
+                            <rich:pickList value="#{UserBean.user.templates}" sourceCaption="Available templates" targetCaption="User templates" listWidth="200px" listHeight="200px"  >
+                                <f:selectItems value="#{UserBean.allTemplates}" var="tem" itemValue="#{tem}" itemLabel="#{tem.templateName}" />
+                                <f:converter converterId="templateConverter" />
+                            </rich:pickList>
+                        </h:panelGrid>
+                </center>
+                <br/>
+                <h:panelGrid columns="2" border="0" style="float: right">
+                    <h:form>
+                        <p:commandButton value="Cancel" title="Cancel" onclick="templateEdit.hide();" />
+                    </h:form>
+                    <p:commandButton value="Save" title="Save" action="#{UserBean.createOrUpdate}" oncomplete="handleLoginRequest(xhr, status, args, templateEdit);updateTable();" />
+                </h:panelGrid>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>

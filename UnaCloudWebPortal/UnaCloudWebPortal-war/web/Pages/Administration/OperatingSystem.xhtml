@@ -1,0 +1,61 @@
+<ui:composition template="/Pages/Administration/EntityTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <ui:param name="dialogSize" value="400" />
+    <ui:param name="clase" value="#{OperatingSystemBean}" />
+    <ui:param name="formId" value="OperatingSystem" />
+    <ui:param name="editTitle" value="Operating System Management" />
+    <ui:define name="editionPane" >
+        <h:graphicImage url="/img/OperatingSystems.png" />
+        <p:messages autoUpdate="true" />
+        <h:panelGrid columns="2" id="infoGrid">
+            <h:outputLabel value="Operating System Name :" styleClass="textospeq" />
+            <p:inputText maxlength="50" id="name" value="#{OperatingSystemBean.operatingSystem.operatingSystemName}" required="true" requiredMessage="*" styleClass="textospeq5" />
+            <h:outputLabel value="Operating System Type :" styleClass="textospeq" />
+            <rich:select defaultLabel="Browse..." id="OperatingSystemType" value="#{OperatingSystemBean.operatingSystemType.operatingSystemTypeCode}" required="true" requiredMessage="*">
+                <f:selectItems value="#{OperatingSystemBean.operatingSystemTypes}" />
+            </rich:select>
+            <h:outputLabel value="Configurator class :" styleClass="textospeq" />
+            <p:inputText maxlength="50" id="confclass" value="#{OperatingSystemBean.operatingSystem.configurationClass}" styleClass="textospeq5" />
+            <h:inputHidden value="#{OperatingSystemBean.operatingSystem.operatingSystemCode}" />
+        </h:panelGrid>
+        
+    </ui:define>
+    <ui:define name="dataView">
+        <rich:dataTable id="tblObject" value="#{OperatingSystemBean.allOperatingSystems}" var="cr" rows="20">
+            <rich:column style="text-align:center" width="300" sortBy="#{cr.operatingSystemName}">
+                <f:facet name="header">
+                    <h:outputLabel value="Operating System Name" />
+                </f:facet>
+                <h:outputText value="#{cr.operatingSystemName}" />
+            </rich:column>
+            <rich:column style="text-align:center" width="300" sortBy="#{cr.operatingSystemType.operatingSystemTypeName}" >
+                <f:facet name="header">
+                    <h:outputLabel value="Operating System Type" />
+                </f:facet>
+                <h:outputText value="#{cr.operatingSystemType.operatingSystemTypeName}" />
+            </rich:column>
+            <rich:column style="text-align:center" width="300" >
+                <f:facet name="header">
+                    <h:outputLabel value="Configurator Class" />
+                </f:facet>
+                <h:outputText value="#{cr.configurationClass}" />
+            </rich:column>
+            <rich:column style="text-align:center" width="200" >
+                <f:facet name="header" >
+                    <h:outputLabel value="Options" />
+                </f:facet>
+                <h:graphicImage title="Edit" value="/img/edit.png" onclick="srcById(#{cr.operatingSystemCode})" styleClass="icon" style="cursor: pointer" />
+                <h:graphicImage title="Remove" value="/img/delete.png" onclick="deleteObject(#{cr.operatingSystemCode})" styleClass="icon" style="cursor: pointer" />
+            </rich:column>
+            <f:facet name="footer">
+                <rich:dataScroller id="scroller" />
+            </f:facet>
+        </rich:dataTable>
+    </ui:define>
+</ui:composition>

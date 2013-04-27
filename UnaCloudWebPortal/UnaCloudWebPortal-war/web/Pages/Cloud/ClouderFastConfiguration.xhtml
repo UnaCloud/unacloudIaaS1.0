@@ -1,0 +1,36 @@
+<ui:composition template="/Pages/main-template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <ui:define name="body">
+        <h:form>
+            <rich:panel id="stpEdit" header="Deploy IaaS" >
+                <h:panelGrid columns="1">
+                    <rich:panel style="border: 0"><center><h:graphicImage url="/img/VirtualMachines.jpg" /></center></rich:panel>
+                    <rich:messages />
+                    <rich:panel style="border: 0" ><center>
+                            <h:panelGrid columns="2" id="options" >
+                                <h:outputLabel styleClass="textospeq5" value="Deployable image:" />
+                                <p:selectOneMenu id="image" styleClass="textospeq" value="#{FastClouderBean.templateSelected}" style="width:200px" required="true" requiredMessage="Template needed" >
+                                    <a4j:ajax event="valueChange" render="total" execute="@this" />
+                                    <f:selectItems value="#{FastClouderBean.fastTemplates}"/>
+                                </p:selectOneMenu>
+                                <h:outputLabel styleClass="textospeq5" value="Total available instances:" />
+                                <h:outputText id= "total" value="#{FastClouderBean.executionInstancesNumber}"/>
+                                <h:outputLabel styleClass="textospeq5" value="Instances to execute:" />
+                                <h:inputText style="width:200px" maxlength="10" id="number" value="#{FastClouderBean.executionInstancesNumberSelected}" required="true" requiredMessage="*" />
+                                <h:outputLabel styleClass="textospeq5" value="Total execution time:" />
+                                <p:selectOneMenu id="time" styleClass="textospeq" value="#{FastClouderBean.executionTimeSelected}" style="width:200px" required="true" requiredMessage="Execution time needed" >
+                                    <f:selectItems value="#{constantsBean.executionTimes}" />
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+                            <a4j:commandButton id="turnOnButton" image="/img/turn-b.png" value="Turn on" action="#{FastClouderBean.nextAccessInformation}" title="Turn On" />
+                        </center></rich:panel>
+                </h:panelGrid>
+            </rich:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>

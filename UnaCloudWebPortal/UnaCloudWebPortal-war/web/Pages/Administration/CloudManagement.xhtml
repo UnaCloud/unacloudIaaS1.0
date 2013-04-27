@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <head>
+    </head>
+    <body>
+        <ui:composition template="./main-template.xhtml">
+            <ui:define name="body">
+                <ui:include src="/include/menu.xhtml"/>
+                <table width="800" border="0" align="center" cellpadding="0" cellspacing="0">
+                    <td height="19" align="center" valign="top">
+                        <h:form>
+                            <rich:toolBar height="26" itemSeparator="disc">
+                                <rich:toolBarGroup>
+                                    <h:commandLink action="#{ClouderBean.returnClouderManagement}" >
+                                        <h:graphicImage title="Refresh" value="/img/reload.png" styleClass="icon" />
+                                    </h:commandLink>
+                                </rich:toolBarGroup>
+                            </rich:toolBar>
+                        </h:form>
+                        <a4j:form>
+                            <rich:extendedDataTable align="center" id="tblObject" height="300px" value="#{ClouderBean.allUserVirtualMachines}" var="cr">
+                                <rich:column style="text-align:center" width="114" filterBy="#{cr.virtualMachine.virtualMachineName}" sortBy="#{cr.virtualMachine.virtualMachineName}" label="Name">
+                                    <f:facet name="header">
+                                        Name
+                                    </f:facet>
+                                    #{cr.virtualMachine.virtualMachineName}
+                                </rich:column>
+                                <rich:column style="text-align:center" width="117" filterBy="#{cr.virtualMachine.virtualMachineSecurity.virtualMachineSecurityAccess}" sortBy="#{cr.virtualMachine.virtualMachineSecurity.virtualMachineSecurityAccess}" label="Name">
+                                    <f:facet name="header">
+                                        Access Mechanism
+                                    </f:facet>
+                                    #{cr.virtualMachine.virtualMachineSecurity.virtualMachineSecurityAccess}
+                                </rich:column>
+                                <rich:column style="text-align:center" width="100" filterBy="#{cr.virtualMachine.virtualMachineSecurity.virtualMachineSecurityPort}" sortBy="#{cr.virtualMachine.virtualMachineSecurity.virtualMachineSecurityPort}" label="Name">
+                                    <f:facet name="header">
+                                        Access Port
+                                    </f:facet>
+                                    #{cr.virtualMachine.virtualMachineSecurity.virtualMachineSecurityPort}
+                                </rich:column>
+                                <rich:column style="text-align:center" width="107" filterBy="#{cr.virtualMachine.virtualMachineIP}" sortBy="#{cr.virtualMachine.virtualMachineIP}" label="IP Address">
+                                    <f:facet name="header">
+                                        IP Address
+                                    </f:facet>
+                                    #{cr.virtualMachine.virtualMachineIP}
+                                </rich:column>
+                                <rich:column style="text-align:center" width="107" filterBy="#{cr.virtualMachine.virtualMachineSecurity.virtualMachineSecurityUser}" sortBy="#{cr.virtualMachine.virtualMachineSecurity.virtualMachineSecurityUser}" label="User">
+                                    <f:facet name="header">
+                                        User
+                                    </f:facet>
+                                    #{cr.virtualMachine.virtualMachineSecurity.virtualMachineSecurityUser}
+                                </rich:column>
+                                <rich:column style="text-align:center" width="107" filterBy="#{cr.virtualMachine.virtualMachineSecurity.virtualMachineSecurityPassword}" sortBy="#{cr.virtualMachine.virtualMachineSecurity.virtualMachineSecurityPassword}" label="Pass">
+                                    <f:facet name="header">
+                                        Password
+                                    </f:facet>
+                                    #{cr.virtualMachine.virtualMachineSecurity.virtualMachineSecurityPassword}
+                                </rich:column>
+                                <rich:column style="text-align:center" width="40" label="Pass">
+                                    <f:facet name="header">
+                                        Status
+                                    </f:facet>
+                                    <h:graphicImage title="#{cr.virtualMachineExecutionStatusMessage}" value="#{cr.statusImage}" styleClass="icon" />
+                                </rich:column>
+
+                                <rich:column style="text-align:center" width="113" label="Options" >
+                                    <f:facet name="header" >
+                                        Operations
+                                    </f:facet>
+                                    <h:graphicImage title="Turn off" value="/img/turnOffVM.png" onclick="turnOff(#{cr.virtualMachine.virtualMachineCode})" rendered="#{cr.userOperationsEnable}" styleClass="icon" />
+                                    <h:graphicImage title="Delete" value="/img/delete.png" onclick="turnOff(#{cr.virtualMachine.virtualMachineCode})" rendered="#{cr.executionFailed}" styleClass="icon" />
+                                    <rich:spacer width="3" />
+                                    <h:graphicImage title="Restart" value="/img/restartVM.png" onclick="restart(#{cr.virtualMachine.virtualMachineCode})" rendered="#{cr.userOperationsEnable}" styleClass="icon" />
+                                    <rich:spacer width="3" />
+                                    <h:graphicImage title="Monitor" value="/img/monitorVM.png" onclick="monitor(#{cr.virtualMachine.virtualMachineCode})" rendered="#{cr.userOperationsEnable}" styleClass="icon" />
+                                    <rich:spacer width="3" />
+                                    <h:graphicImage title="Execution Time" value="/img/timeVM.png" onclick="time('#{cr.virtualMachineExecutionCode}')" rendered="#{cr.userOperationsEnable}" styleClass="icon" />
+                                </rich:column>
+                            </rich:extendedDataTable>
+                        </a4j:form>                            </td>
+                    <tr>
+                        <td height="19" valign="top"><div align="center">
+                                <a4j:form>
+                                    <a4j:jsFunction name="turnOff" action="#{VirtualMachineBean.turnOffUserVirtualMachine}" oncomplete="" >
+                                        <a4j:actionparam name="p1" assignTo="#{VirtualMachineBean.id}" />
+                                    </a4j:jsFunction>
+                                    <a4j:jsFunction name="restart" action="#{VirtualMachineBean.restartUserVirtualMachine}" reRender="tblObject" oncomplete="" >
+                                        <a4j:actionparam name="p2" assignTo="#{VirtualMachineBean.id}" />
+                                    </a4j:jsFunction>
+                                    <a4j:jsFunction name="monitor" action="#{VirtualMachineBean.monitorUserVirtualMachine}" reRender="tblObject" oncomplete="" >
+                                        <a4j:actionparam name="p2" assignTo="#{VirtualMachineBean.id}" />
+                                    </a4j:jsFunction>
+                                    <a4j:jsFunction name="time" action="#{VirtualMachineBean.timeUserVirtualMachine}" reRender="tblObject" oncomplete="" >
+                                        <a4j:actionparam name="p2" assignTo="#{VirtualMachineBean.exId}" />
+                                    </a4j:jsFunction>
+                                </a4j:form>
+                            </div></td>
+                    </tr>
+                </table>
+                <ui:include src="/include/down.xhtml"/>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

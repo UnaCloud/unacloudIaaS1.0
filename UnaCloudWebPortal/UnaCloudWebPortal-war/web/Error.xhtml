@@ -1,0 +1,24 @@
+<ui:composition template="./Pages/main-template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <ui:param name="titulo" value="UnaCloud: Infrastructure as a Service"/>
+    <ui:define name="body" >
+        <h:form>
+            <rich:popupPanel id="errorPanel" autosized="true" resizeable="false" modal="true" moveable="false" show="true">
+                <f:facet name="header">
+                    <h:outputText value="Login error" />
+                </f:facet>
+                <f:facet name="controls">
+                    <h:outputLink value="#" onclick="#{rich:component('errorPanel')}.hide(); return false;">
+                        X
+                    </h:outputLink>
+                </f:facet>
+                <h:outputText style="color: #FF0000" value="Wrong username or password" />
+            </rich:popupPanel>
+        </h:form>
+    </ui:define>
+</ui:composition>

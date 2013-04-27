@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <definitions 
+ xmlns="http://schemas.xmlsoap.org/wsdl/" 
+ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+ xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="UnaCloudWSService" targetNamespace="http://wss.losandes.com/" xmlns:tns="http://wss.losandes.com/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:fi="http://java.sun.com/xml/ns/wsit/2006/09/policy/fastinfoset/service" xmlns:tcp="http://java.sun.com/xml/ns/wsit/2006/09/policy/soaptcp/service" xmlns:wsp1="http://schemas.xmlsoap.org/ws/2004/09/policy"
+ >
+    <message name="turnOnVirtualCluster"/>
+    <message name="turnOnVirtualClusterResponse"/>
+    <message name="getVirtualMachineExecutions"/>
+    <message name="getVirtualMachineExecutionsResponse"/>
+    <message name="turnOffVirtualMachine"/>
+    <message name="turnOffVirtualMachineResponse"/>
+    <message name="getTemplateLists"/>
+    <message name="getTemplateListsResponse"/>
+    <message name="getAvailableVirtualMachines"/>
+    <message name="getAvailableVirtualMachinesResponse"/>
+    <message name="getTotalUnaCloudResources"/>
+    <message name="getTotalUnaCloudResourcesResponse"/>
+    <message name="getAvailableUnaCloudResources"/>
+    <message name="getAvailableUnaCloudResourcesResponse"/>
+    <message name="getTotalVirtualMachines"/>
+    <message name="getTotalVirtualMachinesResponse"/>
+    <message name="getBusyUnaCloudResources"/>
+    <message name="getBusyUnaCloudResourcesResponse"/>
+    <message name="writeFileOnVirtualMachine"/>
+    <message name="writeFileOnVirtualMachineResponse"/>
+    <portType name="UnaCloudWS">
+        <operation name="turnOnVirtualCluster">
+            <input message="tns:turnOnVirtualCluster"/>
+            <output message="tns:turnOnVirtualClusterResponse"/>
+        </operation>
+        <operation name="getVirtualMachineExecutions">
+            <input message="tns:getVirtualMachineExecutions"/>
+            <output message="tns:getVirtualMachineExecutionsResponse"/>
+        </operation>
+        <operation name="turnOffVirtualMachine">
+            <input message="tns:turnOffVirtualMachine"/>
+            <output message="tns:turnOffVirtualMachineResponse"/>
+        </operation>
+        <operation name="getTemplateLists">
+            <input message="tns:getTemplateLists"/>
+            <output message="tns:getTemplateListsResponse"/>
+        </operation>
+        <operation name="getAvailableVirtualMachines">
+            <input message="tns:getAvailableVirtualMachines"/>
+            <output message="tns:getAvailableVirtualMachinesResponse"/>
+        </operation>
+        <operation name="getTotalUnaCloudResources">
+            <input message="tns:getTotalUnaCloudResources"/>
+            <output message="tns:getTotalUnaCloudResourcesResponse"/>
+        </operation>
+        <operation name="getAvailableUnaCloudResources">
+            <input message="tns:getAvailableUnaCloudResources"/>
+            <output message="tns:getAvailableUnaCloudResourcesResponse"/>
+        </operation>
+        <operation name="getTotalVirtualMachines">
+            <input message="tns:getTotalVirtualMachines"/>
+            <output message="tns:getTotalVirtualMachinesResponse"/>
+        </operation>
+        <operation name="getBusyUnaCloudResources">
+            <input message="tns:getBusyUnaCloudResources"/>
+            <output message="tns:getBusyUnaCloudResourcesResponse"/>
+        </operation>
+        <operation name="writeFileOnVirtualMachine">
+            <input message="tns:writeFileOnVirtualMachine"/>
+            <output message="tns:writeFileOnVirtualMachineResponse"/>
+        </operation>
+    </portType>
+    <binding name="UnaCloudWSPortBinding" type="tns:UnaCloudWS">
+        <wsp1:PolicyReference URI="#UnaCloudWSPortBindingPolicy"/>
+        <operation name="turnOnVirtualCluster">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="getVirtualMachineExecutions">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="turnOffVirtualMachine">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="getTemplateLists">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="getAvailableVirtualMachines">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="getTotalUnaCloudResources">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="getAvailableUnaCloudResources">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="getTotalVirtualMachines">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="getBusyUnaCloudResources">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="writeFileOnVirtualMachine">
+            <input/>
+            <output/>
+        </operation>
+    </binding>
+    <service name="UnaCloudWSService">
+        <port name="UnaCloudWSPort" binding="tns:UnaCloudWSPortBinding"/>
+    </service>
+    <wsp1:Policy wsu:Id="UnaCloudWSPortBindingPolicy">
+        <wsp1:ExactlyOne>
+            <wsp1:All/>
+        </wsp1:ExactlyOne>
+    </wsp1:Policy>
+</definitions>

@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition
+    template="/Pages/main-template.xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:a4j="http://richfaces.org/a4j">
+    <ui:define name="body">
+        <rich:panel>
+            <h:outputLabel value="Security settings" styleClass="titulos2" />
+            <rich:panel  style="border: 0">
+                <h:panelGrid columns="3" id="securityPanel" >
+                    <h:outputLabel value="Client public key:" styleClass="textospeq5" />
+                    <h:inputTextarea disabled="true" value="#{securityConfigurationBean.RSA_MODULUS_PUBLIC}" style="width: 450px" rows="5" />
+                    <p:spacer width="0" />
+                    <h:outputLabel  value="Client public exponent:" styleClass="textospeq5" />
+                    <h:inputTextarea disabled="true" value="#{securityConfigurationBean.RSA_EXPONENT_PUBLIC}" style="width: 450px" rows="5" />
+                    <p:spacer width="0" />
+                    <h:outputLabel value="Server private key:" styleClass="textospeq5" />
+                    <h:inputTextarea disabled="true" value="#{securityConfigurationBean.RSA_MODULUS_PRIVATE}" style="width: 450px" rows="5" />
+                    <p:spacer width="0" />
+                    <h:outputLabel value="Server private exponent:" styleClass="textospeq5" />
+                    <h:inputTextarea disabled="true" value="#{securityConfigurationBean.RSA_EXPONENT_PRIVATE}" style="width: 450px" rows="5" />
+                    <p:spacer width="0" />
+                </h:panelGrid>
+                <br/>
+                <h:form>
+                    <h:panelGrid style="float: right" columns="5">
+                        <h:outputLabel value="Key size:" styleClass="textospeq5" />
+                        <p:selectOneMenu value="#{securityConfigurationBean.keySize}">
+                            <f:selectItem itemLabel="64" itemValue="64"/>
+                            <f:selectItem itemLabel="128" itemValue="128"/>
+                            <f:selectItem itemLabel="256" itemValue="256"/>
+                            <f:selectItem itemLabel="512" itemValue="512"/>
+                            <f:convertNumber />
+                        </p:selectOneMenu>
+                        <a4j:commandButton value="Cancel" render="securityPanel" action="#{securityConfigurationBean.cancel}" />
+                        <a4j:commandButton value="Generate keys" render="securityPanel" action="#{securityConfigurationBean.regenerateKeys}" />
+                        <a4j:commandButton value="Save" render="securityPanel" action="#{securityConfigurationBean.saveSecurity}" />
+                    </h:panelGrid>
+                </h:form>
+            </rich:panel>
+        </rich:panel>
+    </ui:define>
+</ui:composition>

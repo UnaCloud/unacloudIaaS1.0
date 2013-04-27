@@ -1,0 +1,59 @@
+<ui:composition template="/Pages/Administration/EntityTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <ui:param name="dialogSize" value="400" />
+    <ui:param name="clase" value="#{LaboratoryBean}" />
+    <ui:param name="formId" value="Laboratory" />
+    <ui:param name="editTitle" value="Laboratories Information Management" />
+    <ui:define name="editionPane" >
+        <h:graphicImage url="/img/Laboratories.jpg" />
+        <h:panelGrid columns="2" id="infoGrid">
+            <h:outputLabel value="Laboratory Name:" styleClass="textospeq" />
+            <p:inputText maxlength="50" id="name" value="#{LaboratoryBean.laboratory.laboratoryName}" required="true" requiredMessage="Laboratory name required" />
+            <h:outputLabel id="rows" value="Laboratory Rows:" styleClass="textospeq" />
+            <h:inputText value="#{LaboratoryBean.laboratory.laboratoryRows}" required="true" requiredMessage="Row count required">
+                <f:validateLongRange for="rows" minimum="0" maximum="99" />
+            </h:inputText>
+            <h:outputLabel value="Laboratory Columns:" styleClass="textospeq" />
+            <h:inputText id="columns" value="#{LaboratoryBean.laboratory.laboratoryColumns}" >
+                <f:validateLongRange for="columns" minimum="0" maximum="99" />
+            </h:inputText>
+            <h:outputLabel value="Laboratory Type:" styleClass="textospeq" />
+            <p:selectOneMenu value="#{LaboratoryBean.laboratoryType.laboratoryTypeCode}" required="true" requiredMessage="You must select a valid laboratory type" >
+                <f:selectItems value="#{LaboratoryBean.laboratoryTypes}" />
+            </p:selectOneMenu>
+            <h:inputHidden value="#{LaboratoryBean.laboratory.laboratoryCode}" />
+        </h:panelGrid>
+    </ui:define>
+    <ui:define name="dataView">
+        <rich:dataTable id="tblObject" value="#{LaboratoryBean.allLaboratories}" var="cr" rows="20">
+            <rich:column style="text-align:center" width="300" sortBy="#{cr.laboratoryName}" >
+                <f:facet name="header">
+                    Laboratory Name
+                </f:facet>
+                #{cr.laboratoryName}
+            </rich:column>
+            <rich:column style="text-align:center" width="300"  sortBy="#{cr.laboratoryType.laboratoryTypeName}" >
+                <f:facet name="header">
+                    Laboratory Type
+                </f:facet>
+                #{cr.laboratoryType.laboratoryTypeName}
+            </rich:column>
+            <rich:column style="text-align:center" width="200" >
+                <f:facet name="header" >
+                    Options
+                </f:facet>
+                <h:graphicImage title="Edit" value="/img/edit.png" onclick="srcById(#{cr.laboratoryCode})" styleClass="icon" style="cursor: pointer" />
+                <h:graphicImage title="Remove" value="/img/delete.png" onclick="deleteObject(#{cr.laboratoryCode})" styleClass="icon" style="cursor: pointer" />
+            </rich:column>
+            <f:facet name="footer">
+                <rich:dataScroller id="scroller" />
+            </f:facet>
+        </rich:dataTable>
+    </ui:define>
+</ui:composition>

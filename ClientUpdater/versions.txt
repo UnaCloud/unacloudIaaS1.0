@@ -1,0 +1,14 @@
+1.1.29
+/bin/key
+/bin/local_parameters
+/bin/logoutLinux.sh
+/bin/logoutMac.pl
+/bin/restartLinux.sh
+/bin/restartMac.sh
+/bin/server_parameters
+/bin/turnOffLinux.sh
+/bin/turnOffMac.sh
+/ClouderClient.jar
+/lib/bcprov-jdk16-146.jar
+/lib/log4j.jar
+/lib/sigar.jar

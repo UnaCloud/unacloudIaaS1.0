@@ -1,0 +1,11 @@
+<ui:composition template="./main-template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <ui:param name="titulo" value="UnaCloud: Infrastructure as a Service" />
+    <ui:define name="body">
+        <rich:panel style="width:800;border:0">
+            <h:outputText styleClass="textos2" value="#{SecurityBean.systemUserName} welcome to UnaCloud" />
+        </rich:panel>
+    </ui:define>
+</ui:composition>

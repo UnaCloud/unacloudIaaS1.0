@@ -1,0 +1,9 @@
+auto lo
+iface lo inet loopback
+auto eth0
+iface eth0 inet static
+address 157.253.202.200
+netmask 255.255.255.0
+network 157.253.202.0
+broadcast 157.253.202.255
+gateway 157.253.202.1

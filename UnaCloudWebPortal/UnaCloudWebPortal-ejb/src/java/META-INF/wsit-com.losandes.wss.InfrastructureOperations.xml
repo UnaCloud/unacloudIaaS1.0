@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <definitions 
+ xmlns="http://schemas.xmlsoap.org/wsdl/" 
+ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+ xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="InfrastructureOperationsService" targetNamespace="http://wss.losandes.com/" xmlns:tns="http://wss.losandes.com/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:fi="http://java.sun.com/xml/ns/wsit/2006/09/policy/fastinfoset/service" xmlns:tcp="http://java.sun.com/xml/ns/wsit/2006/09/policy/soaptcp/service" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" xmlns:sc="http://schemas.sun.com/2006/03/wss/server" xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy" xmlns:wsat="http://schemas.xmlsoap.org/ws/2004/10/wsat"
+ >
+    <message name="turnOnVirtualCluster"/>
+    <message name="turnOnVirtualClusterResponse"/>
+    <portType name="InfrastructureOperations">
+        <operation name="turnOnVirtualCluster">
+            <input message="tns:turnOnVirtualCluster"/>
+            <output message="tns:turnOnVirtualClusterResponse"/>
+        </operation>
+    </portType>
+    <binding name="InfrastructureOperationsPortBinding" type="tns:InfrastructureOperations">
+        <wsp:PolicyReference URI="#InfrastructureOperationsPortBindingPolicy"/>
+        <operation name="turnOnVirtualCluster">
+            <wsp:PolicyReference URI="#InfrastructureOperationsPortBinding_turnOnVirtualCluster_Policy"/>
+            <input>
+                <wsp:PolicyReference URI="#InfrastructureOperationsPortBinding_turnOnVirtualCluster_Input_Policy"/>
+            </input>
+            <output></output>
+        </operation>
+    </binding>
+    <service name="InfrastructureOperationsService">
+        <port name="InfrastructureOperationsPort" binding="tns:InfrastructureOperationsPortBinding"/>
+    </service>
+    <wsp:Policy wsu:Id="InfrastructureOperationsPortBindingPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <wsam:Addressing wsp:Optional="false"/>
+                <sp:TransportBinding>
+                    <wsp:Policy>
+                        <sp:TransportToken>
+                            <wsp:Policy>
+                                <sp:HttpsToken RequireClientCertificate="false"/>
+                            </wsp:Policy>
+                        </sp:TransportToken>
+                        <sp:Layout>
+                            <wsp:Policy>
+                                <sp:Lax/>
+                            </wsp:Policy>
+                        </sp:Layout>
+                        <sp:IncludeTimestamp/>
+                        <sp:AlgorithmSuite>
+                            <wsp:Policy>
+                                <sp:Basic128/>
+                            </wsp:Policy>
+                        </sp:AlgorithmSuite>
+                    </wsp:Policy>
+                </sp:TransportBinding>
+                <sp:Wss10/>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="InfrastructureOperationsPortBinding_turnOnVirtualCluster_Input_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:EncryptedSupportingTokens/>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="InfrastructureOperationsPortBinding_turnOnVirtualCluster_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <wsat:ATAlwaysCapability/>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</definitions>

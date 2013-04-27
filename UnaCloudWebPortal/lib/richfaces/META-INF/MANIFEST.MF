@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: hudson
+Build-Jdk: 1.6.0_24
+Specification-Title: Richfaces UI Components UI
+Specification-Version: 4.0.0.Final
+Specification-Vendor: JBoss, a division of Red Hat, Inc.
+Implementation-Title: Richfaces UI Components UI
+Implementation-Version: 4.0.0.Final
+Implementation-Vendor-Id: org.richfaces.ui
+Implementation-Vendor: JBoss, a division of Red Hat, Inc.
+Build-Number: 
+Hudson-Build-Number: 7
+Hudson-Project: richfaces-4.0.0.Final-release
+Hudson-Version: 1.391 (private-01/13/2011 16:10-vjuranek)
+Implementation-URL: http://richfaces.org/richfaces-bom/richfaces-root-
+ parent/richfaces-ui-parent/richfaces-components-ui
+mode: development
+

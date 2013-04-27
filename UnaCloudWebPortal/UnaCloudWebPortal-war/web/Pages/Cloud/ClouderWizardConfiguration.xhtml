@@ -1,0 +1,53 @@
+<ui:composition template="/Pages/main-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <ui:define name="body">
+        <h:form id="clouderForm">
+            <p:growl id="growl" sticky="false" life="2500" />
+            <rich:panel >
+                <h:panelGrid columns="2">
+                    <rich:panel style="border: 0px">
+                        <h:graphicImage url="#{image}"/>
+                    </rich:panel>
+                    <h:panelGrid columns="1" border="0" width="596px">
+                        <rich:panel styleClass="panelTitulo" style="border: 0px">
+                            <center>
+                                <h:outputText styleClass="textospeq" value="#{panelTitle}"/>
+                            </center>
+                        </rich:panel>
+                        <rich:panel styleClass="panelOpciones" style="border: 0px">
+                            <center>
+                                <ui:insert name="options" />
+                            </center>
+                        </rich:panel>
+                        <rich:panel style="border: 0px">
+                            <h:panelGrid columns="2" width="100%">
+                                <ui:insert name="next" />
+                            </h:panelGrid>
+                        </rich:panel>
+                        
+                    </h:panelGrid>
+                </h:panelGrid>
+                <h:panelGrid id="outPanel" columns="6" width="800">
+                    <h:outputText value="Operating System Type:" styleClass="textospeq5" />
+                    <h:outputText value="Operating System Version:" styleClass="textospeq5" />
+                    <h:outputText value="Template:" styleClass="textospeq5" />
+                    <h:outputText value="Hard Disk:" styleClass="textospeq5" />
+                    <h:outputText value="Processor:" styleClass="textospeq5" />
+                    <h:outputText value="RAM Memory:" styleClass="textospeq5" />
+                    <h:outputText value="#{ClouderBean.operatingSystemTypeSelectedName}" styleClass="textospeq"/>
+                    <h:outputText value="#{ClouderBean.operatingSystemSelectedName}" styleClass="textospeq" />
+                    <h:outputText value="#{ClouderBean.templateSelectedName}" styleClass="textospeq" />
+                    <h:outputText value="#{ClouderBean.hardDiskSelectedName}" styleClass="textospeq" />
+                    <h:outputText value="#{ClouderBean.processorSelectedName}" styleClass="textospeq" />
+                    <h:outputText value="#{ClouderBean.memorySelectedName}" styleClass="textospeq" />
+                </h:panelGrid>
+            </rich:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://localhost/UnaCloudWSService/UnaCloudWS?wsdl" uri="wsdl/localhost/UnaCloudWSService/UnaCloudWS.wsdl"/>
+    <system systemId="http://localhost:80/UnaCloudWSService/UnaCloudWS?xsd=1" uri="wsdl/localhost_80/UnaCloudWSService/UnaCloudWS.xsd_1.xsd"/>
+    <system systemId="http://157.253.236.160/UnaCloudWSService/UnaCloudWS?wsdl" uri="wsdl/157.253.236.160/UnaCloudWSService/UnaCloudWS.wsdl"/>
+    <system systemId="http://157.253.236.160:80/UnaCloudWSService/UnaCloudWS?xsd=1" uri="wsdl/157.253.236.160_80/UnaCloudWSService/UnaCloudWS.xsd_1.xsd"/>
+    <system systemId="http://157.253.236.161/UnaCloudWSService/UnaCloudWS?wsdl" uri="wsdl/157.253.236.161/UnaCloudWSService/UnaCloudWS.wsdl"/>
+    <system systemId="http://157.253.236.161:80/UnaCloudWSService/UnaCloudWS?xsd=1" uri="wsdl/157.253.236.161_80/UnaCloudWSService/UnaCloudWS.xsd_1.xsd"/>
+</catalog>

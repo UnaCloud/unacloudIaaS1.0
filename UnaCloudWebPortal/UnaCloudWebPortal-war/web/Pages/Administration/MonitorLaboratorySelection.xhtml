@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <body>
+        <ui:composition template="/Pages/main-template.xhtml">
+            <ui:define name="body">
+                <ui:include src="/include/menu.xhtml"/>
+                <table width="800" border="0" align="center" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td width="800" valign="top"><div align="center">
+                            </div></td>
+                    </tr>
+                    <tr>
+                        <td valign="top"><div align="center">
+                                <rich:simpleTogglePanel id="stpEdit" opened="true">
+                                    <f:facet name="header">
+                                        Laboratory Selection
+                                    </f:facet>
+                                    <a4j:form>
+                                        <rich:tabPanel switchType="client">
+                                            <rich:tab styleClass="tigoAzul" label="Laboratory Selection">
+                                                <table width="700" border="0" align="center" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td width="700" valign="top" align="center"><div align="center">
+                                                                <rich:dataGrid value="#{LaboratoryBean.allLaboratories}" var="car" columns="4" elements="8">
+                                                                    <rich:panel>
+                                                                        <f:facet name="header">
+                                                                            <h:outputText value="#{car.laboratoryName}"></h:outputText>
+                                                                        </f:facet>
+                                                                        <h:panelGrid >
+                                                                            <h:commandLink action="#{LaboratoryBean.laboratoryContext}">
+                                                                                <f:param name="referencia" value="#{car.laboratoryCode}"/>
+                                                                                <f:param name="navegar" value="MonitorPhysicalLaboratory"/>
+                                                                                <h:graphicImage style="border:0px" url="/img/Laboratory/configureLaboratory.jpg" />
+                                                                            </h:commandLink>
+                                                                        </h:panelGrid>
+                                                                    </rich:panel>
+                                                                </rich:dataGrid>
+                                                            </div></td>
+                                                    </tr>
+                                                </table>
+                                            </rich:tab>
+                                        </rich:tabPanel>
+                                    </a4j:form>
+                                </rich:simpleTogglePanel>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <ui:include src="/include/down.xhtml"/>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

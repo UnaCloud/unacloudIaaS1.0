@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="Pages/Administration/Hypervisor.xhtml" x="150" y="1050" zoom="true"/>
+        <Node id="Pages/Configuration/ServerConfiguration.xhtml" x="1650" y="600" zoom="true"/>
+        <Node id="PagesAdministration/MonitorPhysicalMachine.xhtml" x="1900" y="300" zoom="true"/>
+        <Node id="Pages/Configuration/SecurityConfiguration.xhtml" x="1150" y="450" zoom="true"/>
+        <Node id="Pages/Administration/Laboratory.xhtml" x="400" y="900" zoom="true"/>
+        <Node id="Pages/Administration/OperatingSystem.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="Pages/login.xhtml" x="400" y="1050" zoom="true"/>
+        <Node id="Pages/Cloud/RamMemory.xhtml" x="1150" y="900" zoom="true"/>
+        <Node id="Pages/Configuration/MailConfiguration.xhtml" x="1900" y="450" zoom="true"/>
+        <Node id="Error.xhtml" x="900" y="900" zoom="true"/>
+        <Node id="Pages/UserAccountManagement.xhtml" x="2150" y="300" zoom="true"/>
+        <Node id="include/menu.xhtml" x="1650" y="150" zoom="true"/>
+        <Node id="Pages/Cloud/OperatingSystemType.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="Pages/Administration/MonitorPhysicalLaboratory.xhtml" x="1900" y="150" zoom="true"/>
+        <Node id="Pages/newjsf.xhtml" x="900" y="1050" zoom="true"/>
+        <Node id="Pages/Administration/CloudManagement.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="Pages/Grid/VirtualGridDeployment.xhtml" x="650" y="1050" zoom="true"/>
+        <Node id="Pages/Administration/MonitorPhysicalMachine.xhtml" x="900" y="450" zoom="true"/>
+        <Node id="*" x="2150" y="150" zoom="true"/>
+        <Node id="Pages/Administration/MonitorLaboratorySelection.xhtml" x="650" y="750" zoom="true"/>
+        <Node id="index.html" x="400" y="450" zoom="true"/>
+        <Node id="Pages/Administration/LaboratorySelection.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="Pages/TimeVirtualMachineCloud.xhtml" x="150" y="900" zoom="true"/>
+        <Node id="Pages/ViewVirtualMachineCloud.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="Pages/Administration/PhysicalLaboratory.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="Pages/Administration/Statistics.xhtml" x="650" y="900" zoom="true"/>
+        <Node id="Pages/Administration/VirtualMachineSecurity.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="Pages/Configuration/QoSConfiguration.xhtml" x="1650" y="450" zoom="true"/>
+        <Node id="Pages/main-template.xhtml" x="1400" y="450" zoom="true"/>
+        <Node id="Pages/Grid/VirtualLaboratory.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="include/down.xhtml" x="900" y="600" zoom="true"/>
+        <Node id="Pages/Grid/VirtualGridPhysicalMachine.xhtml" x="150" y="1350" zoom="true"/>
+        <Node id="Pages/Cloud/Template.xhtml" x="650" y="1200" zoom="true"/>
+        <Node id="Pages/MainMenu.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="Pages/Grid/VirtualGridFastDeployment.xhtml" x="400" y="1200" zoom="true"/>
+        <Node id="Pages/Administration/Template.xhtml" x="900" y="750" zoom="true"/>
+        <Node id="Pages/Administration/EntityTemplate.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="Pages/CloudManagement.xhtml" x="1650" y="300" zoom="true"/>
+        <Node id="Pages/Administration/user_management.xhtml" x="1400" y="300" zoom="true"/>
+        <Node id="Pages/Cloud/Processor.xhtml" x="400" y="1350" zoom="true"/>
+        <Node id="Pages/Administration/Application.xhtml" x="1150" y="300" zoom="true"/>
+        <Node id="login.xhtml" x="1150" y="750" zoom="true"/>
+        <Node id="Pages/Cloud/ClouderWizardConfiguration.xhtml" x="150" y="1200" zoom="true"/>
+        <Node id="Pages/Cloud/TimeSize.xhtml" x="150" y="1500" zoom="true"/>
+        <Node id="Pages/Administration/VirtualMachineExecution.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="Pages/Administration/ViewPhysicalMachine.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="Pages/Cloud/OperatingSystem.xhtml" x="1400" y="750" zoom="true"/>
+        <Node id="Pages/Cloud/HardDisk.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="forward.jsp" x="1400" y="600" zoom="true"/>
+        <Node id="timeout.html" x="1150" y="600" zoom="true"/>
+        <Node id="Pages/Cloud/ClouderFastConfiguration.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="Pages/Administration/PhysicalMachine.xhtml" x="400" y="750" zoom="true"/>
+        <Node id="Pages/Administration/VirtualMachine.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="Pages/Grid/ViewVirtualMachine.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="Pages/Configuration/ClientInstallGuide.xhtml" x="2400" y="150" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>

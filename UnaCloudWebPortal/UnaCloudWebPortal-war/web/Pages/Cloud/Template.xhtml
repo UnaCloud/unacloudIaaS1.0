@@ -1,0 +1,40 @@
+<ui:composition template="/Pages/Cloud/ClouderWizardConfiguration.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <ui:param name="image" value="/img/Template.jpg" />
+    <ui:param name="panelTitle" value="Template Selection :" />
+    <ui:define name="options" >
+        <h:panelGrid columns="4" border="0" width="600px">
+            <a4j:repeat value="#{ClouderBean.allTemplates}" var="car">
+                <rich:panel onclick="selectTemplate(#{car.templateCode})" >
+                    <h:outputText value="#{car.templateName}"/>
+                    <rich:tooltip styleClass="tooltip" layout="block">
+                        <a4j:repeat value="#{car.applications}" var="apl">
+                            <h:outputText value="#{apl.applicationName}"/>
+                        </a4j:repeat>
+                    </rich:tooltip>
+                </rich:panel>
+            </a4j:repeat>
+        </h:panelGrid>
+        <h:panelGrid id="panelSelected" columns="2" style="float: right">
+            <h:outputLabel value="Selected template:"/>
+            <rich:panel style="border: 0px">
+                <h:outputText value="#{ClouderBean.templateObjectSelected.templateName}"/>
+            </rich:panel>
+        </h:panelGrid>
+        <a4j:jsFunction name="selectTemplate" render="panelSelected,outPanel" >
+            <a4j:param name="p1" assignTo="#{ClouderBean.templateSelected}" />
+        </a4j:jsFunction>
+    </ui:define>
+    <ui:define name="next" >
+        <h:commandButton value="Back" action="#{ClouderBean.gotoOperatingSystem}" />
+        <h:commandButton value="Next" action="#{ClouderBean.gotoHardDisk}" style="float: right" />
+    </ui:define>
+
+
+</ui:composition>

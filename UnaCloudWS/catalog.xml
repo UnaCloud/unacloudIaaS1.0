@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://157.253.236.160/TemplateOperationsService/TemplateOperations?wsdl" uri="xml-resources/web-service-references/TemplateOperations/wsdl/157.253.236.160/TemplateOperationsService/TemplateOperations.wsdl"/>
+    <system systemId="http://157.253.236.160:80/TemplateOperationsService/TemplateOperations?xsd=1" uri="xml-resources/web-service-references/TemplateOperations/wsdl/157.253.236.160_80/TemplateOperationsService/TemplateOperations.xsd_1.xsd"/>
+    <system systemId="http://localhost:80/UnaCloudWebPortal-war/TestWebServiceService?wsdl" uri="xml-resources/web-service-references/TestWebServiceService/wsdl/localhost_80/UnaCloudWebPortal-war/TestWebServiceService.wsdl"/>
+    <system systemId="http://localhost:80/UnaCloudWebPortal-war/TestWebServiceService?xsd=1" uri="xml-resources/web-service-references/TestWebServiceService/wsdl/localhost_80/UnaCloudWebPortal-war/TestWebServiceService.xsd_1.xsd"/>
+    <system systemId="http://localhost/OnDemandDeploymentWebServiceService/OnDemandDeploymentWebService?wsdl" uri="xml-resources/web-service-references/OnDemandDeploymentWebService/wsdl/localhost/OnDemandDeploymentWebServiceService/OnDemandDeploymentWebService.wsdl"/>
+    <system systemId="http://localhost:80/OnDemandDeploymentWebServiceService/OnDemandDeploymentWebService?xsd=1" uri="xml-resources/web-service-references/OnDemandDeploymentWebService/wsdl/localhost_80/OnDemandDeploymentWebServiceService/OnDemandDeploymentWebService.xsd_1.xsd"/>
+    <system systemId="http://157.253.236.161/OnDemandDeploymentWebServiceService/OnDemandDeploymentWebService?wsdl" uri="xml-resources/web-service-references/OnDemandDeploymentWebService/wsdl/157.253.236.161/OnDemandDeploymentWebServiceService/OnDemandDeploymentWebService.wsdl"/>
+    <system systemId="http://157.253.236.161:80/OnDemandDeploymentWebServiceService/OnDemandDeploymentWebService?xsd=1" uri="xml-resources/web-service-references/OnDemandDeploymentWebService/wsdl/157.253.236.161_80/OnDemandDeploymentWebServiceService/OnDemandDeploymentWebService.xsd_1.xsd"/>
+    <system systemId="http://157.253.236.161/TemplateOperationsService/TemplateOperations?wsdl" uri="xml-resources/web-service-references/TemplateOperations/wsdl/157.253.236.161/TemplateOperationsService/TemplateOperations.wsdl"/>
+    <system systemId="http://157.253.236.161:80/TemplateOperationsService/TemplateOperations?xsd=1" uri="xml-resources/web-service-references/TemplateOperations/wsdl/157.253.236.161_80/TemplateOperationsService/TemplateOperations.xsd_1.xsd"/>
+    <system systemId="http://localhost/UnaCloudWSService/UnaCloudWS?wsdl" uri="xml-resources/web-service-references/UnaCloudWS/wsdl/localhost/UnaCloudWSService/UnaCloudWS.wsdl"/>
+    <system systemId="http://localhost:80/UnaCloudWSService/UnaCloudWS?xsd=1" uri="xml-resources/web-service-references/UnaCloudWS/wsdl/localhost_80/UnaCloudWSService/UnaCloudWS.xsd_1.xsd"/>
+    <system systemId="http://157.253.236.160/UnaCloudWSService/UnaCloudWS?wsdl" uri="xml-resources/web-service-references/UnaCloudWS_1/wsdl/157.253.236.160/UnaCloudWSService/UnaCloudWS.wsdl"/>
+    <system systemId="http://157.253.236.160:80/UnaCloudWSService/UnaCloudWS?xsd=1" uri="xml-resources/web-service-references/UnaCloudWS_1/wsdl/157.253.236.160_80/UnaCloudWSService/UnaCloudWS.xsd_1.xsd"/>
+    <system systemId="http://157.253.236.161/UnaCloudWSService/UnaCloudWS?wsdl" uri="xml-resources/web-service-references/UnaCloudWS/wsdl/157.253.236.161/UnaCloudWSService/UnaCloudWS.wsdl"/>
+    <system systemId="http://157.253.236.161:80/UnaCloudWSService/UnaCloudWS?xsd=1" uri="xml-resources/web-service-references/UnaCloudWS/wsdl/157.253.236.161_80/UnaCloudWSService/UnaCloudWS.xsd_1.xsd"/>
+</catalog>

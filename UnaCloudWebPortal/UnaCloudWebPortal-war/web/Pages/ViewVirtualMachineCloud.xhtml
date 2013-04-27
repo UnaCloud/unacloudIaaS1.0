@@ -1,0 +1,46 @@
+<ui:composition template="./main-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <ui:define name="body">
+        <h:form>
+            <rich:toolbar height="26" itemSeparator="disc">
+                <rich:toolbarGroup>
+                    <h:commandLink  action="CloudManagement" >
+                        <h:graphicImage style="border:0px" title="Back" value="/img/back.png"/>
+                    </h:commandLink>
+                </rich:toolbarGroup>
+            </rich:toolbar>
+        </h:form>
+        <h:form>
+            <h:graphicImage url="/img/viewVM.png" />
+            <a4j:repeat  value="#{executionBean.selectedVirtualMachines}" var="sel" rowKeyVar="idx" >
+                <rich:collapsiblePanel header="#{sel.virtualMachine.virtualMachineName}" switchType="client" expanded="false">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Name:" styleClass="textospeq5" />
+                        <h:outputText value="#{sel.virtualMachine.virtualMachineName}" styleClass="textospeq" />
+                        <h:outputLabel value="State:" styleClass="textospeq5" />
+                        <h:outputText value="#{sel.virtualMachine.vmState}" styleClass="textospeq" />
+                        <h:outputLabel value="IP Address:" styleClass="textospeq5" />
+                        <h:outputText value="#{sel.virtualMachine.virtualMachineIP}" styleClass="textospeq" />
+                        <h:outputLabel value="MAC Address:" styleClass="textospeq5" />
+                        <h:outputText value="#{sel.virtualMachine.virtualMachineMAC}" styleClass="textospeq" />
+                        <h:outputLabel value="CPU Cores:" styleClass="textospeq5" />
+                        <h:outputText value="#{sel.virtualMachine.virtualMachineCores}" styleClass="textospeq" />
+                        <h:outputLabel value="Hard Disk Space:" styleClass="textospeq5" />
+                        <h:outputText value="#{sel.virtualMachine.virtualMachineHardDisk}" styleClass="textospeq" />
+                        <h:outputLabel value="RAM Memory:" styleClass="textospeq5" />
+                        <h:outputText value="#{sel.virtualMachine.virtualMachineRAMMemory}" styleClass="textospeq" />
+                        <h:outputLabel value="Hypervisor:" styleClass="textospeq5" />
+                        <h:outputText value="#{VirtualMachineBean.virtualMachine.hypervisor.hypervisorName}" styleClass="textospeq" />
+                    </h:panelGrid>
+                </rich:collapsiblePanel>
+            </a4j:repeat>
+        </h:form>
+        <ui:include src="/include/down.xhtml"/>
+    </ui:define>
+</ui:composition>

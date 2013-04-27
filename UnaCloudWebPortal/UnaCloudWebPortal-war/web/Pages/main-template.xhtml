@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <script type="text/javascript">
+<!--
+function redirect(){
+    window.location = "/UnaCloudWebPortal-war/Pages/MainMenu.jsf"
+}
+//-->
+        </script>
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+        <title>
+            UnaCloud IaaS 1.0
+        </title>
+        <style type="text/css">
+            #containeri {
+              background: url(/UnaCloudWebPortal-war/img/header2.png) #000000 no-repeat;
+              color: #ffffff;
+              position: relative;
+              height: 98px;
+              width: 100%;
+            }
+            #containeri a {
+              position: absolute;
+            }
+            #containeri a img {
+              border-style: none;
+            }
+
+            #blah {
+              top: 45px;
+              left: 30px;
+            }
+          </style>
+    </h:head>
+    <h:body >
+        <h:outputStylesheet library="css" name="cssmda.css" />
+        <ui:include src="/include/menu.xhtml"/>
+        <div id="containeri">
+            <a id="blah" ><img alt="" src="/UnaCloudWebPortal-war/img/header.jpg" /></a>
+        </div>
+        <h:form>
+            <rich:popupPanel onshow="logout()" modal="true" id="panelTimeout" width="300" height="150" moveable="false">
+                <f:facet name="header">
+                    <h:panelGroup>
+                        <h:outputText value="Session timeout" />
+                    </h:panelGroup>
+                </f:facet>
+                <h:panelGrid columns="2">
+                    <h:graphicImage title="timeout" value="/img/timeout.png" height="100" width="100" />
+                    <h:panelGrid columns="1" cellpadding="5">
+                        <h:outputText styleClass="textospeq" value="Your session has expired." />
+                        <h:outputText styleClass="textospeq" value="Please login again." />
+                        <h:commandButton onclick="redirect()" value="Accept"  action="logout" style="float: right" />
+                    </h:panelGrid>
+                </h:panelGrid>
+            </rich:popupPanel>
+            <a4j:jsFunction name="logout" action="#{logoutBean.doLogout}" />
+        </h:form>
+        <center>
+            <h:panelGrid columns="1">
+                <p:panel style="border: 0">
+                    <center>
+                    <ui:insert name="body" />
+                    </center>
+                </p:panel>
+            </h:panelGrid>
+        </center>
+        <p:spacer width="0px" height="100px" />
+        <rich:panel style="position: fixed;bottom: 0px;width: 100%;text-align: center;border: 0" rendered="#{SecurityBean.logedIn}">
+            <center>
+                <h:form >
+                    <p:idleMonitor id="logoutMonitor" timeout="1200000" onidle="#{beforeIdle}#{rich:component('panelTimeout')}.show();" />
+                    <h:panelGrid columns="5" style="background: #BED6F8" >
+                        <h:commandButton value="Grid" title="Fast Grid Deployment" image="/img/grid.png" action="DeployFastManualCloudIaaS" rendered="#{SecurityBean.enabledGrid}" style="width: 40px;height: 40px" />
+                        <h:commandButton value="Custom grid" title="Custom Grid Deployment" image="/img/gridCustom.png" action="DeployManualCloudIaaS" rendered="#{SecurityBean.enabledGrid}" style="width: 40px;height: 40px" />
+                        <h:commandButton value="Cloud" title="Fast Cloud Deployment" image="/img/cloud.png" action="FastClouderAdmin" rendered="#{SecurityBean.enabledCloud}"  style="width: 40px;height: 40px" />
+                        <h:commandButton value="Custom cloud" title="Custom Cloud Deployment" image="/img/cloudCustom.png" action="#{ClouderBean.clearComponents}" rendered="#{SecurityBean.enabledCloud}" style="width: 40px;height: 40px" />
+                        <h:commandButton value="Manage VMs" title="My virtual machines" image="/img/control.gif" action="CloudManagement" style="width: 40px;height: 40px" />
+                    </h:panelGrid>
+                </h:form>
+            </center>
+        </rich:panel>
+    </h:body>
+
+</html>
