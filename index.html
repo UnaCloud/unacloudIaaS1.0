@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Unacloudiaas1.0 by UnaCloud</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Unacloudiaas1.0</h1>
+        <p>Opportunistic Cloud Computing - Infrastructure as a Service</p>
+
+        <p class="view"><a href="https://github.com/UnaCloud/unacloudIaaS1.0">View the Project on GitHub <small>UnaCloud/unacloudIaaS1.0</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/UnaCloud/unacloudIaaS1.0/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/UnaCloud/unacloudIaaS1.0/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/UnaCloud/unacloudIaaS1.0">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Introduction</h1>
+
+<p>UnaCloud is a project developed by the investigation group COMIT (Comunicaciones y Tecnología de Información) from Universidad de los Andes, Colombia. UnaCloud is an opportunistic cloud computing Infrastructure as a Service (IaaS) model implementation, which provides at lower cost basic computing resources (processing, storage and networking) to run arbitrary software, including operating systems and applications. The IaaS model is provided through the opportunistic use of idle computing resources available in the university campus. </p>
+
+<p>UnaCloud deals with the problems associated to use commodity, non-dedicated, distributed, and heterogeneous computing resources that are part of different administrative domains. We propose an IaaS architecture based on two strategies: an opportunistic strategy that allows the use of idle computing resources in a nonintrusive manner, and a virtualization strategy to allow the on demand deployment of customized execution environments.</p>
+
+<h1>Installation Guide</h1>
+
+<p>This guide allows you to install UnaCloud 1.0 on your infrastructure.</p>
+
+<h2>Requirements</h2>
+
+<p>For UnaCloud Server:</p>
+
+<ul>
+<li>A 4GB and 2 cores machine</li>
+<li>Windows Server 2003 or Windows 7 SO.</li>
+<li>1 GB for UnaCloud Server and at least 80 GB of hard disk for Virtual Machines</li>
+<li>Java JDK SE 6 or better</li>
+</ul><p>For UnaCloud Agents:</p>
+
+<ul>
+<li>At least 200 MB of free RAM.</li>
+<li>50 MB for UnaCloud client and at least 20 GB of hard disk for Virtual Machines.</li>
+<li>Java JRE SE 6 or better</li>
+<li>One of the following hypervisors:</li>
+<li>VMware Player 7 or better (you must install VMware Player and VMware VIX together)</li>
+<li>VMware Workstation 6 or better (Workstation installs VMware VIX by default)</li>
+</ul><h2>UnaCloud Server installation</h2>
+
+<p>Download UnaCloud project or clone the repository. (Warning, you must use a folder with an absolute path with no white spaces on its route). Run the start.bat script that is on the dist folder.</p>
+
+<h2>UnaCloud server configuration guide</h2>
+
+<p>Changing root password</p>
+
+<p>As first step you should change the root user password of the server. To do this enter to your UnaCloud server instance through a web browser.</p>
+
+<p>The browser leads you to the UnaCloud server main page. Click on login and then a login dialog will be displayed. The first time you should use this credentials:
+•User: root
+•Pass: unacloudIaaS Then you will be conducted to UnaCloud users main page. Here click on the user icon . On this page you must change your root password.</p>
+
+<h2>Configuring server - agent parameters</h2>
+
+<p>You must set the protocol ports and network parameters to connect UnaCloud server and Client. To do this, as root user go to the Configurarion\Server configuration option.</p>
+
+<p>At this page you can set the server ip and the TCP ports used between Server and Agents. We not recommend to change the ports as possible. On Server IP you must set the ip of the server, so the Agents can establish connection. For example our UnaCloud server instance has the IP 157.253.236.160</p>
+
+<p>Next you have to go to Configuration\QoS configuration option. Here you can enable/disable the infrastructure monitoring. By activating the QoS, each physical machine is going to monitor its resources and stores a historic log to model and profile resources. This data is stored on the selected dabase at QoS configuration. As default we store this data in a QoS scheme on UnaCloud database, but you can change it.</p>
+
+<p>At last you must go to Configuration\Security configuration to change the RSA keys used to encrypt server - agent communications. You must change these keys so no one but UnaCloud server can send instructions to Agents.</p>
+
+<h2>Creating Physical Laboratories</h2>
+
+<p>UnaCloud sorts Physical machines by Physical Laboratories for GUI convenience. As first step you need to create a Physical Laboratory to add physical machines to it. Go to Administration\Manage Laboratories Information option and click on new icon .</p>
+
+<p>On the popup panel, insert your Laboratory parameters. As example we have the next Laboratory on our * UnaCloud instance:</p>
+
+<ul>
+<li>Laboratory name: Waira I</li>
+<li>Laboratory rows: 6</li>
+<li>Laboratory Columns: 6</li>
+<li>Laboratory Type: Physical</li>
+<li>Creating Physical Machines</li>
+</ul><p>A physical machine is a computer that has an UnaCloud agent installed and is used to deploy opportunistic virtual machines. Each physical machine is associated to a Physical Laboratory. To create a physical machine go to Administration\Manage Physical Machines Information option and click on new icon .</p>
+
+<p>On the popup panel, insert your Physical Machine parameters. Do this step for each machine in your infrastructure. As an example we have the next Machine on our UnaCloud instance:</p>
+
+<ul>
+<li>Name: ISC401 (should be the hostname of the machine, on windows you can get it executing hostname on command line console)</li>
+<li>Laboratory: Waira I (The laboratory that contains the machine)</li>
+<li>IP Address: 157.253.201.141</li>
+<li>MAC Address: AA:BB:CC:DD:EE:FF (used to automatically start physical machines using Wake-On-Lan)</li>
+<li>CPU Cores: 8</li>
+<li>Hard Disk Space: 50 GB (for UnaCloud)</li>
+<li>RAM Memory: 16384 MB</li>
+<li>Architecture: x86</li>
+<li>Hypervisor Path: C:\Program Files\VMware\VIX (The path to hypervisor binaries. For VMware products you must put the path that contains the vmrun.exe.)</li>
+<li>Operating System: Windows 7</li>
+<li>Virtual IP: 157.253.201.191</li>
+<li>Virtual netmask: 255.255.255.128</li>
+</ul><h2>Creating Virtual Machine Templates</h2>
+
+<p>A template is a Virtual Machine Image that is deployable by UnaCloud. A template have a type, a name and a path to its virtual machine files. To create a new template go to Administration\Manage Template Information option and click on new icon .</p>
+
+<p>As example we have the following template:</p>
+
+<p>Template Name: Gromacs Operating System: Ubuntu 9 (You need to be as accurate as possible with this field) Template Type: GRID Image location: Z:\gromacs\gromacs1.vmx (The location, on server, where the virtual machine is) Customizable: true (if the template can be changed by users or not) High availability: true (for future QoS) Applications: Linux Default Applications (Information only) To use a VMware virtual machine, it must have installed the latest version of vmware tools. You can (and must) check that your virtual machine is compatible. To do this use the next commands:</p>
+
+<blockquote>
+<ul>
+<li>vmrun -T ws start //Virtual Machine Path// </li>
+<li>vmrun -T ws -gu //user// -gp //password// listProcessesInGuest //Virtual Machine Path// </li>
+</ul>
+</blockquote>
+
+<p>Those commands must list all running processes on your virtual machines.</p>
+
+<h2>Creating a Security Access Method</h2>
+
+<p>A security access method is a tuple that contains information of administrator credentials of a virtual machine. This information is used by UnaCloud to configure the virtual machines after deployment. To create an security access method go to Administration\Manage Security Access Information option and click on new icon . Here is an example that is used to deploy gromacs machines:</p>
+
+<ul>
+<li>Security access name: GromacsSA</li>
+<li>Authorized User: root (virtual machine administrator)</li>
+<li>Password: gr0macs15753</li>
+<li>Access Mechanism: SSH (for all linux based machines)</li>
+<li>Access Port: 22</li>
+<li>Creating a Deployable Virtual Machine</li>
+</ul><p>A virtual machine is an instance of a template that is deployed on a physical machine. A virtual machine has a pointer to its template and to the physical machine that is going to execute it. To create a virtual machine go to Administration\Manage Virtual Machines Information option and click on new icon . The next is an example of a gromacs virtual machine that is deployed on machine ISC401:</p>
+
+<ul>
+<li>Name: node1 (virtual machine hostname)</li>
+<li>Physical machine: ISC401</li>
+<li>IP Address: 157.253.201.191 (The IP that is going to be used by this virtual machine)</li>
+<li>IP Generation Policy: public machine based(Actually we support public machine based)</li>
+<li>MAC Generation Policy: static machine based</li>
+<li>CPU cores: 4 (can be chagend by user on each deploy)</li>
+<li>Hard Disk Space: 10 GB (for information only)</li>
+<li>RAM Memory: 2048 (can be chagend by user on each deploy)</li>
+<li>Hypervisor: VMware Player</li>
+<li>Path: E:\GRID\gromacs1.vmx (The system is going to copy the template image on this path for this physical machine)</li>
+<li>Template: gromacs</li>
+<li>Security Schema: gromacsSA</li>
+<li>Locally stored: false (If the template image is already copied on physical machine or not. If false UnaCloud will copy automatically the template image)</li>
+<li>Configured: false (If the virtual machine is already copied and configured)</li>
+<li>Snapshot id: (for future extentions)</li>
+<li>AutoProtect: false (for future extentions) Creating a System User</li>
+</ul><p>Now, we must create users and gave them permissions to deploy the created virtual machine. To do this go to Administration\Manage System Users Information and click on . This will let you to create a new unacloud user. Once you create the user, you must assign him templates. To do that, click on on user table row.</p>
+
+<p>About user roles: GRID users can deploy GRID templates, IaaS users can deploy Cloud templates, and IaaS-GRID users can deploy both.</p>
+
+<h2>UnaCloud Agents Installation</h2>
+
+<p>Enter at your UnaCloud Server instance and follow the guide on Configuration\Client Installation Guide label. You must install the agent on each physical machine.</p>
+
+<h2>Resources</h2>
+
+<p>For more information about UnaCloud project, you can follow this link that will guide you to the university wiki</p>
+
+<h2>License</h2>
+
+<p>GPU GNL version 2.0</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/UnaCloud">UnaCloud</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
