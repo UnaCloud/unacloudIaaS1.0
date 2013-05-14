@@ -47,6 +47,8 @@ import javax.persistence.Table;
     @NamedQuery(name = "Virtualmachine.findByVirtualmachinestate", query = "SELECT v FROM Virtualmachine v WHERE v.virtualmachinestate = :virtualmachinestate"),
     @NamedQuery(name = "Virtualmachine.findByVirtualmachinemac", query = "SELECT v FROM Virtualmachine v WHERE v.virtualmachinemac = :virtualmachinemac")})
 public class Virtualmachine implements Serializable {
+    @Column(name = "TURNONCOUNT")
+    private Integer turnoncount;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -306,6 +308,14 @@ public class Virtualmachine implements Serializable {
     @Override
     public String toString() {
         return "com.losandes.beans.Virtualmachine[virtualmachinecode=" + virtualmachinecode + "]";
+    }
+
+    public Integer getTurnoncount() {
+        return turnoncount;
+    }
+
+    public void setTurnoncount(Integer turnoncount) {
+        this.turnoncount = turnoncount;
     }
 
 }

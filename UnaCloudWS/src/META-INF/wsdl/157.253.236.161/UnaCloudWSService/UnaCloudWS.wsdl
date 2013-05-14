@@ -16,11 +16,11 @@
 <wsat:ATAlwaysCapability />
 <wsat:ATAssertion xmlns:ns4="http://schemas.xmlsoap.org/ws/2002/12/policy" wsp:Optional="true" ns4:Optional="true" />
 </wsp:Policy>
-<wsp:Policy xmlns:wsat="http://schemas.xmlsoap.org/ws/2004/10/wsat" wsu:Id="UnaCloudWSPortBinding_getTotalVirtualMachines_WSAT_Policy">
+<wsp:Policy xmlns:wsat="http://schemas.xmlsoap.org/ws/2004/10/wsat" wsu:Id="UnaCloudWSPortBinding_getTemplateLists_WSAT_Policy">
 <wsat:ATAlwaysCapability />
 <wsat:ATAssertion xmlns:ns5="http://schemas.xmlsoap.org/ws/2002/12/policy" wsp:Optional="true" ns5:Optional="true" />
 </wsp:Policy>
-<wsp:Policy xmlns:wsat="http://schemas.xmlsoap.org/ws/2004/10/wsat" wsu:Id="UnaCloudWSPortBinding_getTemplateLists_WSAT_Policy">
+<wsp:Policy xmlns:wsat="http://schemas.xmlsoap.org/ws/2004/10/wsat" wsu:Id="UnaCloudWSPortBinding_getTotalVirtualMachines_WSAT_Policy">
 <wsat:ATAlwaysCapability />
 <wsat:ATAssertion xmlns:ns6="http://schemas.xmlsoap.org/ws/2002/12/policy" wsp:Optional="true" ns6:Optional="true" />
 </wsp:Policy>
@@ -45,6 +45,24 @@
 <xsd:import namespace="http://wss.losandes.com/" schemaLocation="http://157.253.236.161:80/UnaCloudWSService/UnaCloudWS?xsd=1" />
 </xsd:schema>
 </types>
+<message name="turnOnVirtualCluster">
+<part name="parameters" element="tns:turnOnVirtualCluster" />
+</message>
+<message name="turnOnVirtualClusterResponse">
+<part name="parameters" element="tns:turnOnVirtualClusterResponse" />
+</message>
+<message name="getTemplateLists">
+<part name="parameters" element="tns:getTemplateLists" />
+</message>
+<message name="getTemplateListsResponse">
+<part name="parameters" element="tns:getTemplateListsResponse" />
+</message>
+<message name="getAvailableUnaCloudResources">
+<part name="parameters" element="tns:getAvailableUnaCloudResources" />
+</message>
+<message name="getAvailableUnaCloudResourcesResponse">
+<part name="parameters" element="tns:getAvailableUnaCloudResourcesResponse" />
+</message>
 <message name="getVirtualMachineExecutions">
 <part name="parameters" element="tns:getVirtualMachineExecutions" />
 </message>
@@ -56,12 +74,6 @@
 </message>
 <message name="getAvailableVirtualMachinesResponse">
 <part name="parameters" element="tns:getAvailableVirtualMachinesResponse" />
-</message>
-<message name="turnOnVirtualCluster">
-<part name="parameters" element="tns:turnOnVirtualCluster" />
-</message>
-<message name="turnOnVirtualClusterResponse">
-<part name="parameters" element="tns:turnOnVirtualClusterResponse" />
 </message>
 <message name="writeFileOnVirtualMachine">
 <part name="parameters" element="tns:writeFileOnVirtualMachine" />
@@ -75,23 +87,11 @@
 <message name="turnOffVirtualMachineResponse">
 <part name="parameters" element="tns:turnOffVirtualMachineResponse" />
 </message>
-<message name="getTemplateLists">
-<part name="parameters" element="tns:getTemplateLists" />
-</message>
-<message name="getTemplateListsResponse">
-<part name="parameters" element="tns:getTemplateListsResponse" />
-</message>
 <message name="getTotalUnaCloudResources">
 <part name="parameters" element="tns:getTotalUnaCloudResources" />
 </message>
 <message name="getTotalUnaCloudResourcesResponse">
 <part name="parameters" element="tns:getTotalUnaCloudResourcesResponse" />
-</message>
-<message name="getAvailableUnaCloudResources">
-<part name="parameters" element="tns:getAvailableUnaCloudResources" />
-</message>
-<message name="getAvailableUnaCloudResourcesResponse">
-<part name="parameters" element="tns:getAvailableUnaCloudResourcesResponse" />
 </message>
 <message name="getBusyUnaCloudResources">
 <part name="parameters" element="tns:getBusyUnaCloudResources" />
@@ -106,6 +106,18 @@
 <part name="parameters" element="tns:getTotalVirtualMachinesResponse" />
 </message>
 <portType name="UnaCloudWS">
+<operation name="turnOnVirtualCluster">
+<input wsam:Action="http://wss.losandes.com/UnaCloudWS/turnOnVirtualClusterRequest" message="tns:turnOnVirtualCluster" />
+<output wsam:Action="http://wss.losandes.com/UnaCloudWS/turnOnVirtualClusterResponse" message="tns:turnOnVirtualClusterResponse" />
+</operation>
+<operation name="getTemplateLists">
+<input wsam:Action="http://wss.losandes.com/UnaCloudWS/getTemplateListsRequest" message="tns:getTemplateLists" />
+<output wsam:Action="http://wss.losandes.com/UnaCloudWS/getTemplateListsResponse" message="tns:getTemplateListsResponse" />
+</operation>
+<operation name="getAvailableUnaCloudResources">
+<input wsam:Action="http://wss.losandes.com/UnaCloudWS/getAvailableUnaCloudResourcesRequest" message="tns:getAvailableUnaCloudResources" />
+<output wsam:Action="http://wss.losandes.com/UnaCloudWS/getAvailableUnaCloudResourcesResponse" message="tns:getAvailableUnaCloudResourcesResponse" />
+</operation>
 <operation name="getVirtualMachineExecutions">
 <input wsam:Action="http://wss.losandes.com/UnaCloudWS/getVirtualMachineExecutionsRequest" message="tns:getVirtualMachineExecutions" />
 <output wsam:Action="http://wss.losandes.com/UnaCloudWS/getVirtualMachineExecutionsResponse" message="tns:getVirtualMachineExecutionsResponse" />
@@ -113,10 +125,6 @@
 <operation name="getAvailableVirtualMachines">
 <input wsam:Action="http://wss.losandes.com/UnaCloudWS/getAvailableVirtualMachinesRequest" message="tns:getAvailableVirtualMachines" />
 <output wsam:Action="http://wss.losandes.com/UnaCloudWS/getAvailableVirtualMachinesResponse" message="tns:getAvailableVirtualMachinesResponse" />
-</operation>
-<operation name="turnOnVirtualCluster">
-<input wsam:Action="http://wss.losandes.com/UnaCloudWS/turnOnVirtualClusterRequest" message="tns:turnOnVirtualCluster" />
-<output wsam:Action="http://wss.losandes.com/UnaCloudWS/turnOnVirtualClusterResponse" message="tns:turnOnVirtualClusterResponse" />
 </operation>
 <operation name="writeFileOnVirtualMachine">
 <input wsam:Action="http://wss.losandes.com/UnaCloudWS/writeFileOnVirtualMachineRequest" message="tns:writeFileOnVirtualMachine" />
@@ -126,17 +134,9 @@
 <input wsam:Action="http://wss.losandes.com/UnaCloudWS/turnOffVirtualMachineRequest" message="tns:turnOffVirtualMachine" />
 <output wsam:Action="http://wss.losandes.com/UnaCloudWS/turnOffVirtualMachineResponse" message="tns:turnOffVirtualMachineResponse" />
 </operation>
-<operation name="getTemplateLists">
-<input wsam:Action="http://wss.losandes.com/UnaCloudWS/getTemplateListsRequest" message="tns:getTemplateLists" />
-<output wsam:Action="http://wss.losandes.com/UnaCloudWS/getTemplateListsResponse" message="tns:getTemplateListsResponse" />
-</operation>
 <operation name="getTotalUnaCloudResources">
 <input wsam:Action="http://wss.losandes.com/UnaCloudWS/getTotalUnaCloudResourcesRequest" message="tns:getTotalUnaCloudResources" />
 <output wsam:Action="http://wss.losandes.com/UnaCloudWS/getTotalUnaCloudResourcesResponse" message="tns:getTotalUnaCloudResourcesResponse" />
-</operation>
-<operation name="getAvailableUnaCloudResources">
-<input wsam:Action="http://wss.losandes.com/UnaCloudWS/getAvailableUnaCloudResourcesRequest" message="tns:getAvailableUnaCloudResources" />
-<output wsam:Action="http://wss.losandes.com/UnaCloudWS/getAvailableUnaCloudResourcesResponse" message="tns:getAvailableUnaCloudResourcesResponse" />
 </operation>
 <operation name="getBusyUnaCloudResources">
 <input wsam:Action="http://wss.losandes.com/UnaCloudWS/getBusyUnaCloudResourcesRequest" message="tns:getBusyUnaCloudResources" />
@@ -150,6 +150,42 @@
 <binding name="UnaCloudWSPortBinding" type="tns:UnaCloudWS">
 <wsp1_2:PolicyReference URI="#UnaCloudWSPortBindingPolicy" />
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" />
+<operation name="turnOnVirtualCluster">
+<wsp:PolicyReference URI="#UnaCloudWSPortBinding_turnOnVirtualCluster_WSAT_Policy" />
+<soap:operation soapAction="" />
+<input>
+<wsp:PolicyReference URI="#UnaCloudWSPortBinding_turnOnVirtualCluster_WSAT_Policy" />
+<soap:body use="literal" />
+</input>
+<output>
+<wsp:PolicyReference URI="#UnaCloudWSPortBinding_turnOnVirtualCluster_WSAT_Policy" />
+<soap:body use="literal" />
+</output>
+</operation>
+<operation name="getTemplateLists">
+<wsp:PolicyReference URI="#UnaCloudWSPortBinding_getTemplateLists_WSAT_Policy" />
+<soap:operation soapAction="" />
+<input>
+<wsp:PolicyReference URI="#UnaCloudWSPortBinding_getTemplateLists_WSAT_Policy" />
+<soap:body use="literal" />
+</input>
+<output>
+<wsp:PolicyReference URI="#UnaCloudWSPortBinding_getTemplateLists_WSAT_Policy" />
+<soap:body use="literal" />
+</output>
+</operation>
+<operation name="getAvailableUnaCloudResources">
+<wsp:PolicyReference URI="#UnaCloudWSPortBinding_getAvailableUnaCloudResources_WSAT_Policy" />
+<soap:operation soapAction="" />
+<input>
+<wsp:PolicyReference URI="#UnaCloudWSPortBinding_getAvailableUnaCloudResources_WSAT_Policy" />
+<soap:body use="literal" />
+</input>
+<output>
+<wsp:PolicyReference URI="#UnaCloudWSPortBinding_getAvailableUnaCloudResources_WSAT_Policy" />
+<soap:body use="literal" />
+</output>
+</operation>
 <operation name="getVirtualMachineExecutions">
 <wsp:PolicyReference URI="#UnaCloudWSPortBinding_getVirtualMachineExecutions_WSAT_Policy" />
 <soap:operation soapAction="" />
@@ -171,18 +207,6 @@
 </input>
 <output>
 <wsp:PolicyReference URI="#UnaCloudWSPortBinding_getAvailableVirtualMachines_WSAT_Policy" />
-<soap:body use="literal" />
-</output>
-</operation>
-<operation name="turnOnVirtualCluster">
-<wsp:PolicyReference URI="#UnaCloudWSPortBinding_turnOnVirtualCluster_WSAT_Policy" />
-<soap:operation soapAction="" />
-<input>
-<wsp:PolicyReference URI="#UnaCloudWSPortBinding_turnOnVirtualCluster_WSAT_Policy" />
-<soap:body use="literal" />
-</input>
-<output>
-<wsp:PolicyReference URI="#UnaCloudWSPortBinding_turnOnVirtualCluster_WSAT_Policy" />
 <soap:body use="literal" />
 </output>
 </operation>
@@ -210,18 +234,6 @@
 <soap:body use="literal" />
 </output>
 </operation>
-<operation name="getTemplateLists">
-<wsp:PolicyReference URI="#UnaCloudWSPortBinding_getTemplateLists_WSAT_Policy" />
-<soap:operation soapAction="" />
-<input>
-<wsp:PolicyReference URI="#UnaCloudWSPortBinding_getTemplateLists_WSAT_Policy" />
-<soap:body use="literal" />
-</input>
-<output>
-<wsp:PolicyReference URI="#UnaCloudWSPortBinding_getTemplateLists_WSAT_Policy" />
-<soap:body use="literal" />
-</output>
-</operation>
 <operation name="getTotalUnaCloudResources">
 <wsp:PolicyReference URI="#UnaCloudWSPortBinding_getTotalUnaCloudResources_WSAT_Policy" />
 <soap:operation soapAction="" />
@@ -231,18 +243,6 @@
 </input>
 <output>
 <wsp:PolicyReference URI="#UnaCloudWSPortBinding_getTotalUnaCloudResources_WSAT_Policy" />
-<soap:body use="literal" />
-</output>
-</operation>
-<operation name="getAvailableUnaCloudResources">
-<wsp:PolicyReference URI="#UnaCloudWSPortBinding_getAvailableUnaCloudResources_WSAT_Policy" />
-<soap:operation soapAction="" />
-<input>
-<wsp:PolicyReference URI="#UnaCloudWSPortBinding_getAvailableUnaCloudResources_WSAT_Policy" />
-<soap:body use="literal" />
-</input>
-<output>
-<wsp:PolicyReference URI="#UnaCloudWSPortBinding_getAvailableUnaCloudResources_WSAT_Policy" />
 <soap:body use="literal" />
 </output>
 </operation>

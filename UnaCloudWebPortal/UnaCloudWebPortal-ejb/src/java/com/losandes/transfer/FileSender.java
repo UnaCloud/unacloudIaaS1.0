@@ -122,7 +122,7 @@ public class FileSender implements FileSenderLocal {
             msg[4] = rutaDestino;
             msg[5] = "" + archivo.length();
             msg[6] = "" + N;
-            msg[7] = "" + destinos[i].getHijos().length;
+            msg[7] = "" + (fileNumber==1);
             for (int j = 0; j < destinos[i].getHijos().length; j++) {
                 msg[8 + j] = destinos[i].getHijos()[j];
             }

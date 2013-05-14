@@ -282,13 +282,11 @@ public class VirtualMachineServices implements IVirtualMachineServices {
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     @Override
     public VirtualMachineExecution[] turnOnVirtualClusterBySize(int template, int executionTime, int numberInstances, int vmCores, int HDsize, int vmRAM, String userName,boolean retry) {
-        System.out.println("Inicie");
         List<VirtualMachine> vms = getAvailableVirtualMachines(template, HDsize, vmCores, vmRAM);
         VirtualMachine[] avms = new VirtualMachine[Math.min(numberInstances, vms.size())];
         for (int e = 0; e < avms.length; e++)avms[e] = vms.get(e);
         if(retry&&numberInstances-avms.length>0)virtualMachineOperations.turnOnPhysicalMachines(template, executionTime, numberInstances-avms.length, vmCores, HDsize, vmRAM, userName);
         for(VirtualMachine vm:vms)System.out.println(vm);
-        System.out.println("Fin");
         return virtualMachineOperations.turnOnCluster(vmCores, vmRAM, executionTime, userServices.getUserByID(userName), avms);
     }
 

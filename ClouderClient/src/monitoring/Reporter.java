@@ -51,9 +51,7 @@ public class Reporter extends Thread{
                ac.writeUTF(""+DATABASE_OPERATION,""+REPORT_DB,id);
                ac.close();
                fails=0;
-               System.out.println("Can connect to the server.");
            }catch(ConnectionException sce){
-               System.out.println("Can't connect to the server. "+sce.getMessage());
                fails++;
            }
            try{

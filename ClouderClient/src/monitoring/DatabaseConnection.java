@@ -162,7 +162,6 @@ public class DatabaseConnection
         pstmt.setLong(39,txErrors);
         pstmt.setLong(40,rxPackets);
         pstmt.setLong(41,txPackets);
-        System.out.println("Registro");
         pstmt.addBatch();
     }
 
@@ -172,7 +171,6 @@ public class DatabaseConnection
         int[] updateCounts = pstmt.executeBatch();
         checkUpdateCounts(updateCounts);
         Conexion.commit();
-        System.out.println("RegistrarBatch");
         st.close();
         Desconectar();
     }

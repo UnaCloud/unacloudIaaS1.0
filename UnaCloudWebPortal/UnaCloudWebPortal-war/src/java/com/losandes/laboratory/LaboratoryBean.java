@@ -185,12 +185,23 @@ public class LaboratoryBean {
         for (int i = 0; i < laboratory.getPhysicalMachine().size(); i++) {
             if (laboratory.getPhysicalMachine().get(i).isPhysicalMachineEnable()) {
                 executionPhysicalMachines.add(laboratory.getPhysicalMachine().get(i));
+                laboratory.getPhysicalMachine().get(i).setPhysicalMachineEnable(false);
             }
         }
         setExecutionMachineError(physicalMachineServices.updatePhysicalMachineAgent(executionPhysicalMachines));
         return null;
     }
-    
+    public String updateAllPhysicalMachineAgent() {
+        ArrayList<PhysicalMachine> executionPhysicalMachines = new ArrayList<PhysicalMachine>();
+        for (int i = 0; i < laboratory.getPhysicalMachine().size(); i++) {
+            if (laboratory.getPhysicalMachine().get(i).getPhysicalMachineState()==1) {
+                executionPhysicalMachines.add(laboratory.getPhysicalMachine().get(i));
+                laboratory.getPhysicalMachine().get(i).setPhysicalMachineEnable(false);
+            }
+        }
+        setExecutionMachineError(physicalMachineServices.updatePhysicalMachineAgent(executionPhysicalMachines));
+        return null;
+    }
     public String monitorPhysicalMachines() {
         ArrayList<PhysicalMachine> executionPhysicalMachines = new ArrayList<PhysicalMachine>();
         for (int i = 0; i < laboratory.getPhysicalMachine().size(); i++) {

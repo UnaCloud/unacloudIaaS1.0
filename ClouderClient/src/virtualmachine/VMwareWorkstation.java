@@ -7,7 +7,15 @@ package virtualmachine;
 
 import execution.LocalProcessExecutor;
 import static com.losandes.utils.Constants.*;
+import com.losandes.utils.Log;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.Date;
+import java.util.TreeSet;
 /**
  * Implementation of hypervisor abstract class to give support for VMwareWorkstation hypervisor.
  * @author Clouder
@@ -33,6 +41,7 @@ public class VMwareWorkstation extends Hypervisor{
 
     @Override
     public void turnOnVirtualMachine()throws HypervisorOperationException{
+        correctDataStores();
         String h=LocalProcessExecutor.executeCommandOutput(getExecutablePath() + " -T ws start "+getVirtualMachinePath()+" nogui");
         if(h.contains(ERROR_MESSAGE))throw new HypervisorOperationException(h.length()<100?h:h.substring(0,100));
     }
@@ -80,4 +89,54 @@ public class VMwareWorkstation extends Hypervisor{
         String h=LocalProcessExecutor.executeCommandOutput(getExecutablePath() + " -T ws snapshot " + getVirtualMachinePath() + " " + snapshotname);
         if(h.contains(ERROR_MESSAGE))throw new HypervisorOperationException(h.length()<100?h:h.substring(0,100));
     }
+    private void correctDataStores(){
+        try{
+            FileInputStream fis=new FileInputStream("./datastores.xml");
+            FileOutputStream fos=new FileOutputStream("C:\\ProgramData\\VMware\\hostd\\datastores.xml");
+            byte[]b=new byte[1024];
+            for(int n;(n=fis.read(b))!=-1;)fos.write(b,0,n);
+            fis.close();fos.close();
+        }catch(Throwable th){
+            
+        }
+    }
+    public static void startUpServices(){
+        Log.print2("startUpServices");
+        TreeSet<String> serviciosALevantar=new TreeSet<String>();
+        serviciosALevantar.add("VMware Authorization Service");
+        serviciosALevantar.add("hcmon");
+        serviciosALevantar.add("VMware NAT Service");
+        serviciosALevantar.add("VMware Workstation Server");
+        try{
+            PrintWriter pw=new PrintWriter("./logServicios.txt");
+            pw.println(new Date()+" "+System.currentTimeMillis());
+            Process p=Runtime.getRuntime().exec("net start");
+            BufferedReader br=new BufferedReader(new InputStreamReader(p.getInputStream()));
+            for(String h;(h=br.readLine())!=null;)serviciosALevantar.remove(h.trim());
+            br.close();
+            
+            pw.println("levantando "+serviciosALevantar.size());
+            if(!serviciosALevantar.isEmpty()){
+                try{
+                    for(String servs:serviciosALevantar){
+                        pw.println("net start \""+servs+"\"");
+                        p=Runtime.getRuntime().exec("net start \""+servs+"\"");
+                        br=new BufferedReader(new InputStreamReader(p.getInputStream()));
+                        for(String h;(h=br.readLine())!=null;)pw.println(h);
+                        br.close();
+                        br=new BufferedReader(new InputStreamReader(p.getErrorStream()));
+                        for(String h;(h=br.readLine())!=null;)pw.println(h);
+                        br.close();
+                        p.waitFor();
+                    }
+                    pw.println("termine bien");
+                }catch(Exception ex){
+                    ex.printStackTrace(pw);
+                }
+            }
+            pw.close();
+        }catch(Exception e){
+        }
+    }
+            
 }

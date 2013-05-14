@@ -52,7 +52,23 @@ public class PersistenceServices {
         em.flush();
         em.getTransaction().commit();
     }
-
+    
+    public void InsertNodeStateLog(String machineName, String option, String value ){
+        NodeStateLog n = em.find(NodeStateLog.class, machineName);
+        em.getTransaction().begin();
+        if(n==null){
+            n=new NodeStateLog();
+            n.setPhysicalMachineName(machineName);
+            em.persist(n);
+            em.flush();
+            return;
+        }
+        if (option.equals("ClientState"))
+            n.setClientState(value);
+        else if (option.equals("ServicesNotRunning"))
+            n.setServicesNotRunning(value);
+    }
+    
     public void logginPhysicalMachineUser(Object machineId, String user) {
         Physicalmachine p = (Physicalmachine)em.find(Physicalmachine.class, machineId);
         em.getTransaction().begin();
@@ -75,11 +91,15 @@ public class PersistenceServices {
         if(vme!=null){
             em.getTransaction().begin();
             if(state==OFF_STATE)vme.getVirtualmachine().getPhysicalmachine().setPhysicalmachinestate(VM_TURN_ON);
-            if(state==ERROR_STATE)vme.getVirtualmachine().getPhysicalmachine().setPhysicalmachinestate(VM_TURN_ON);
+            if(state==ERROR_STATE){
+                vme.getVirtualmachine().getPhysicalmachine().setPhysicalmachinestate(VM_TURN_ON);
+                vme.getVirtualmachine().setTurnoncount(0);
+            }
             if(state==ON_STATE){
                 vme.getVirtualmachine().setVirtualmachinestate(ON_STATE);
-                em.merge(vme.getVirtualmachine());
+                vme.getVirtualmachine().setTurnoncount(vme.getVirtualmachine().getTurnoncount()+1);
             }
+            em.merge(vme.getVirtualmachine());
             vme.setVirtualmachineexecutionstatus(state);
             vme.setVirtualmachineexecutionstatusmessage(message);
             em.merge(vme);
@@ -122,7 +142,7 @@ public class PersistenceServices {
                     }
                     t=Math.min(vms.size()-on,t);
                     System.out.println("Prender "+t);
-                    UnaCloudOperations.turnOnVirtualCluster(vme.getSystemuser().getSystemusername(),"",vme.getTemplate().getTemplatecode(),t,vme.getVirtualmachineexecutionrammemory(),vme.getVirtualmachineexecutioncores(),0,20);
+                    //UnaCloudOperations.turnOnVirtualCluster(vme.getSystemuser().getSystemusername(),"",vme.getTemplate().getTemplatecode(),t,vme.getVirtualmachineexecutionrammemory(),vme.getVirtualmachineexecutioncores(),0,20);
                 }
             }
             

@@ -106,6 +106,7 @@ public class ClouderServerAttentionThread extends Thread {
             communication.close();
 
         } catch (Exception ex) {
+            ex.printStackTrace();
             // System.err.println("The communication process with Clouder Server failed in ClouderServerAttentionThread: " + ex.getMessage());
         }
     }

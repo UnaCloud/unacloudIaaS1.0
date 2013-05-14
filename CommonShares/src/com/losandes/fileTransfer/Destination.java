@@ -107,7 +107,7 @@ public class Destination {
     public void close(){
         conectado=false;
         try {
-            outFile.close();
+            if(outFile!=null)outFile.close();
         } catch (IOException ex) {
             Logger.getLogger(Destination.class.getName()).log(Level.SEVERE, null, ex);
         }

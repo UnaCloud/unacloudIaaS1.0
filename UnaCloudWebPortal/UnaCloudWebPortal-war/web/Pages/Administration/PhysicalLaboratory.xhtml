@@ -17,6 +17,9 @@
                     <a4j:commandButton image="/img/upgrade.png" action="#{LaboratoryBean.updatePhysicalMachineAgent}" title="Upgrade" render="grid, execution" />
                 </rich:toolbarGroup>
                 <rich:toolbarGroup>
+                    <a4j:commandButton image="/img/upgrade.png" action="#{LaboratoryBean.updateAllPhysicalMachineAgent}" title="Upgrade All" render="grid, execution" />
+                </rich:toolbarGroup>
+                <rich:toolbarGroup>
                     <h:graphicImage title="Back" value="/img/back.png"  onclick="backObject()" styleClass="icon" />
                 </rich:toolbarGroup>
             </rich:toolbar>

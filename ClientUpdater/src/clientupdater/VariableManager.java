@@ -79,7 +79,7 @@ public class VariableManager {
             }
             br.close();
         } catch (Exception e) {
-            Main.print(e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 }

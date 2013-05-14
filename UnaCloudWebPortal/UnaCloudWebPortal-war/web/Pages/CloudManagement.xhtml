@@ -104,10 +104,13 @@
                     <f:facet name="header">
                         <h:outputLabel value="Status" />
                     </f:facet>
-                    <h:graphicImage title="#{cr.virtualMachineExecutionStatusMessage}" value="#{cr.statusImage}" styleClass="icon" />
-                    <rich:progressBar rendered="#{cr.showProgressBar}" mode="client" value="#{cr.current}"                                       id="pb" minValue="0" maxValue="#{cr.max}">
-                        <h:outputText value="#{cr.current} #{cr.isPercentage?'%':''}" />
-                    </rich:progressBar>
+                    <table>
+                        <tr><td><h:graphicImage title="#{cr.virtualMachineExecutionStatusMessage}" value="#{cr.statusImage}" styleClass="icon" /></td>
+                        <td><rich:progressBar rendered="#{cr.showProgressBar}" mode="client" value="#{cr.current}"                                       id="pb" minValue="0" maxValue="#{cr.max}">
+                            <h:outputText value="#{cr.current} #{cr.isPercentage?'%':''}" />
+                        </rich:progressBar></td></tr>
+                    </table>
+                    
                 </rich:column>
                 <rich:column>
                     <f:facet name="header">

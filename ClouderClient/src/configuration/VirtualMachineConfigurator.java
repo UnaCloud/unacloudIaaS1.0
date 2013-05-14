@@ -12,6 +12,7 @@ import java.util.*;
 import virtualmachine.Hypervisor;
 import virtualmachine.HypervisorFactory;
 import static com.losandes.utils.Constants.*;
+import java.io.FileInputStream;
 import virtualmachine.HypervisorOperationException;
 
 /**
@@ -196,4 +197,6 @@ public class VirtualMachineConfigurator {
             return false;
         }
     }
+    
+    
 }

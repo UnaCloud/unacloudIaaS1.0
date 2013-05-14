@@ -94,20 +94,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getAvailableUnaCloudResources">
-<xs:sequence>
-<xs:element name="machineDisk" type="xs:int" />
-<xs:element name="machineCores" type="xs:int" />
-<xs:element name="machineRam" type="xs:int" />
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="getAvailableUnaCloudResourcesResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:int" minOccurs="0" />
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="writeFileOnVirtualMachine">
 <xs:sequence>
 <xs:element name="username" type="xs:string" minOccurs="0" />
@@ -121,6 +107,20 @@
 <xs:complexType name="writeFileOnVirtualMachineResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getAvailableUnaCloudResources">
+<xs:sequence>
+<xs:element name="machineDisk" type="xs:int" />
+<xs:element name="machineCores" type="xs:int" />
+<xs:element name="machineRam" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getAvailableUnaCloudResourcesResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int" minOccurs="0" />
 </xs:sequence>
 </xs:complexType>
 

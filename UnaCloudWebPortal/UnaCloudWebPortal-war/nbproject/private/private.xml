@@ -6,4 +6,19 @@
             <line>49</line>
         </file>
     </editor-bookmarks>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0">
+        <file>
+            <url>web/include/menu.xhtml</url>
+            <bookmark id="0">
+                <name/>
+                <line>49</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
+        <file>file:/C:/UnaCloud/unacloudIaaS1.0/UnaCloudWebPortal/UnaCloudWebPortal-war/web/Pages/main-template.xhtml</file>
+        <file>file:/C:/UnaCloud/unacloudIaaS1.0/UnaCloudWebPortal/UnaCloudWebPortal-war/web/include/menu.xhtml</file>
+        <file>file:/C:/UnaCloud/unacloudIaaS1.0/UnaCloudWebPortal/UnaCloudWebPortal-war/web/Pages/MainMenu.xhtml</file>
+    </open-files>
 </project-private>

@@ -66,8 +66,6 @@ public class MonitorAgent extends SigarCommandBase {
 
     public void IniciarMonitoreo(int frecuency, int registerFrecuency,boolean continuarMon) throws IOException, InterruptedException, SQLException, ParseException, SigarException, NSClient4JException, InstantiationException, IllegalAccessException
     {
-        System.out.println("frecuency "+frecuency);
-        System.out.println("registerFrecuency "+registerFrecuency);
         if(frecuency<10)frecuency=10;
         if(registerFrecuency<10)registerFrecuency=10;
         continuarMonitoreo=continuarMon;
@@ -77,7 +75,6 @@ public class MonitorAgent extends SigarCommandBase {
         for (int i=0; i<frecuency; i+=registerFrecuency) {
             Registrar();
             MachineMonitor.monitorVirtualMachines();
-            System.out.println("dormir:"+registerFrecuency);
             Thread.sleep(registerFrecuency);
             contador=contador+1;
         }

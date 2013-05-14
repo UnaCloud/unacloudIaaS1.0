@@ -41,7 +41,7 @@ public class TreeDistributionChannelManager {
                         DataInputStream dis = new DataInputStream(new BufferedInputStream(s.getInputStream(),1024*100));
                         long id = dis.readLong();
                         TransferenciaArchivo T = transfers.get(id);
-                        Log.print(""+id+" "+T);
+                        System.out.println("Tranfer "+id+" "+T);
                         T.connect(s, dis);
                     }
                 } catch (IOException ex) {

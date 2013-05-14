@@ -275,7 +275,7 @@ public class Queries {
                 "pm.physicalMachineCores >= " + virtualMachineCores + " AND " +
                 "pm.physicalMachineRAMMemory > " + virtualMachineRAM + " AND " +
                 "pm.PHYSICALMACHINEVIRTUALMACHINESON < pm.maxvirtualmachineson AND " +
-                "pm.physicalMachineState = " + ON_STATE + " ;";
+                "pm.physicalMachineState = " + ON_STATE + " order by vm.TURNONCOUNT desc;";
         return query;
     }
 
@@ -294,7 +294,7 @@ public class Queries {
                 "pm.physicalMachineCores >= 1 AND " +
                 "pm.physicalMachineRAMMemory > 256 AND " +
                 "pm.PHYSICALMACHINEVIRTUALMACHINESON < pm.maxvirtualmachineson AND " +
-                "pm.physicalMachineState = " + ON_STATE + " ;";
+                "pm.physicalMachineState = " + ON_STATE + " order by vm.TURNONCOUNT desc;";
         return query;
     }
 

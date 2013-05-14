@@ -5,7 +5,8 @@
 
 package unacloudws;
 
-import development.*;
+import com.losandes.unacloudws.development.*;
+
 
 /**
  *
@@ -13,38 +14,41 @@ import development.*;
  */
 public class UnaCloudOperationsTest {
 
-    public static java.util.List<VirtualMachineExecutionWS> getVirtualMachineExecutions(java.lang.String username, java.lang.String pass, int templateID) {
+    String username;
+    String password;
+    public UnaCloudOperationsTest(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+    
+    
+    public java.util.List<VirtualMachineExecutionWS> getVirtualMachineExecutions(int templateID) {
         UnaCloudWSService service = new UnaCloudWSService();
         UnaCloudWS port = service.getUnaCloudWSPort();
-        return port.getVirtualMachineExecutions(username, pass, templateID);
+        return port.getVirtualMachineExecutions(username, password, templateID);
     }
 
-    public static Integer getAvailableVirtualMachines(int templateSelected, int virtualMachineDisk, int virtualMachineCores, int virtualMachineRAM, java.lang.String user, java.lang.String password) {
+    public Integer getAvailableVirtualMachines(int templateSelected, int virtualMachineDisk, int virtualMachineCores, int virtualMachineRAM) {
         UnaCloudWSService service = new UnaCloudWSService();
         UnaCloudWS port = service.getUnaCloudWSPort();
-        return port.getAvailableVirtualMachines(templateSelected, virtualMachineDisk, virtualMachineCores, virtualMachineRAM, user, password);
+        return port.getAvailableVirtualMachines(templateSelected, virtualMachineDisk, virtualMachineCores, virtualMachineRAM, username, password);
     }
 
-    public static java.util.List<VirtualMachineExecutionWS> turnOnVirtualCluster(java.lang.String username, java.lang.String pass, int templateID, int size, int ram, int cores, int hdSize, int time) {
+    public java.util.List<VirtualMachineExecutionWS> turnOnVirtualCluster(int templateID, int size, int ram, int cores, int hdSize, int time) {
         UnaCloudWSService service = new UnaCloudWSService();
         UnaCloudWS port = service.getUnaCloudWSPort();
-        return port.turnOnVirtualCluster(username, pass, templateID, size, ram, cores, hdSize, time);
+        return port.turnOnVirtualCluster(username, password, templateID, size, ram, cores, hdSize, time);
     }
 
-    public static String turnOffVirtualMachine(java.lang.String username, java.lang.String pass, java.lang.String virtualMachineExID) {
+    public String turnOffVirtualMachine(java.lang.String virtualMachineExID) {
         UnaCloudWSService service = new UnaCloudWSService();
         UnaCloudWS port = service.getUnaCloudWSPort();
-        return port.turnOffVirtualMachine(username, pass, virtualMachineExID);
+        return port.turnOffVirtualMachine(username, password, virtualMachineExID);
     }
-    public static String writeFileOnVirtualMachine(java.lang.String username, java.lang.String pass,java.lang.String virtualMachineExID,String path,String content) {
+    public  java.util.List<TemplateWS> getTemplateLists() {
         UnaCloudWSService service = new UnaCloudWSService();
         UnaCloudWS port = service.getUnaCloudWSPort();
-        return port.writeFileOnVirtualMachine(username, pass, virtualMachineExID, path, content);
-    }
-    public static java.util.List<TemplateWS> getTemplateLists(java.lang.String username, java.lang.String pass) {
-        UnaCloudWSService service = new UnaCloudWSService();
-        UnaCloudWS port = service.getUnaCloudWSPort();
-        return port.getTemplateLists(username, pass);
+        return port.getTemplateLists(username, password);
     }
 
     public static Integer getTotalUnaCloudResources(int machineDisk, int machineCores, int machineRam) {
@@ -59,10 +63,10 @@ public class UnaCloudOperationsTest {
         return port.getAvailableUnaCloudResources(machineDisk, machineCores, machineRam);
     }
 
-    public static Integer getTotalVirtualMachines(int machineDisk, int machineCores, int machineRam, int templateCode, java.lang.String username, java.lang.String pass) {
+    public Integer getTotalVirtualMachines(int machineDisk, int machineCores, int machineRam, int templateCode) {
         UnaCloudWSService service = new UnaCloudWSService();
         UnaCloudWS port = service.getUnaCloudWSPort();
-        return port.getTotalVirtualMachines(machineDisk, machineCores, machineRam, templateCode, username, pass);
+        return port.getTotalVirtualMachines(machineDisk, machineCores, machineRam, templateCode, username, password);
     }
 
     public static Integer getBusyUnaCloudResources(int machineDisk, int machineCores, int machineRam) {

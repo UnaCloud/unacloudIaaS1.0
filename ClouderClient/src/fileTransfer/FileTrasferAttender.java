@@ -34,7 +34,7 @@ public class FileTrasferAttender {
         //message[4] = RUTA
         //message[5] = TAMAÑO
         //message[6] = NUMERO PARTICIONES
-        //message[7] = NUMERO IPs DESTINOS
+        //message[7] = limpiar directorio
         //message[8...] = IP Destinos
         int tipoTransferencia = Integer.parseInt(message[2]);
         if(tipoTransferencia==PM_WRITE_FILE_TREE_DISB){
@@ -42,9 +42,21 @@ public class FileTrasferAttender {
             String ruta = message[4];
             int nParticiones = Integer.parseInt(message[6]);
             long tamaño = Long.parseLong(message[5]);
+            
+            try{
+                boolean limpiarDirectorio=Boolean.parseBoolean(message[7]);
+                if(limpiarDirectorio){
+                    for(File f:new File(ruta).getParentFile().listFiles()){
+                        if(f.getName().endsWith(".vmx")||f.getName().endsWith(".vmdk")||f.getName().endsWith(".vmxf")||f.getName().endsWith(".vmsn")||f.getName().endsWith(".vmsd")||f.getName().endsWith(".nvram"))f.delete();
+                    }
+                }
+            }catch(Exception ex){
+            }
+
             String[] destinos = Arrays.copyOfRange(message,8,message.length);
             try {
                 TransferenciaArchivo ta = new TransferenciaArchivo(destinos, idTransferencia, nParticiones, new File(ruta),tamaño);
+                System.out.println("Put transfer "+idTransferencia+" "+ta);
                 TreeDistributionChannelManager.transfers.put(idTransferencia, ta);
                 abc.writeUTF(OK_MESSAGE);
             } catch (IOException ex) {

@@ -15,6 +15,7 @@ import physicalmachine.PhysicalMachineState;
 import com.losandes.utils.Log;
 import com.losandes.utils.VariableManager;
 import static com.losandes.utils.Constants.*;
+import virtualmachine.VMwareWorkstation;
 
 /**
  * @author Eduardo Rosales
@@ -27,7 +28,8 @@ public class Main {
      * Responsible for sorting and starting the Clouder Client
      * @param args[0] = {0 = TURN_OFF_DB, 1 = TURN_ON_DB , 2 = LOGIN_DB, 3 = LOGOUT_DB}
      */
-    public static void main(String[] args) {
+    public static void main(String[] args){
+        
         VariableManager.init("./vars");
         Log.print("Inicio "+Arrays.toString(args));
         int mainCase = 1;
@@ -47,6 +49,7 @@ public class Main {
                 state.reportPhysicalMachine(turnOffMessage,false);
                 break;
             case TURN_ON_DB:
+                VMwareWorkstation.startUpServices();
                 System.out.println("Clouder Client Started at2: " + new Date());
                 String turnOnMessage = DATABASE_OPERATION + MESSAGE_SEPARATOR_TOKEN + TURN_ON + MESSAGE_SEPARATOR_TOKEN + Network.getHostname();
                 System.out.println("Clouder Client Started at3: " + new Date());

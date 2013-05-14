@@ -5,6 +5,7 @@
 
 package com.losandes.communication.security;
 import com.losandes.communication.security.utils.*;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 
 /**
@@ -46,9 +47,9 @@ public class SecureSocket {
      * @throws ConnectionException
      */
     public AbstractCommunicator connect() throws ConnectionException{
-        Socket s;
+        Socket s=new Socket();
         try {
-            s = new Socket(host, port);
+            s.connect(new InetSocketAddress(host, port),10000);
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new ConnectionException("Can't connect to "+host+" in port "+port);

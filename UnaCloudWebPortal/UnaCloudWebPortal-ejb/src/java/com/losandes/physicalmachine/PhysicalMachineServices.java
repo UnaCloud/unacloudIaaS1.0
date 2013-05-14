@@ -249,22 +249,15 @@ public class PhysicalMachineServices implements IPhysicalMachineServices {
 
     @Override
     public java.lang.String updatePhysicalMachineAgent(java.util.ArrayList<com.losandes.persistence.entity.PhysicalMachine> physicalMachines) {
-        String result = "";
+        System.out.println("updatePhysicalMachineAgent "+physicalMachines.size());
+        String result = null;
         for (PhysicalMachine phyMac : physicalMachines) {
-            if (!phyMac.getLaboratory().getLaboratoryType().getLaboratoryTypeName().toLowerCase().equals("default")) {
-                if (!sendMessageToPhysicalMachine(phyMac.getPhysicalMachineIP(), UPDATE_OPERATION + MESSAGE_SEPARATOR_TOKEN)) {
-                    result = ERROR_MESSAGE;
-                }
-            } else {
-                System.err.println(ERROR_MESSAGE + phyMac.getPhysicalMachineName() + " is a default laboratory physical machine");
-                result = ERROR_MESSAGE;
+            if (!sendMessageToPhysicalMachine(phyMac.getPhysicalMachineIP(), ""+UPDATE_OPERATION)) {
+                if(result==null)result = UNSUCCESSFUL_OPERATION+" on";
+                result+= " "+phyMac.getPhysicalMachineName();
             }
         }
-        if (!result.contains(ERROR_MESSAGE)) {
-            result = SUCCESSFUL_OPERATION;
-        } else {
-            result = UNSUCCESSFUL_OPERATION;
-        }
+        if (result==null)result = SUCCESSFUL_OPERATION;
         return result;
     }
 
@@ -311,9 +304,9 @@ public class PhysicalMachineServices implements IPhysicalMachineServices {
     }
 
     private boolean sendMessageToPhysicalMachine(String ip, String msg) {
+        System.out.println(ip +" "+msg);
         try {
-            //SecureSocket ss = new SecureSocket(ip, persistenceServices.getIntValue("CLOUDER_CLIENT_PORT"));
-            SecureSocket ss = new SecureSocket(ip, 25);
+            SecureSocket ss = new SecureSocket(ip,persistenceServices.getIntValue("CLOUDER_CLIENT_PORT"));
             AbstractCommunicator communication = ss.connect();
             communication.writeUTF(msg);
             communication.close();
