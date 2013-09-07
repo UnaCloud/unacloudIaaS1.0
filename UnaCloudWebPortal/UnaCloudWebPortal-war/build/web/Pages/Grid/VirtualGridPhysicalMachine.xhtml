@@ -1,0 +1,81 @@
+<ui:composition template="/Pages/main-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <ui:define name="body">
+        <style>
+            .rf-dg, .rf-dg-c{
+            border:none;
+            }
+        </style>
+        <rich:popupPanel id="panelBloquear" width="350" height="150" >
+            <f:facet name="header">
+                <h:panelGroup>
+                    <h:outputText value="Operation in process"></h:outputText>
+                </h:panelGroup>
+            </f:facet>
+            <h:panelGrid columns="2">
+                <h:graphicImage title="Processing..." value="/img/loading.gif" />
+                <h:panelGrid columns="1">
+                    <h:outputText value="Your request is in progress..."></h:outputText>
+                    <h:outputText value="Please wait."></h:outputText>
+                </h:panelGrid>
+            </h:panelGrid>
+        </rich:popupPanel>
+        <h:form>
+            <ui:insert name="templatemenubar" />
+            <rich:panel id="selOptions" >
+                <rich:messages ajaxRendered="true" />
+                <rich:panel header="Virtual Laboratory Selection" rendered="#{gridDeploymentBean.laboratorySelection}" id="panelLabSel">
+                    <rich:dataGrid value="#{gridDeploymentBean.allLaboratories}" var="car" columns="4" style="border: 0px;border-color:#000000">
+                        <rich:panel >
+                            <f:facet name="header">
+                                <h:outputText value="#{car.laboratoryName}" ></h:outputText>
+                            </f:facet>
+                            <h:panelGrid >
+                                <h:graphicImage style="border:0px;cursor: pointer" url="/img/Laboratory/configureLaboratory.jpg" onclick="findLab(#{car.laboratoryCode})" />
+                            </h:panelGrid>
+                            <h:panelGrid >
+                                <center>
+                                    <p:selectBooleanCheckbox value="#{car.selected}" >
+                                        <a4j:ajax event="valueChange" render="selectNumber" execute="@this" />
+                                    </p:selectBooleanCheckbox>
+                                </center>
+                            </h:panelGrid>
+                        </rich:panel>
+                    </rich:dataGrid>
+                </rich:panel>
+                <rich:panel id="panelLab" rendered="#{gridDeploymentBean.laboratorySelected}" style="border: 0">
+                    <rich:dataGrid id="grid" value="#{gridDeploymentBean.selectedLaboratory.physicalMachine}" var="car" columns="#{gridDeploymentBean.selectedLaboratory.laboratoryColumns}" >
+                        <rich:panel >
+                            <f:facet name="header">
+                                <h:outputText value="#{car.physicalMachineName}"></h:outputText>
+                            </f:facet>
+                            <h:panelGrid columns="1" style="">
+                                <h:graphicImage title="Edit" value="/img/Computer/pc#{car.physicalMachineState}.jpg" onclick="srcById(#{car.physicalMachineName})" styleClass="icon" />
+                                <rich:panel style="border: 0">
+                                    <center>
+                                        <p:selectBooleanCheckbox  disabled="#{car.unaviable}" value="#{car.physicalMachineEnable}" >
+                                            <a4j:ajax event="valueChange" render="selectNumber" execute="@this" />
+                                        </p:selectBooleanCheckbox>
+                                    </center>
+                                </rich:panel>
+                            </h:panelGrid>
+                        </rich:panel>
+                    </rich:dataGrid>
+                </rich:panel>
+            </rich:panel>
+            <a4j:jsFunction name="srcById" action="#{VirtualMachineBean.findByIDVirtualMachine}" oncomplete="" >
+                <a4j:param name="p1" assignTo="#{VirtualMachineBean.idPhysicalMachine}" />
+            </a4j:jsFunction>
+            <a4j:jsFunction action="#{gridDeploymentBean.findLaboratory}" name="findLab" render="selOptions,menuBar"  >
+                <a4j:param name="p1" assignTo="#{gridDeploymentBean.selectedLaboratoryId}" />
+            </a4j:jsFunction>
+            <a4j:jsFunction action="#{gridDeploymentBean.backFromLaboratory}" name="back" render="selOptions,menuBar"  />
+        </h:form>
+    </ui:define>
+</ui:composition>

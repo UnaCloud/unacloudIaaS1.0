@@ -1,0 +1,81 @@
+<ui:composition template="/Pages/main-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <ui:define name="body">
+        <rich:panel header="IaaS Traceability" id="stpEdit">
+            <h:form>
+                <h:graphicImage url="/img/Traceability.png" />
+                <h:inputHidden value="#{VirtualMachineExecutionBean.virtualMachineExecution.virtualMachineExecutionCode}" />
+                <h:panelGrid columns="4" >
+                    <h:outputLabel  styleClass="textospeq5" value="User Name:" />
+                    <h:outputText styleClass="textospeq" value="#{VirtualMachineExecutionBean.systemUser.systemUserName}"/>
+                    <h:outputLabel  styleClass="textospeq5" value="Virtual Machine Name:" />
+                    <h:outputText styleClass="textospeq" value="#{VirtualMachineExecutionBean.virtualMachine.virtualMachineName}"/>
+                    <h:outputLabel  styleClass="textospeq5" value="Physical Machine Name:" />
+                    <h:outputText styleClass="textospeq" value="#{VirtualMachineExecutionBean.physicalMachine.physicalMachineName}"/>
+                    <h:outputLabel  styleClass="textospeq5" value="Laboratory Name:" />
+                    <h:outputText styleClass="textospeq" value="#{VirtualMachineExecutionBean.laboratory.laboratoryName}"/>
+                    <h:outputLabel  styleClass="textospeq5" value="Template Name:" />
+                    <h:outputText styleClass="textospeq" value="#{VirtualMachineExecutionBean.template.templateName}"/>
+                    <h:outputLabel  styleClass="textospeq5" value="Template Type:" />
+                    <h:outputText styleClass="textospeq" value="#{VirtualMachineExecutionBean.templateType.templateTypeName}"/>
+                    <h:outputLabel  styleClass="textospeq5" value="Operating System Version:" />
+                    <h:outputText styleClass="textospeq" value="#{VirtualMachineExecutionBean.operatingSystem.operatingSystemName}"/>
+                    <h:outputLabel  styleClass="textospeq5" value="Operating System:" />
+                    <h:outputText styleClass="textospeq" value="#{VirtualMachineExecutionBean.operatingSystemType.operatingSystemTypeName}"/>
+                    <h:outputLabel  styleClass="textospeq5" value="Start Time:" />
+                    <h:outputText styleClass="textospeq" value="#{VirtualMachineExecutionBean.virtualMachineExecution.virtualMachineExecutionStart}"/>
+                    <h:outputLabel  styleClass="textospeq5" value="Stop Time:" />
+                    <h:outputText styleClass="textospeq" value="#{VirtualMachineExecutionBean.virtualMachineExecution.virtualMachineExecutionStop}"/>
+                    <h:outputLabel  styleClass="textospeq5" value="Status:" />
+                    <h:outputText styleClass="textospeq" value="#{VirtualMachineExecutionBean.virtualMachine.vmState}"/>
+                    <h:outputLabel  styleClass="textospeq5" value="Hard Disk:" />
+                    <h:outputText styleClass="textospeq" value="#{VirtualMachineExecutionBean.virtualMachineExecution.virtualMachineExecutionHardDisk}"/>
+                    <h:outputLabel  styleClass="textospeq5" value="CPU Cores:" />
+                    <h:outputText styleClass="textospeq" value="#{VirtualMachineExecutionBean.virtualMachineExecution.virtualMachineExecutionCores}"/>
+                    <h:outputLabel  styleClass="textospeq5" value="RAM Memory:" />
+                    <h:outputText styleClass="textospeq" value="#{VirtualMachineExecutionBean.virtualMachineExecution.virtualMachineExecutionRAMMemory}"/>
+                    <h:outputLabel  styleClass="textospeq5" value="IP Address:" />
+                    <h:outputText styleClass="textospeq" value="#{VirtualMachineExecutionBean.virtualMachineExecution.virtualMachineExecutionIP}"/>
+                    <h:outputLabel  styleClass="textospeq5" value="MAC Address:" />
+                    <h:outputText styleClass="textospeq" value="#{VirtualMachineExecutionBean.virtualMachine.virtualMachineMAC}"/>
+                    <h:outputLabel  styleClass="textospeq5" value="Hypervisor:" />
+                    <h:outputText styleClass="textospeq" value="#{VirtualMachineExecutionBean.hypervisor.hypervisorName}"/>
+                    <h:outputLabel  styleClass="textospeq5" value="Security Schema:" />
+                    <h:outputText styleClass="textospeq" value="#{VirtualMachineExecutionBean.virtualMachineSecurity.virtualMachineSecurityName}"/>
+                </h:panelGrid>
+            </h:form>
+        </rich:panel>
+        <h:form>
+            <rich:dataTable id="tblObject" value="#{VirtualMachineExecutionBean.allVirtualMachineExecutions}" var="cr">
+                <rich:column style="text-align:center" width="300" sortBy="#{cr.virtualMachine.virtualMachineName}">
+                    <f:facet name="header">
+                        Virtual Machine Name
+                    </f:facet>
+                    #{cr.virtualMachine.virtualMachineName}
+                </rich:column>
+                <rich:column style="text-align:center" width="300" sortBy="#{cr.systemUser.systemUserName}">
+                    <f:facet name="header">
+                        System User Name
+                    </f:facet>
+                    #{cr.systemUser_systemUserName}
+                </rich:column>
+                <rich:column style="text-align:center" width="200" >
+                    <f:facet name="header" >
+                        Options
+                    </f:facet>
+                    <h:graphicImage title="Find" value="/img/findVM.png" onclick="srcById('#{cr.virtualMachineExecutionCode}')" styleClass="icon" style="cursor: pointer" />
+                </rich:column>
+            </rich:dataTable>
+        </h:form>
+        <h:form>
+            <a4j:jsFunction name="srcById" action="#{VirtualMachineExecutionBean.findByID}" render="stpEdit" >
+                <a4j:param name="p1" assignTo="#{VirtualMachineExecutionBean.id}" />
+            </a4j:jsFunction>
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,54 @@
+<ui:composition template="/Pages/main-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <ui:define name="body">
+        <h:form >
+            <rich:toolbar height="26" itemSeparator="disc">
+                <rich:toolbarGroup>
+                    <h:graphicImage title="New" value="/img/new.gif" onclick="newObj();" style="cursor: pointer" />
+                </rich:toolbarGroup>
+            </rich:toolbar>
+            <a4j:jsFunction name="newObj" action="#{clase.clearComponents}" oncomplete="stpEdit.show();" render="infoGrid" />
+        </h:form>
+        <h:form id="#{formId}">
+            <p:growl id="growl" sticky="false" life="2500" />
+            <p:dialog id="stpEdit" resizable="false" draggable="false" widgetVar="stpEdit" modal="true" style="max-height: 100%;overflow: auto;" header="#{editTitle}" width="#{dialogSize}" >
+                <center>
+                    <ui:insert name="editionPane" />
+                </center>
+                <br/>
+                <h:panelGrid columns="2" border="0" style="float: right">
+                    <h:form>
+                        <p:commandButton value="Cancel" title="Cancel" onclick="stpEdit.hide();" update="#{formId}:growl"/>
+                    </h:form>
+                    <p:commandButton value="Save" title="Save" action="#{clase.createOrUpdate}" oncomplete="handleLoginRequest(xhr, status, args, stpEdit);updateTable();" update="growl" />
+                </h:panelGrid>
+            </p:dialog>
+            <a4j:jsFunction name="updateTable" render="tblObject" />
+        </h:form>
+        <h:form>
+            <p:growl id="growl2" sticky="false" life="2500" />
+            <ui:insert name="dataView" />
+            <a4j:jsFunction name="srcById" action="#{clase.findByID}" oncomplete="stpEdit.show();" render="infoGrid" >
+                <a4j:param name="p1" assignTo="#{clase.id}" />
+            </a4j:jsFunction>
+            <a4j:jsFunction name="deleteObject" action="#{clase.delete}" render="tblObject,growl2">
+                <a4j:param name="p2" assignTo="#{clase.id}" />
+            </a4j:jsFunction>
+        </h:form>
+        <ui:insert name="otherItems" />
+        <ui:include src="/include/down.xhtml"/>
+        <script type="text/javascript">
+        function handleLoginRequest(xhr, status, args, dialog) {
+            if(!args.validationFailed) {
+                dialog.hide();
+            }
+        }
+        </script>
+    </ui:define>
+</ui:composition>

@@ -56,7 +56,7 @@ public class VirtualMachineStateViewer {
         boolean ret = false;
         if(!hypervisorPath.endsWith("/")&&!hypervisorPath.endsWith("\\"))hypervisorPath=hypervisorPath+"/";
         try {
-            Process p = Runtime.getRuntime().exec("\""+hypervisorPath+"vmrun.exe\" list");
+            Process p = new ProcessBuilder(hypervisorPath+"vmrun.exe","list").start();
             BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
             int e = Integer.parseInt(br.readLine().split(":")[1].trim()),i=0;
             File vmx = new File(vmPath);

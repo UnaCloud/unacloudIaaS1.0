@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition
+    template="/Pages/main-template.xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:a4j="http://richfaces.org/a4j">
+    <ui:define name="body">
+        <h:form>
+            <h:panelGrid columns="1">
+                <h:outputLabel value="Instalation Guide" styleClass="titulos2" style="float: left" />
+                <rich:panel id="securityPanel" style="border: 0;float: left">
+                    <h2>
+                        Windows instructions:
+                    </h2>
+                    <p>
+                        Download the <h:commandLink value="UnaCloud Agent Binaries for Windows" title="Download" >
+                            <p:fileDownload value="#{ClientInstallationBean.file}" />
+                        </h:commandLink> and copy them on <b>UnaCloud_Home</b> directory on all the machines that are going to partipate on UnaCloud deployments. <br/>
+                        After copy is done, edit each one of the scripts on <b>UnaCloud_Home</b> and replace the first line <i>cd C:\agente\unacloud\</i> for <i>cd <b>UnaCloud_Home</b></i> using your UnaCloud directory path.<br/>
+                        Now choose one of the next steps according to your infrastructure configuration:
+                    </p>
+                    <h3>
+                        Option 1: Local Group Policies
+                    </h3>
+                    <p>
+                        1. Run gpedit.msc on command line or the <i>Run...</i> window (Windows Home + R or Start Menu -> Run...).<br/>
+                        2. Open Machine Configuration/Windows configuration/Scripts.<br/>
+                        3. Double click on start and add a new script that points to <b>UnaCloud_Home/start.bat</b> with no parameters.<br/>
+                        4. Return to Machine Configuration/Windows configuration/Scripts.<br/>
+                        5. Double click on Shutdown and add a new script that points to <b>UnaCloud_Home/stop.bat</b> with no parameters.<br/>
+                        6. Open User Configuration/Windows configuration/Scripts.<br/>
+                        7. Double click on login and add a new script that points to <b>UnaCloud_Home/logon.bat</b> with no parameters.<br/>
+                        6. Return to User Configuration/Windows configuration/Scripts.<br/>
+                        9. Double click on logoff and add a new script that points to <b>UnaCloud_Home/logoff.bat</b> with no parameters.<br/>
+                    </p>
+                    <h3>
+                        Option 2: Domain Group Policies
+                    </h3>
+                    <p>
+                        Do Option 1 but using the Domain Group Policy Manager instead.
+                    </p>
+                </rich:panel>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

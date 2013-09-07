@@ -4,6 +4,7 @@
  */
 package com.losandes.transfer;
 
+import com.losandes.communication.messages.UnaCloudAbstractMessage;
 import com.losandes.communication.security.utils.*;
 import com.losandes.communication.security.*;
 import java.io.*;
@@ -115,7 +116,7 @@ public class FileSender implements FileSenderLocal {
         for (int i = 0; i < destinos.length; i++) {
             AbstractCommunicator c = cons.get(destinos[i].getIpDestino());
             String[] msg = new String[8 + destinos[i].getHijos().length];
-            msg[0] = "" + PHYSICAL_MACHINE_OPERATION;
+            msg[0] = "" + UnaCloudAbstractMessage.PHYSICAL_MACHINE_OPERATION;
             msg[1] = "" + PM_WRITE_FILE;
             msg[2] = "" + PM_WRITE_FILE_TREE_DISB;
             msg[3] = "" + id;

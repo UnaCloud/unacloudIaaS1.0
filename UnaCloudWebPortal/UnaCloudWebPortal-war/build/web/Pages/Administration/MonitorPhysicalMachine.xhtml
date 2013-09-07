@@ -1,0 +1,370 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <body>
+        <ui:composition template="/Pages/main-template.xhtml">
+            <ui:define name="body">
+                <ui:include src="/include/menu.xhtml"/>
+                <table width="800" border="0" align="center" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td width="800" height="19" valign="middle"><div align="center">
+                                <a4j:form>
+                                    <rich:toolBar height="26" itemSeparator="disc">
+                                        <rich:toolBarGroup>
+                                            <h:commandLink  action="#{LaboratoryBean.returnMonitorPhysicalLaboratory}">
+                                                <h:graphicImage style="border:0px" title="Back" value="/img/back.png"/>
+                                            </h:commandLink>
+                                        </rich:toolBarGroup>
+                                    </rich:toolBar>
+                                </a4j:form>
+                            </div></td>
+                    </tr>
+                    <tr>
+                        <td height="119" valign="middle"><div align="center">
+                                <rich:simpleTogglePanel id="stpEdit" opened="true">
+                                    <f:facet name="header">
+                                        Monitor Physical Machine
+                                    </f:facet>
+                                    <a4j:form>
+                                        <rich:tabPanel switchType="client">
+                                            <rich:tab styleClass="tigoAzul" label="Monitor Physical Machine">
+                                             <table width="646" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <!--DWLayoutTable-->
+                                                    <tr>
+                                                        <td width="42" height="66"></td>
+                                                      <td width="555" valign="middle"><table width="100%" border="0" cellpadding="0" cellspacing="0" class="borde_tabla">
+                                                        <!--DWLayoutTable-->
+                                                        <tr>
+                                                          <td width="63" rowspan="3" valign="middle" class="textospeq6">
+                                                      <h:inputHidden value="#{LaboratoryBean.physicalMachine.physicalMachineName}" />
+                                                      <div align="center">
+                                                          <h:graphicImage style="border:0px" url="/img/PhyMac.png" />
+                                                        <p></p>
+                                                        <p></p>
+                                                      </div></td>
+                                                        <td width="8" height="26"></td>
+                                                        <td colspan="2" valign="middle" class="textospeq6">Physical Machine Information</td>
+                                                        <td width="256"></td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td height="19"></td>
+                                                          <td width="99" valign="middle" class="textospeq"> Name :                                                          </td>
+                                                        <td width="129" valign="middle" class="textospeq5">
+                                                          <h:outputText value="#{LaboratoryBean.physicalMachine.physicalMachineName}"/></td>
+                                                        <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td height="19"></td>
+                                                          <td valign="middle" class="textospeq">Laboratory:                                                         </td>
+                                                        <td valign="middle" class="textospeq5">
+                                                          <h:outputText value="#{LaboratoryBean.physicalMachine.laboratory.laboratoryName}"/>    </td>
+                                                    <td></td>
+                                                        </tr>
+                                                        </table></td>
+                                                        <td width="49"></td>
+                                                    </tr>
+                                                    <tr>
+                                                      <td height="19"></td>
+                                                      <td></td>
+                                                      <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                      <td height="90"></td>
+                                                      <td valign="middle"><table width="100%" border="0" cellpadding="0" cellspacing="0" class="borde_tabla">
+                                                        <!--DWLayoutTable-->
+                                                        <tr>
+                                                          <td width="63" rowspan="5" valign="middle" class="textospeq6"><div align="center">
+                                                            <br></br>
+                                                            <h:graphicImage style="border:0px" url="/img/PhyMacPro.png" />
+                                                        <p></p>
+                                                        <p></p>
+                                                          </div></td>
+                                                    <td width="8" height="26"></td>
+                                                        <td colspan="2" valign="middle" class="textospeq6">Processor Information</td>
+                                                      <td width="122"></td>
+                                                        <td width="134"></td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td height="19"></td>
+                                                          <td width="99" valign="middle" class="textospeq">Model:                                                      </td>
+                                                      <td width="129" valign="middle" class="textospeq5">
+                                                        <h:outputText value="#{LaboratoryBean.physicalMachineMonitor.cPUModel}"/>                                                      </td>
+                                                      <td valign="middle" class="textospeq">Vendor:                                                     </td>
+                                                      <td valign="middle" class="textospeq5">
+                                                        <h:outputText value="#{LaboratoryBean.physicalMachineMonitor.cPUVendor}"/></td>
+                                                    </tr>
+                                                        <tr>
+                                                          <td height="19"></td>
+                                                          <td valign="middle" class="textospeq">Cores:                                                      </td>
+                                                      <td valign="middle" class="textospeq5">
+                                                        <h:outputText value="#{LaboratoryBean.physicalMachineMonitor.cPUCores}"/></td>
+                                                      <td valign="middle" class="textospeq">Mhz:                                                      </td>
+                                                      <td valign="middle" class="textospeq5">
+                                                        <h:outputText value="#{LaboratoryBean.physicalMachineMonitor.cPUMhz}"/></td>
+                                                    </tr>
+                                                        <tr>
+                                                          <td height="19"></td>
+                                                          <td valign="middle" class="textospeq">Idle percentage:                                                      </td>
+                                                      <td valign="middle" class="textospeq5">
+                                                      <h:outputText value="#{LaboratoryBean.physicalMachineMonitor.cPUidle}"/>
+                                                      %</td>
+                                                      <td valign="middle" class="textospeq">Used percentage:                                                      </td>
+                                                      <td valign="middle" class="textospeq5">
+                                                      <h:outputText value="#{LaboratoryBean.physicalMachineMonitor.cPuUsed}"/>
+                                                      %</td>
+                                                    </tr>
+                                                        <tr>
+                                                          <td height="5"></td>
+                                                          <td></td>
+                                                          <td></td>
+                                                          <td></td>
+                                                          <td></td>
+                                                        </tr>
+                                                      </table></td>
+                                                      <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                      <td height="19"></td>
+                                                      <td></td>
+                                                      <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                      <td height="85"></td>
+                                                      <td valign="middle"><table width="100%" border="0" cellpadding="0" cellspacing="0" class="borde_tabla">
+                                                        <!--DWLayoutTable-->
+                                                        <tr>
+                                                          <td width="63" rowspan="4" valign="middle" class="textospeq6"><div align="center">
+                                                          <br></br>
+                                                           <h:graphicImage style="border:0px" url="/img/PhyMacMem.png" />
+                                                        <p></p>
+                                                        <p></p>
+                                                          </div></td>
+                                                    <td width="8" height="23"></td>
+                                                        <td colspan="2" valign="middle" class="textospeq6">Memory Information</td>
+                                                      <td width="122"></td>
+                                                        <td width="134"></td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td height="19"></td>
+                                                          <td width="99" valign="middle" class="textospeq">RAM Size:                                                      </td>
+                                                      <td width="129" valign="middle" class="textospeq5">
+                                                      <h:outputText value="#{LaboratoryBean.physicalMachineMonitor.rAMMemorySize}"/>
+                                                      MB</td>
+                                                      <td valign="middle" class="textospeq"> SWAP Size:                                                      </td>
+                                                      <td valign="middle" class="textospeq5">
+                                                      <h:outputText value="#{LaboratoryBean.physicalMachineMonitor.swapMemorySize}"/>
+                                                      MB</td>
+                                                    </tr>
+                                                        <tr>
+                                                          <td height="19"></td>
+                                                          <td valign="middle" class="textospeq"> RAM Free:                                                      </td>
+                                                      <td valign="middle" class="textospeq5">
+                                                      <h:outputText value="#{LaboratoryBean.physicalMachineMonitor.rAMMemoryFree}"/>
+                                                      MB</td>
+                                                      <td valign="middle" class="textospeq">RAM Used:                                                      </td>
+                                                      <td valign="middle" class="textospeq5">
+                                                      <h:outputText value="#{LaboratoryBean.physicalMachineMonitor.rAMMemoryUsed}"/>
+                                                      MB</td>
+                                                    </tr>
+                                                        <tr>
+                                                          <td height="22"></td>
+                                                          <td></td>
+                                                          <td></td>
+                                                          <td></td>
+                                                          <td></td>
+                                                        </tr>
+                                                      </table></td>
+                                                      <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                      <td height="20"></td>
+                                                      <td></td>
+                                                      <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                      <td height="85"></td>
+                                                      <td valign="middle"><table width="100%" border="0" cellpadding="0" cellspacing="0" class="borde_tabla">
+                                                        <!--DWLayoutTable-->
+                                                        <tr>
+                                                          <td width="63" rowspan="4" valign="middle" class="textospeq6"><div align="center">
+                                                              <br></br>
+                                                          <h:graphicImage style="border:0px" url="/img/PhyMacHD.png" />
+                                                        <p></p>
+                                                        <p></p>
+                                                          </div></td>
+                                                    <td width="8" height="23"></td>
+                                                        <td colspan="3" valign="middle" class="textospeq6">Hard Disk Information</td>
+                                                      <td width="54"></td>
+                                                        <td width="134"></td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td height="19"></td>
+                                                          <td width="99" valign="middle" class="textospeq">Disk Size:                                                      </td>
+                                                      <td width="129" valign="middle" class="textospeq5">
+                                                      <h:outputText value="#{LaboratoryBean.physicalMachineMonitor.hardDiskSpace}"/>
+                                                      GB</td>
+                                                      <td colspan="2" valign="middle" class="textospeq">File System:                                                      </td>
+                                                      <td valign="middle" class="textospeq5">
+                                                        <h:outputText value="#{LaboratoryBean.physicalMachineMonitor.hardDiskFileSystem}"/></td>
+                                                    </tr>
+                                                        <tr>
+                                                          <td height="19"></td>
+                                                          <td valign="middle" class="textospeq">Free Size:                                                      </td>
+                                                      <td valign="middle" class="textospeq5">
+                                                      <h:outputText value="#{LaboratoryBean.physicalMachineMonitor.hardDiskFreeSpace}"/>
+                                                      GB</td>
+                                                      <td colspan="2" valign="middle" class="textospeq">Used Size:                                                      </td>
+                                                      <td valign="middle" class="textospeq5">
+                                                          <h:outputText value="#{LaboratoryBean.physicalMachineMonitor.hardDiskUsedSpace}"/>
+                                                      GB</td>
+                                                    </tr>
+                                                        <tr>
+                                                          <td height="22"></td>
+                                                          <td></td>
+                                                          <td></td>
+                                                          <td width="68"></td>
+                                                          <td></td>
+                                                          <td></td>
+                                                        </tr>
+                                                      </table></td>
+                                                      <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                      <td height="19"></td>
+                                                      <td></td>
+                                                      <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                      <td height="85"></td>
+                                                      <td valign="middle"><table width="100%" border="0" cellpadding="0" cellspacing="0" class="borde_tabla">
+                                                        <!--DWLayoutTable-->
+                                                        <tr>
+                                                          <td width="4" height="20"></td>
+                                                          <td width="59" rowspan="5" valign="middle" class="textospeq6"><div align="center">
+                                                              <br></br>
+                                                          <h:graphicImage style="border:0px" url="/img/PhyMacNet.png" />
+                                                        <p></p>
+                                                        <p></p>
+                                                          </div></td>
+                                                    <td width="8"></td>
+                                                        <td colspan="2" valign="middle" class="textospeq6">Network Information</td>
+                                                      <td width="122"></td>
+                                                        <td width="134"></td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td height="19"></td>
+                                                          <td></td>
+                                                          <td width="99" valign="middle" class="textospeq">Hostname:                                                      </td>
+                                                      <td width="129" valign="middle" class="textospeq5">
+                                                        <h:outputText value="#{LaboratoryBean.physicalMachineMonitor.networkHostname}"/></td>
+                                                      <td valign="middle" class="textospeq">IP Address:                                                      </td>
+                                                      <td valign="middle" class="textospeq5">
+                                                        <h:outputText value="#{LaboratoryBean.physicalMachineMonitor.networkIPAddress}"/></td>
+                                                    </tr>
+                                                        <tr>
+                                                          <td height="19"></td>
+                                                          <td></td>
+                                                          <td valign="middle" class="textospeq">MAC Address:                                                      </td>
+                                                      <td valign="middle" class="textospeq5">
+                                                        <h:outputText value="#{LaboratoryBean.physicalMachineMonitor.networkMACAddress}"/></td>
+                                                      <td valign="middle" class="textospeq">Main Interface:                                                      </td>
+                                                      <td valign="middle" class="textospeq5">
+                                                        <h:outputText value="#{LaboratoryBean.physicalMachineMonitor.networkInterface}"/></td>
+                                                    </tr>
+                                                        <tr>
+                                                          <td height="19"></td>
+                                                          <td></td>
+                                                          <td valign="middle" class="textospeq">Netmask:                                                      </td>
+                                                      <td valign="middle" class="textospeq5">
+                                                        <h:outputText value="#{LaboratoryBean.physicalMachineMonitor.networkNetmask}"/></td>
+                                                      <td valign="middle" class="textospeq">Gateway:                                                      </td>
+                                                      <td valign="middle" class="textospeq5">
+                                                        <h:outputText value="#{LaboratoryBean.physicalMachineMonitor.networkGateway}"/></td>
+                                                    </tr>
+                                                        <tr>
+                                                          <td height="6"></td>
+                                                          <td></td>
+                                                          <td></td>
+                                                          <td></td>
+                                                          <td></td>
+                                                          <td></td>
+                                                        </tr>
+                                                      </table></td>
+                                                      <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                      <td height="20"></td>
+                                                      <td></td>
+                                                      <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                      <td height="85"></td>
+                                                      <td valign="middle"><table width="100%" border="0" cellpadding="0" cellspacing="0" class="borde_tabla">
+                                                        <!--DWLayoutTable-->
+                                                        <tr>
+                                                          <td width="4"></td>
+                                                          <td width="59" rowspan="4" valign="middle" class="textospeq6"><div align="center">
+                                                              <br></br>
+                                                          <h:graphicImage style="border:0px" url="/img/PhyMacOS.png" />
+                                                        <p></p>
+                                                        <p></p>
+                                                          </div></td>
+                                                    <td width="8" height="23"></td>
+                                                        <td colspan="3" valign="middle" class="textospeq6">Operating System Information</td>
+                                                      <td width="50"></td>
+                                                        <td width="134"></td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td></td>
+                                                          <td height="19"></td>
+                                                          <td width="99" valign="middle" class="textospeq">Name:                                                      </td>
+                                                      <td width="129" valign="middle" class="textospeq5">
+                                                        <h:outputText value="#{LaboratoryBean.physicalMachineMonitor.operatingSystemName}"/></td>
+                                                      <td colspan="2" valign="middle" class="textospeq">Version:                                                      </td>
+                                                      <td valign="middle" class="textospeq5">
+                                                        <h:outputText value="#{LaboratoryBean.physicalMachineMonitor.operatingSystemVersion}"/></td>
+                                                    </tr>
+                                                        <tr>
+                                                          <td></td>
+                                                          <td height="19"></td>
+                                                          <td valign="middle" class="textospeq">Architecture:</td>
+                                                      <td valign="middle" class="textospeq5"><h:outputText value="#{LaboratoryBean.physicalMachineMonitor.operatingSystemArchitecture}"/></td>
+                                                      <td colspan="2" valign="middle" class="textospeq">Current User:</td>
+                                                      <td valign="middle" class="textospeq5"><h:outputText value="#{LaboratoryBean.physicalMachineMonitor.operatingSystemCurrentUser}"/></td>
+                                                    </tr>
+                                                        <tr>
+                                                          <td></td>
+                                                          <td height="22"></td>
+                                                          <td></td>
+                                                          <td></td>
+                                                          <td width="72"></td>
+                                                          <td></td>
+                                                          <td></td>
+                                                        </tr>
+                                                      </table></td>
+                                                      <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                      <td height="17"></td>
+                                                      <td></td>
+                                                      <td></td>
+                                                    </tr>
+                                                </table>
+                                            </rich:tab>
+                                        </rich:tabPanel>
+                                    </a4j:form>
+                                </rich:simpleTogglePanel>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <ui:include src="/include/down.xhtml"/>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

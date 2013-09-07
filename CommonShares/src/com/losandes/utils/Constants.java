@@ -43,16 +43,6 @@ public class Constants {
     public static final int COPYING_STATE= 5;
     public static final int ERROR_STATE= 6;
 
-    //UnaCloud Server operation request constants
-    public static final int VIRTUAL_MACHINE_OPERATION = 1;
-    public static final int PHYSICAL_MACHINE_OPERATION = 2;
-    //UnaCloud Client operation request constants
-    public static final int DATABASE_OPERATION = 1;
-    public static final int REGISTRATION_OPERATION = 2;
-    public static final int ARTHUR_OPERATION = 3;
-    public static final int UPDATE_OPERATION = 4;
-    public static final int VIRTUAL_MACHINE_CONFIGURATION=5;
-
     public static final String VMC_COMMAND="comandMachine";
     public static final String VMC_START="StartMachine";
     public static final String VMC_STOP="StopMachine";

@@ -1,0 +1,48 @@
+<ui:composition template="/Pages/Administration/EntityTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <ui:param name="dialogSize" value="400" />
+    <ui:param name="clase" value="#{HypervisorBean}" />
+    <ui:param name="formId" value="Hypervisor" />
+    <ui:param name="editTitle" value="Hypervisor Management" />
+    <ui:define name="editionPane" >
+        <h:graphicImage url="/img/Hypervisor.png" />
+        <p:messages autoUpdate="true" />
+        <h:panelGrid columns="2" id="infoGrid">
+            <h:outputLabel value="Hypervisor Name :" styleClass="textospeq" />
+            <h:inputText maxlength="50" id="name" value="#{HypervisorBean.hypervisor.hypervisorName}" required="true" requiredMessage="Hypervisor name requiered" />
+            <h:inputHidden value="#{HypervisorBean.hypervisor.hypervisorCode}" />
+        </h:panelGrid>
+    </ui:define>
+    <ui:define name="dataView">
+        <rich:dataTable id="tblObject" value="#{HypervisorBean.allHypervisors}" var="cr" rows="20">
+            <rich:column style="text-align:center" width="300" sortBy="#{cr.hypervisorCode}">
+                <f:facet name="header">
+                    <h:outputLabel value="Hypervisor Code" />
+                </f:facet>
+                <h:outputText value="#{cr.hypervisorCode}" />
+            </rich:column>
+            <rich:column style="text-align:center" width="300" sortBy="#{cr.hypervisorName}">
+                <f:facet name="header">
+                    <h:outputLabel value="Hypervisor Name" />
+                </f:facet>
+                <h:outputText value="#{cr.hypervisorName}" />
+            </rich:column>
+            <rich:column style="text-align:center" width="200" >
+                <f:facet name="header" >
+                    <h:outputLabel value="Options" />
+                </f:facet>
+                <h:graphicImage title="Edit" value="/img/edit.png" onclick="srcById(#{cr.hypervisorCode})" style="cursor: pointer" />
+                <h:graphicImage title="Remove" value="/img/delete.png" onclick="deleteObject(#{cr.hypervisorCode})" style="cursor: pointer" />
+            </rich:column>
+            <f:facet name="footer">
+                <rich:dataScroller id="scroller" />
+            </f:facet>
+        </rich:dataTable>
+    </ui:define>
+</ui:composition>

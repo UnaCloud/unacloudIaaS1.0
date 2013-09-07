@@ -4,6 +4,8 @@
  */
 package com.losandes.multicast;
 
+import com.losandes.communication.messages.UnaCloudAbstractMessage;
+import com.losandes.communication.messages.UnaCloudMessage;
 import com.losandes.communication.security.utils.*;
 import com.losandes.communication.security.SecureSocket;
 import com.losandes.dataChannel.DataServerSocket;
@@ -83,26 +85,26 @@ public class VirtualMachineRetriver implements VirtualMachineRetriverLocal {
             SecureSocket socket = new SecureSocket(ip, persistenceServices.getIntValue("CLOUDER_CLIENT_PORT"));
             AbstractCommunicator conexion = socket.connect();
             String[] linea = new String[4];
-            linea[0] = "" + PHYSICAL_MACHINE_OPERATION;
+            linea[0] = "" + UnaCloudAbstractMessage.PHYSICAL_MACHINE_OPERATION;
             linea[1] = "" + PM_RETRIEVE_FOLDER;
             linea[2] = remotePath;
             final long id = DataServerSocket.getNextId();
             linea[3] = "" + id;
             conexion.writeUTF(linea);
-            String[] respuesta = conexion.readUTFList();
+            UnaCloudMessage respuesta = conexion.readUTFList();
             System.out.println("Respuesta recibida");
-            if (respuesta[0].startsWith(ERROR_MESSAGE)) {
+            if (respuesta.getString(0).startsWith(ERROR_MESSAGE)) {
                 System.out.println("Error conectandose");
                 conexion.close();
                 return;
             }
-            int numeroArchivos = Integer.parseInt(respuesta[0]);
+            int numeroArchivos = respuesta.getInteger(0);
             String[] nombres = new String[numeroArchivos];
             long[] tamaños = new long[numeroArchivos];
             long totalLength = 0, actualLenght = 0;
             for (int e = 0; e < numeroArchivos; e++) {
-                nombres[e] = respuesta[e * 2 + 1];
-                totalLength += (tamaños[e] = Long.parseLong(respuesta[e * 2 + 2]));
+                nombres[e] = respuesta.getString(e * 2 + 1);
+                totalLength += (tamaños[e] = respuesta.getLong(e * 2 + 2));
             }
             byte[] buffer = new byte[1024 * 100];
             try {

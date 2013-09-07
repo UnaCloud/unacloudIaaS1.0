@@ -1,0 +1,58 @@
+<ui:composition template="/Pages/main-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <ui:define name="body">
+        <h:outputStylesheet>
+            .rf-dg, .rf-dg-c{
+            border:none;
+            }
+        </h:outputStylesheet>
+        <h:form>
+            <rich:toolbar height="26" itemSeparator="disc">
+                <rich:toolbarGroup>
+                    <a4j:commandButton image="/img/upgrade.png" action="#{LaboratoryBean.updatePhysicalMachineAgent}" title="Upgrade" render="grid, execution" />
+                </rich:toolbarGroup>
+                <rich:toolbarGroup>
+                    <a4j:commandButton image="/img/upgrade.png" action="#{LaboratoryBean.updateAllPhysicalMachineAgent}" title="Upgrade All" render="grid, execution" />
+                </rich:toolbarGroup>
+                <rich:toolbarGroup>
+                    <h:graphicImage title="Back" value="/img/back.png"  onclick="backObject()" styleClass="icon" />
+                </rich:toolbarGroup>
+            </rich:toolbar>
+            <h:outputText id="execution" styleClass="errorText" value="#{LaboratoryBean.executionMachineError}"/>
+            <rich:panel>
+                <rich:dataGrid id="grid" value="#{LaboratoryBean.laboratory.physicalMachine}" var="car" columns="#{LaboratoryBean.laboratory.laboratoryColumns}" style="border: 0">
+                    <rich:panel>
+                        <f:facet name="header">
+                            <h:outputText value="#{car.physicalMachineName}"></h:outputText>
+                        </f:facet>
+                        <h:panelGrid columns="1">
+                            <h:outputLabel value="#{car.physicalMachineUser}" />
+                            <rich:dataGrid value="#{car.executionsSlots}" var="vme" style="padding: 0;border: 0">
+                                <h:graphicImage title="#{vme.message}" value="#{vme.statusImage}" styleClass="icon" />
+                            </rich:dataGrid>
+                            <h:graphicImage title="Edit" value="/img/Computer/pc#{car.physicalMachineState}.jpg" onclick="srcById(#{car.physicalMachineName})" styleClass="icon" />
+                            <h:selectBooleanCheckbox value="#{car.physicalMachineEnable}" />
+                        </h:panelGrid>
+                    </rich:panel>
+                </rich:dataGrid>
+                <a4j:jsFunction name="turnOffObject" action="#{LaboratoryBean.turnOffPhysicalMachine}" render="grid, execution"/>
+                <a4j:jsFunction name="logOutObject" action="#{LaboratoryBean.logOutPhysicalMachine}" render="grid, execution"/>
+                <a4j:jsFunction name="lockObject" action="#{LaboratoryBean.lockPhysicalMachine}" render="grid, execution"/>
+                <a4j:jsFunction name="unlockObject" action="#{LaboratoryBean.unlockPhysicalMachine}" render="grid, execution"/>
+                <a4j:jsFunction name="updateObject" action="#{LaboratoryBean.updatePhysicalMachineAgent}" render="grid, execution"/>
+                <a4j:jsFunction name="backObject" action="#{LaboratoryBean.returnLaboratorySelection}" render="grid, execution"/>
+
+            </rich:panel>
+            <a4j:jsFunction name="srcById" action="#{LaboratoryBean.findByIDPhysicalMachine}" oncomplete="" >
+                <a4j:param name="p1" assignTo="#{LaboratoryBean.idPhysicalMachine}" />
+                <a4j:param name="p2" assignTo="#{PhysicalMachineBean.physicalMachineError}" value="" />
+            </a4j:jsFunction>
+        </h:form>
+        <ui:include src="/include/down.xhtml"/>
+    </ui:define>
+</ui:composition>

@@ -1,10 +1,10 @@
 package monitoring;
 
+import com.losandes.communication.messages.UnaCloudAbstractMessage;
 import com.losandes.communication.security.utils.AbstractCommunicator;
 import com.losandes.communication.security.utils.ConnectionException;
 import com.losandes.communication.security.SecureSocket;
 import com.losandes.utils.VariableManager;
-import java.lang.annotation.Inherited;
 import static com.losandes.utils.Constants.*;
 
 /**
@@ -48,7 +48,7 @@ public class Reporter extends Thread{
        while(true){
            try{
                AbstractCommunicator ac = conection.connect();
-               ac.writeUTF(""+DATABASE_OPERATION,""+REPORT_DB,id);
+               ac.writeUTF(""+UnaCloudAbstractMessage.DATABASE_OPERATION,""+REPORT_DB,id);
                ac.close();
                fails=0;
            }catch(ConnectionException sce){

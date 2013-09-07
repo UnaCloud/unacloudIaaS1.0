@@ -125,7 +125,7 @@ public class Network extends SigarCommandBase {
      * @return
      */
     public String getIpconfig() {
-        return LocalProcessExecutor.executeCommandOutput("ifconfig -a").trim();
+        return LocalProcessExecutor.executeCommandOutput("ifconfig","-a").trim();
     }
 
     /**

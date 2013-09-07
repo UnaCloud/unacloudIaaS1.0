@@ -1,0 +1,110 @@
+<ui:composition template="/Pages/Administration/EntityTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <ui:param name="editTitle" value="Virtual Machines Information Management" />
+    <ui:param name="dialogSize" value="700" />
+    <ui:param name="clase" value="#{VirtualMachineBean}" />
+    <ui:param name="formId" value="VirtualMachine" />
+    <ui:define name="editionPane"  >
+        <h:graphicImage url="/img/VirtualMachine.jpg" />
+        <h:inputHidden value="#{VirtualMachineBean.virtualMachine.virtualMachineCode}" />
+        <p:messages autoUpdate="true" />
+        <h:panelGrid columns="2" id="infoGrid" >
+            <h:outputLabel value="Name:" styleClass="textospeq5" />
+            <p:inputText maxlength="50" size="90" id="name" value="#{VirtualMachineBean.virtualMachine.virtualMachineName}" required="true" requiredMessage="Missing virtual machine name." styleClass="textospeq5" />
+            <h:outputLabel value="Physical Machine:" styleClass="textospeq5" />
+            <rich:select defaultLabel="Browse..." value="#{VirtualMachineBean.physicalMachine.physicalMachineName}" required="true" requiredMessage="Missing MAC policy.">
+                <f:selectItems value="#{VirtualMachineBean.physicalMachines}" />
+            </rich:select>
+            <h:outputLabel value="IP Address:" styleClass="textospeq5" />
+            <p:inputText maxlength="50" size="90" id="ip" value="#{VirtualMachineBean.virtualMachine.virtualMachineIP}" required="true" requiredMessage="Missing IP address." />
+            <h:outputLabel value="IP Generation Policy:" styleClass="textospeq5" />
+            <rich:select defaultLabel="Browse..." id="IPPolicy" value="#{VirtualMachineBean.virtualMachine.ipPolicy}" required="true" requiredMessage="Missing IP generation policy.">
+                <f:selectItems value="#{VirtualMachineBean.allGenerationIPPolicies}" />
+            </rich:select>
+            <h:outputLabel value="MAC Generation Policy:" styleClass="textospeq5" />
+            <rich:select id="MACPolicy" value="#{VirtualMachineBean.virtualMachine.macPolicy}" required="true" requiredMessage="Missing MAC generation policy.">
+                <f:selectItems value="#{VirtualMachineBean.allGenerationMACPolicies}" />
+            </rich:select>
+            <h:outputLabel value="CPU Cores:" styleClass="textospeq5" />
+            <p:inputText maxlength="50" size="90" id="cores" value="#{VirtualMachineBean.virtualMachine.virtualMachineCores}" required="true" requiredMessage="Missing CPU core number.">
+                <f:validateLongRange minimum="1" maximum="20" for="cores" />
+            </p:inputText>
+            <h:outputLabel value="Hard Disk Space:" styleClass="textospeq5" />
+            <h:panelGrid columns="2" style="margin-left: 0;padding-left: 0;border-spacing: 0">
+                <p:inputText maxlength="50" id="disk" value="#{VirtualMachineBean.virtualMachine.virtualMachineHardDisk}" required="true" requiredMessage="Missing disk size.">
+                    <f:validateLongRange minimum="1" for="disk" />
+                </p:inputText>
+                <h:outputLabel value="GB" styleClass="textospeq5" style="font-weight: bold" />
+            </h:panelGrid>
+            <h:outputLabel value="RAM Memory:" styleClass="textospeq5" />
+            <h:panelGrid columns="2">
+                <p:inputText maxlength="50" id="memory" value="#{VirtualMachineBean.virtualMachine.virtualMachineRAMMemory}" required="true" requiredMessage="Missing RAM size.">
+                    <f:validateLongRange minimum="256" for="memory" />
+                </p:inputText>
+                <h:outputLabel value="MB" styleClass="textospeq5" style="font-weight: bold" />
+            </h:panelGrid>
+            <h:outputLabel value="Hypervisor:" styleClass="textospeq5" />
+            <rich:select defaultLabel="Browse..." value="#{VirtualMachineBean.hypervisor.hypervisorCode}" required="true" requiredMessage="Missing hypervisor." validatorMessage="Missing hypervisor." converterMessage="Missing hypervisor." >
+                <f:selectItems value="#{VirtualMachineBean.hypervisors}" />
+            </rich:select>
+            <h:outputLabel value="Path:" styleClass="textospeq5" />
+            <p:inputText maxlength="98" size="90" id="path" value="#{VirtualMachineBean.virtualMachine.virtualMachinePath}" required="true" requiredMessage="Missing virtual machine path." />
+            <h:outputLabel value="Template:" styleClass="textospeq5" />
+            <rich:select id="template" value="#{VirtualMachineBean.template.templateCode}" defaultLabel="Browse..." required="true" requiredMessage="Missing virtual machine template." validatorMessage="Missing virtual machine template.">
+                <f:selectItems value="#{VirtualMachineBean.templates}" />
+            </rich:select>
+            <h:outputLabel value="Security Schema:" styleClass="textospeq5" />
+            <rich:select id="security" defaultLabel="Browse..." value="#{VirtualMachineBean.virtualMachineSecurity.virtualMachineSecurityCode}">
+                <f:selectItems value="#{VirtualMachineBean.virtualMachineSecurities}" />
+            </rich:select>
+            <h:outputLabel value="Persistent:" styleClass="textospeq5" />
+            <h:selectBooleanCheckbox id="persistent" value="#{VirtualMachineBean.virtualMachine.persistent}"/>
+            <h:outputLabel value="Locally stored:" styleClass="textospeq5" />
+            <h:selectBooleanCheckbox id="locallyStored" value="#{VirtualMachineBean.virtualMachine.locallyStored}"/>
+            <h:outputLabel value="Configured:" styleClass="textospeq5" />
+            <h:selectBooleanCheckbox id="configured" value="#{VirtualMachineBean.virtualMachine.configured}"/>
+            <h:outputLabel value="Snapshot id:" styleClass="textospeq5" />
+            <p:inputText maxlength="98" size="90" id="snapshot" value="#{VirtualMachineBean.virtualMachine.snapshotId}"/>
+            <h:outputLabel value="AutoProtect:" styleClass="textospeq5" />
+            <h:selectBooleanCheckbox id="autoProtect" value="#{VirtualMachineBean.virtualMachine.autoProtect}"/>
+            <h:inputHidden value="#{VirtualMachineBean.virtualMachine.virtualMachineCode}" />
+        </h:panelGrid>
+    </ui:define>
+    <ui:define name="dataView">
+        <rich:dataTable id="tblObject" value="#{VirtualMachineBean.allVirtualMachines}" var="cr" rows="20">
+            <rich:column style="text-align:center" width="300" sortBy="#{cr.virtualMachineName}">
+                <f:facet name="header">
+                    <h:outputLabel value="Virtual Machine Name" />
+                </f:facet>
+                <h:outputText value="#{cr.virtualMachineName}" />
+            </rich:column>
+            <rich:column  filterValue="#{VirtualMachineBean.filterTemplateName}" filterExpression="#{fn:containsIgnoreCase(cr.template.templateName, VirtualMachineBean.filterTemplateName)}">
+                <f:facet name="header">
+                    <h:outputLabel value="Template Name" />
+                    <br/>
+                    <h:inputText value="#{VirtualMachineBean.filterTemplateName}">
+                        <a4j:ajax render="tblObject@body scroller" event="keyup" />
+                    </h:inputText>
+                </f:facet>
+                <h:outputText value="#{cr.template.templateName}" />
+            </rich:column>
+            <rich:column style="text-align:center" width="200"  >
+                <f:facet name="header" >
+                    <h:outputLabel value="Options" />
+                </f:facet>
+                <h:graphicImage title="Edit" value="/img/edit.png" onclick="srcById(#{cr.virtualMachineCode});" styleClass="icon" style="cursor: pointer" />
+                <h:graphicImage title="Remove" value="/img/delete.png" onclick="deleteObject(#{cr.virtualMachineCode})" styleClass="icon" style="cursor: pointer" />
+            </rich:column>
+            <f:facet name="footer">
+                <rich:dataScroller id="scroller" />
+            </f:facet>
+        </rich:dataTable>
+    </ui:define>
+</ui:composition>

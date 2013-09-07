@@ -1,0 +1,138 @@
+<ui:composition template="./main-template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <ui:param name="beforeIdle" value="disablePoll();" />
+    <ui:define name="body">
+        <h:outputStylesheet>
+            .rf-pb-rmng { width: 100px;
+            }
+        </h:outputStylesheet>
+        <rich:popupPanel modal="true" id="timePanel" width="300" height="150">
+            <f:facet name="header">
+                <h:panelGroup>
+                    <h:outputText value="Extend execution time" />
+                </h:panelGroup>
+            </f:facet>
+            <h:panelGrid columns="2">
+                <h:graphicImage title="timeout" value="/img/Benchmark.png" height="100" width="100" />
+                <h:panelGrid columns="1" cellpadding="5">
+                    <h:form>
+                        <center>
+                            <h:outputText styleClass="textospeq" value="Add time:" />
+                            <h:selectOneMenu value="#{executionBean.extendExecutionTime}">
+                                <f:converter converterId="javax.faces.Integer" />
+                                <f:selectItems value="#{constantsBean.executionTimes}" />
+                            </h:selectOneMenu>
+                        </center>
+                        <p:spacer height="20" width="10" />
+                        <h:panelGrid columns="2" style="float: right">
+                            <h:commandButton value="Accept"  action="#{executionBean.extendClusterExecutionTime}" />
+                            <a4j:commandButton value="Cancel" onclick="#{rich:component('timePanel')}.hide();" />
+                        </h:panelGrid>
+
+                    </h:form>
+                </h:panelGrid>
+
+            </h:panelGrid>
+        </rich:popupPanel>
+        <h:form >
+            <a4j:poll id="poll" interval="20000" render="poll,tblObject" />
+            <a4j:jsFunction name="disablePoll" oncomplete="poll.stop()"/>
+            <rich:toolbar id="operationsToolBar" height="26" itemSeparator="disc" >
+                <rich:toolbarGroup id="adminTools" rendered="#{not SecurityBean.disabledAdministrator}" >
+                    <p:selectBooleanCheckbox value="#{executionBean.viewAll}">
+                        <a4j:ajax id="viewAll" event="valueChange" render="tblObject@body" execute="@this" />
+                    </p:selectBooleanCheckbox>
+                    View all
+                </rich:toolbarGroup>
+                <rich:toolbarGroup location="right">
+                    <h:commandButton title="Turn off" label="Turn off" image="/img/turnOffVM.png" action="#{executionBean.turnOffUserVirtualMachine}" />
+                    <h:commandButton title="Restart" label="Restart" image="/img/restartVM.png" action="#{executionBean.restartUserVirtualMachine}" />
+                    <h:commandButton image="/img/download.png" value="Download" title="Download" >
+                        <p:fileDownload value="#{executionBean.file}" />
+                    </h:commandButton>
+                    <!-- <h:commandButton title="Monitor" label="Monitor" image="/img/monitorVM.png" action="{executionBean.monitorUserVirtualMachine}" />-->
+                    <!-- <h:graphicImage title="Execution Time" value="/img/timeVM.png" onclick="{rich:component('timePanel')}.show();" style="cursor: pointer" />-->
+                </rich:toolbarGroup>
+            </rich:toolbar>
+            <rich:dataTable id="tblObject" value="#{executionBean.allUserVirtualMachines}" var="cr" iterationStatusVar="idx" rows="20" noDataLabel="No virtual machines on" >
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="N" />
+                    </f:facet>
+                    <h:outputText value="#{idx.index}" />
+                </rich:column>
+                <rich:column >
+                    <f:facet name="header">
+                        <p:selectBooleanCheckbox id="selectAll" value="#{executionBean.selectAll}" valueChangeListener="#{executionBean.selectAllComponents}" >
+                            <a4j:ajax id="foo" event="valueChange" render="tblObject@body" execute="@this" />
+                        </p:selectBooleanCheckbox>
+                    </f:facet>
+                    <p:selectBooleanCheckbox value="#{cr.selected}" >
+                        <a4j:ajax id="foo2" event="valueChange" render="poll" execute="@this" />
+                    </p:selectBooleanCheckbox>
+                </rich:column>
+                <rich:column sortBy="#{cr.virtualMachine.virtualMachineName}" sortOrder="#{executionBean.nameSortOrder}">
+                    <f:facet name="header">
+                        <a4j:commandLink value="Name" render="tblObject" action="#{executionBean.sortByName}" />
+                    </f:facet>
+                    <h:outputText value="#{cr.virtualMachine.virtualMachineName}" />
+                </rich:column>
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputLabel value="Access Mechanism" />
+                    </f:facet>
+                    <h:outputText value="#{cr.virtualMachine.virtualMachineSecurity.virtualMachineSecurityAccess}" />
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Port" />
+                    </f:facet>
+                    <h:outputText value="#{cr.virtualMachine.virtualMachineSecurity.virtualMachineSecurityPort}" />
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="IP Address" />
+                    </f:facet>
+                    <h:outputText value="#{cr.virtualMachine.virtualMachineIP}" />
+                </rich:column>
+                <rich:column id="status">
+                    <f:facet name="header">
+                        <h:outputLabel value="Status" />
+                    </f:facet>
+                    <table>
+                        <tr><td><h:graphicImage title="#{cr.virtualMachineExecutionStatusMessage}" value="#{cr.statusImage}" styleClass="icon" /></td>
+                        <td><rich:progressBar rendered="#{cr.showProgressBar}" mode="client" value="#{cr.current}"                                       id="pb" minValue="0" maxValue="#{cr.max}">
+                            <h:outputText value="#{cr.current} #{cr.isPercentage?'%':''}" />
+                        </rich:progressBar></td></tr>
+                    </table>
+                    
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Time left" />
+                    </f:facet>
+                    <h:outputText value="#{cr.remainingTime}" />
+                </rich:column>
+                <rich:column >
+                    <f:facet name="header">
+                        <h:outputLabel value="Operation" />
+                    </f:facet>
+                    <h:graphicImage title="Store" value="/img/save2.png" rendered="#{cr.template.customizable and cr.virtualMachineExecutionStatus==1}" style="cursor: pointer" onclick="store(#{cr.virtualMachine.virtualMachineCode})" />
+                </rich:column>
+                <f:facet name="footer">
+                    <rich:dataScroller id="scroller" />
+                </f:facet>
+            </rich:dataTable>
+            <a4j:jsFunction name="store" action="#{executionBean.storeVirtualMachine}" render="tblObject" oncomplete="" >
+                <a4j:param name="p1" assignTo="#{executionBean.id}" />
+            </a4j:jsFunction>
+        </h:form>
+
+        <ui:include src="/include/down.xhtml"/>
+    </ui:define>
+</ui:composition>

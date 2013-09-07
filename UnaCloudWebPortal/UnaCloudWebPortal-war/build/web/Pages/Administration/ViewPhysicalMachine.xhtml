@@ -1,0 +1,178 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <body>
+        <ui:composition template="/Pages/main-template.xhtml">
+            <ui:define name="body">
+                <ui:include src="/include/menu.xhtml"/>
+                <table width="800" border="0" align="center" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td width="800" height="19" valign="top"><div align="center">
+
+                                <h:form>
+                                    <rich:toolBar height="26" itemSeparator="disc">
+                                        <rich:toolBarGroup>
+                                            <h:graphicImage title="Save" value="/img/save.png" onclick="createObject()" styleClass="icon" />
+                                        </rich:toolBarGroup>
+                                        <rich:toolBarGroup>
+                                            <h:commandLink  action="returnPhysicalLaboratory">
+                                                <h:graphicImage style="border:0px" title="Back" value="/img/back.png"/>
+                                            </h:commandLink>
+                                        </rich:toolBarGroup>
+                                    </rich:toolBar>
+                                </h:form>
+                            </div></td>
+                    </tr>
+                    <tr>
+                        <td height="119" valign="top"><div align="center">
+                                <rich:simpleTogglePanel id="stpEdit" opened="true">
+                                    <f:facet name="header">
+                                        View Physical Machine
+                                    </f:facet>
+                                    <h:form>
+                                        <rich:tabPanel switchType="client">
+                                            <rich:tab styleClass="tigoAzul" label="View Physical Machine">
+                                                <table width="646" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                                    <tr>
+                                                        <td width="12" height="19"></td>
+                                                        <td width="113"></td>
+                                                        <td width="104"></td>
+                                                        <td width="61"></td>
+                                                        <td width="130"></td>
+                                                        <td width="141"></td>
+                                                        <td width="72"></td>
+                                                        <td width="13"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="19"></td>
+                                                        <td colspan="6" valign="middle">
+                                                        <h:inputHidden value="#{LaboratoryBean.physicalMachine.physicalMachineName}" />                                                            </td>
+                                                        <td></td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td height="19"></td>
+                                                        <td valign="middle" class="textospeq">Name:
+                                                        <rich:message styleClass="errorText" for="name"></rich:message></td>
+                                                        <td colspan="2" valign="middle" class="textospeq5">
+                                                            <h:inputText maxlength="50" id="name" value="#{LaboratoryBean.physicalMachine.physicalMachineName}" required="true" requiredMessage="*">
+                                                                <rich:ajaxValidator event="onblur" />
+                                                            </h:inputText>                                                        </td>
+                                                        <td valign="middle" class="textospeq">Laboratory:
+                                                        </td>
+                                                        <td colspan="2" valign="middle">
+                                                        <h:outputText value="#{LaboratoryBean.physicalMachine.laboratory.laboratoryName}"/>                                                        </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="19"></td>
+                                                        <td valign="middle" class="textospeq">IP Address:
+                                                        <rich:message styleClass="errorText" for="ip"></rich:message></td>
+                                                        <td colspan="2" valign="middle">
+                                                            <h:inputText maxlength="50" id="ip" value="#{LaboratoryBean.physicalMachine.physicalMachineIP}" required="true" requiredMessage="*">
+                                                                <rich:ajaxValidator event="onblur" />
+                                                            </h:inputText></td>
+                                                        <td valign="middle" class="textospeq">MAC Address:
+                                                        <rich:message styleClass="errorText" for="mac"></rich:message></td>
+                                                        <td colspan="2" valign="middle"><h:inputText maxlength="50" id="mac" value="#{LaboratoryBean.physicalMachine.physicalMachineMAC}" required="true" requiredMessage="*">
+                                                                <rich:ajaxValidator event="onblur" />
+                                                            </h:inputText></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="19"></td>
+                                                        <td valign="middle" class="textospeq">CPU Cores:
+                                                        <rich:message styleClass="errorText" for="cores"></rich:message></td>
+                                                        <td colspan="2" valign="middle">
+                                                            <h:inputText maxlength="50" id="cores" value="#{LaboratoryBean.physicalMachine.physicalMachineCores}" required="true" requiredMessage="*">
+                                                                <rich:ajaxValidator event="onblur" />
+                                                            </h:inputText></td>
+                                                        <td valign="middle" class="textospeq">Hard Disk Space:
+                                                        <rich:message styleClass="errorText" for="disk"></rich:message></td>
+                                                        <td valign="middle"><h:inputText maxlength="20" id="disk" value="#{LaboratoryBean.physicalMachine.physicalMachineDisk}" required="true" requiredMessage="*">
+                                                                <rich:ajaxValidator event="onblur" />
+                                                            </h:inputText></td>
+                                                        <td valign="middle" class="textospeq"><div align="rigth">GB</div></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="19"></td>
+                                                        <td valign="middle" class="textospeq">RAM Memory:
+                                                        <rich:message styleClass="errorText" for="memory"></rich:message></td>
+                                                        <td valign="middle">
+                                                            <h:inputText maxlength="20" id="memory" value="#{LaboratoryBean.physicalMachine.physicalMachineRAMMemory}" required="true" requiredMessage="*">
+                                                                <rich:ajaxValidator event="onblur" />
+                                                            </h:inputText></td>
+                                                        <td valign="middle" class="textospeq"><div align="rigth"> MB</div></td>
+                                                        <td valign="middle" class="textospeq">Architecture:
+                                                        <rich:message styleClass="errorText" for="ach"></rich:message></td>
+                                                        <td colspan="2" valign="middle">
+                                                            <h:inputText maxlength="50" id="ach" value="#{LaboratoryBean.physicalMachine.physicalMachineArchitecture}" required="true" requiredMessage="*">
+                                                                <rich:ajaxValidator event="onblur" />
+                                                            </h:inputText></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="19"></td>
+                                                        <td valign="middle" class="textospeq">Hypervisor Path:
+                                                        <rich:message styleClass="errorText" for="hyp"></rich:message></td>
+                                                        <td colspan="5" valign="middle">
+                                                            <h:inputText maxlength="103" size="81" id="hyp" value="#{LaboratoryBean.physicalMachine.physicalMachineHypervisorPath}" required="true" requiredMessage="*">
+                                                                <rich:ajaxValidator event="onblur" />
+                                                            </h:inputText></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="24"></td>
+                                                        <td valign="middle" class="textospeq">Operating System Version:</td>
+                                                        <td colspan="2" valign="middle">
+                                                            <h:outputText value="#{LaboratoryBean.physicalMachine.operatingSystem.operatingSystemName}"/>
+                                                        </td>
+                                                        <td valign="middle" class="textospeq">Operating System:</td>
+                                                        <td colspan="2" valign="middle">
+                                                            <h:outputText value="#{LaboratoryBean.physicalMachine.operatingSystem.operatingSystemType.operatingSystemTypeName}"/>
+                                                        </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="19"></td>
+                                                        <td valign="middle" class="textospeq">Machine Row:
+                                                        <rich:message styleClass="errorText" for="row"></rich:message></td>
+                                                        <td colspan="2" valign="middle">
+                                                            <h:outputText value="#{LaboratoryBean.physicalMachine.physicalMachineRow}"/>
+                                                        </td>
+                                                        <td valign="middle" class="textospeq">Machine Column:
+                                                        <rich:message styleClass="errorText" for="column"></rich:message></td>
+                                                        <td colspan="2" valign="middle">
+                                                            <h:outputText value="#{LaboratoryBean.physicalMachine.physicalMachineColumn}"/>
+                                                        </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="19"></td>
+                                                        <td colspan="6" valign="middle"><div align="center">
+                                                                <h:outputText styleClass="errorText" value="#{LaboratoryBean.physicalMachineError}"/>
+                                                            </div></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </table>
+                                            </rich:tab>
+                                        </rich:tabPanel>
+                                        <a4j:jsFunction name="createObject" action="#{LaboratoryBean.createOrUpdatePhysicalMachine}" reRender="stpEdit"/>
+                                        <a4j:jsFunction name="backObject" immediate="true" action="returnPhysicalLaboratory"/>
+                                    </h:form>
+                                </rich:simpleTogglePanel>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <ui:include src="/include/down.xhtml"/>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

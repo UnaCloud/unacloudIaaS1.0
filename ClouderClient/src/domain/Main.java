@@ -1,5 +1,6 @@
 package domain;
 
+import com.losandes.communication.messages.UnaCloudAbstractMessage;
 import com.losandes.communication.security.utils.ConnectionException;
 import com.losandes.dataChannel.DataServerSocket;
 import monitoring.Reporter;
@@ -45,13 +46,13 @@ public class Main {
         }
         switch (mainCase) {
             case TURN_OFF_DB:
-                String turnOffMessage = DATABASE_OPERATION + MESSAGE_SEPARATOR_TOKEN + TURN_OFF_DB + MESSAGE_SEPARATOR_TOKEN + Network.getHostname();
+                String turnOffMessage = UnaCloudAbstractMessage.DATABASE_OPERATION + MESSAGE_SEPARATOR_TOKEN + TURN_OFF_DB + MESSAGE_SEPARATOR_TOKEN + Network.getHostname();
                 state.reportPhysicalMachine(turnOffMessage,false);
                 break;
             case TURN_ON_DB:
                 VMwareWorkstation.startUpServices();
                 System.out.println("Clouder Client Started at2: " + new Date());
-                String turnOnMessage = DATABASE_OPERATION + MESSAGE_SEPARATOR_TOKEN + TURN_ON + MESSAGE_SEPARATOR_TOKEN + Network.getHostname();
+                String turnOnMessage = UnaCloudAbstractMessage.DATABASE_OPERATION + MESSAGE_SEPARATOR_TOKEN + TURN_ON + MESSAGE_SEPARATOR_TOKEN + Network.getHostname();
                 System.out.println("Clouder Client Started at3: " + new Date());
                 PhysicalMachineMonitor.restart();
                 state.reportPhysicalMachine(turnOnMessage,true);
@@ -69,11 +70,11 @@ public class Main {
                 new ClouderClientAttention();
                 break;
             case LOGIN_DB:
-                String loginMessage = DATABASE_OPERATION + MESSAGE_SEPARATOR_TOKEN + LOGIN_DB + MESSAGE_SEPARATOR_TOKEN + Network.getHostname() + MESSAGE_SEPARATOR_TOKEN + OperatingSystem.getUserName();
+                String loginMessage = UnaCloudAbstractMessage.DATABASE_OPERATION + MESSAGE_SEPARATOR_TOKEN + LOGIN_DB + MESSAGE_SEPARATOR_TOKEN + Network.getHostname() + MESSAGE_SEPARATOR_TOKEN + OperatingSystem.getUserName();
                 state.reportPhysicalMachine(loginMessage,false);
                 break;
             case LOGOUT_DB:
-                String logoutMessage = DATABASE_OPERATION + MESSAGE_SEPARATOR_TOKEN + LOGOUT_DB + MESSAGE_SEPARATOR_TOKEN + Network.getHostname();
+                String logoutMessage = UnaCloudAbstractMessage.DATABASE_OPERATION + MESSAGE_SEPARATOR_TOKEN + LOGOUT_DB + MESSAGE_SEPARATOR_TOKEN + Network.getHostname();
                 state.reportPhysicalMachine(logoutMessage,false);
                 break;
             default:

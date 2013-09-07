@@ -1,5 +1,6 @@
 package com.losandes.virtualmachine;
 
+import com.losandes.communication.messages.UnaCloudAbstractMessage;
 import com.losandes.communication.security.utils.*;
 import com.losandes.communication.security.SecureSocket;
 import com.losandes.persistence.IPersistenceServices;
@@ -123,7 +124,7 @@ public class VirtualMachineServices implements IVirtualMachineServices {
                 try {
                     SecureSocket ss = new SecureSocket(vme.getVirtualMachine().getPhysicalMachine().getPhysicalMachineIP(), persistenceServices.getIntValue("CLOUDER_CLIENT_PORT"));
                     AbstractCommunicator communication = ss.connect();
-                    communication.writeUTF("" + VIRTUAL_MACHINE_OPERATION, VM_TIME + "", "" + vme.getVirtualMachine().getVirtualMachineCode(), "" + executionTime);
+                    communication.writeUTF("" + UnaCloudAbstractMessage.VIRTUAL_MACHINE_OPERATION, VM_TIME + "", "" + vme.getVirtualMachine().getVirtualMachineCode(), "" + executionTime);
                     communication.close();
                     vme.setVirtualMachineExecutionTime(new Date(vme.getVirtualMachineExecutionTime().getTime() + (((long) executionTime) * 60l * 60000l)));
                     persistenceServices.update(vme);
@@ -227,7 +228,7 @@ public class VirtualMachineServices implements IVirtualMachineServices {
         try {
             SecureSocket socket = new SecureSocket(phyMac.getPhysicalMachineIP(), persistenceServices.getIntValue("CLOUDER_CLIENT_PORT"));
             AbstractCommunicator communication = socket.connect();
-            communication.writeUTF(VIRTUAL_MACHINE_OPERATION + MESSAGE_SEPARATOR_TOKEN + VM_RESTART + MESSAGE_SEPARATOR_TOKEN + virMac.getVirtualMachineCode() + MESSAGE_SEPARATOR_TOKEN + virMac.getHypervisor().getHypervisorCode() + MESSAGE_SEPARATOR_TOKEN + virMac.getVirtualMachinePath() + MESSAGE_SEPARATOR_TOKEN + phyMac.getPhysicalMachineHypervisorPath());
+            communication.writeUTF(UnaCloudAbstractMessage.VIRTUAL_MACHINE_OPERATION + MESSAGE_SEPARATOR_TOKEN + VM_RESTART + MESSAGE_SEPARATOR_TOKEN + virMac.getVirtualMachineCode() + MESSAGE_SEPARATOR_TOKEN + virMac.getHypervisor().getHypervisorCode() + MESSAGE_SEPARATOR_TOKEN + virMac.getVirtualMachinePath() + MESSAGE_SEPARATOR_TOKEN + phyMac.getPhysicalMachineHypervisorPath());
             communication.close();
             return "";
         } catch (ConnectionException ex) {
@@ -242,7 +243,7 @@ public class VirtualMachineServices implements IVirtualMachineServices {
         try {
             SecureSocket socket = new SecureSocket(phyMac.getPhysicalMachineIP(), persistenceServices.getIntValue("CLOUDER_CLIENT_PORT"));
             AbstractCommunicator communication = socket.connect();
-            communication.writeUTF("" + VIRTUAL_MACHINE_OPERATION, "" + VM_TURN_OFF, "" + vme.getVirtualMachineExecutionCode(), "" + virMac.getHypervisor().getHypervisorCode(), virMac.getVirtualMachinePath(), phyMac.getPhysicalMachineHypervisorPath());
+            communication.writeUTF("" + UnaCloudAbstractMessage.VIRTUAL_MACHINE_OPERATION, "" + VM_TURN_OFF, "" + vme.getVirtualMachineExecutionCode(), "" + virMac.getHypervisor().getHypervisorCode(), virMac.getVirtualMachinePath(), phyMac.getPhysicalMachineHypervisorPath());
             communication.close();
             return "";
         } catch (ConnectionException ex) {

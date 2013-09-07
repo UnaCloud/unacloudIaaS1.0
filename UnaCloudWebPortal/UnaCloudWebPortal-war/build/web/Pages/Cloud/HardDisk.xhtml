@@ -1,0 +1,23 @@
+<ui:composition template="/Pages/Cloud/ClouderWizardConfiguration.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <ui:param name="image" value="/img/HardDisk.jpg" />
+    <ui:param name="panelTitle" value="Hard Disk Selection :" />
+    <ui:define name="options" >
+        <p:selectOneRadio id="hdselected" value="#{ClouderBean.hardDiskSizeSelected}" styleClass="textospeq" requiredMessage="you should choose a hard disk size" required="true" >
+            <a4j:ajax event="valueChange" render="outPanel" execute="@this" />
+            <f:selectItems value="#{ClouderBean.hardDisks}"/>
+        </p:selectOneRadio>
+    </ui:define>
+    <ui:define name="next" >
+        <h:commandButton value="Back" action="#{ClouderBean.gotoTemplate}" />
+        <h:commandButton value="Next" action="#{ClouderBean.gotoProcessor}" style="float: right" />
+    </ui:define>
+
+
+</ui:composition>

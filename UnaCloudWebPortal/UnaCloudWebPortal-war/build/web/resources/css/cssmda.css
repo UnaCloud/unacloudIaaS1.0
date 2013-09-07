@@ -1,0 +1,263 @@
+.maintables{
+    border-left: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+}
+
+.invisible {color: #FFFFFF}
+
+.home {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 9px;
+    font-style: normal;
+    line-height: normal;
+    color: #587C9D;
+    text-decoration: none;
+    font-weight: bold;
+}
+a.home:hover {
+    color: #333333;
+}
+.homes {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 9px;
+    font-style: normal;
+    line-height: normal;
+    color: #92AECB;
+    text-decoration: none;
+}	
+
+
+.textocontenido {
+    FONT-SIZE: 13px; COLOR: #516068; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: justify; TEXT-DECORATION: none
+}
+
+.errorText {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #660000;
+    font-weight: bold;
+    TEXT-DECORATION: none;
+}
+
+.textos {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #333333;
+    text-align: justify;
+}
+.textos2 {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #333333;
+    text-align: justify;
+    font-weight: bold;
+}
+.testimonials {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    color: #333333;
+    text-align: justify;
+}
+.titulos {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    color: #43698E;
+}
+
+.titulos2 {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #43698E;
+    font-weight: bold;
+    TEXT-DECORATION: none;
+}
+.titulos_tramites {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #43698E;
+    font-weight: bold;
+    TEXT-DECORATION: none;
+}
+.volver {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    color: #43698E;
+    TEXT-DECORATION: none;
+}
+
+.textospeq {
+
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    color: #516068;
+    text-align: justify;
+}
+.textospeq2 {
+
+    font-size: 9px; COLOR: #516068; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: justify; text-decoration: none
+
+}
+a.textospeq2:hover {
+    background-color: #DEEFFF;
+
+}
+.textospeq3 {
+
+    font-size: 11px; COLOR: #1C6577; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: justify; text-decoration: none
+
+}
+.textospeq10 {
+
+    font-size: 10px; COLOR: #1C6577; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: justify; text-decoration: none
+
+}
+.textospeqTitle {
+
+    font-size: 15px; COLOR: #1C6577; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: justify; text-decoration: none
+
+}
+
+a.textospeq3:hover {
+
+
+    background-color: #99cccc;
+
+}
+
+.textospeq4 {
+
+    font-size: 11px; COLOR: #1C6577; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: justify; text-decoration: none
+
+}
+a.textospeq4:hover {
+
+
+    background-color: #99cccc;
+
+}
+
+.textospeq5 {
+
+    font-size: 9px; COLOR: #1C6577; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; font-weight: bold; TEXT-ALIGN: justify; text-decoration: none
+
+}
+a.textospeq5:hover {
+
+
+    text-decoration: underline;
+
+}
+
+.textospeq6 {
+
+    font-size: 11px; COLOR: #516068; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: justify; text-decoration: none;
+    font-weight: bold;
+}
+a.textospeq6:hover {
+
+
+    background-color: #DEEFFF;
+
+}
+
+.borde_tabla { border:1px solid #C6D1DA}
+
+
+.login {
+    font-family: Verdana;
+    font-size: 9px;
+    font-style: normal;
+    line-height: normal;
+    color: #587C9D;
+    text-decoration: none;
+
+}
+
+.link_email {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 9px;
+    font-style: normal;
+    line-height: normal;
+    color: #587C9D;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a.link_email:hover {
+    background-color: #DEEFFF;
+}
+
+
+.link_email2 {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 9px;
+    font-style: normal;
+    line-height: normal;
+    color: #92AECB;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a.link_email2:hover {
+    background-color: #92AECB;
+}
+
+
+.link_name {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-style: normal;
+    line-height: normal;
+    color: #587C9D;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+a.link_name:hover {
+    text-decoration:none;
+}
+.link_name_extra {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 22px;
+    font-style: normal;
+    line-height: normal;
+    color: #587C9D;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
+.linktext {
+
+    font-size: 10.5px; COLOR: #516068; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: justify; text-decoration: none
+
+}
+a.linktext:hover {
+
+
+    background-color: #DEEFFF;
+
+}
+
+.textospeq2 {
+
+    font-size: 9px; COLOR: #516068; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: justify; text-decoration: none
+
+}
+a.textospeq2:hover {
+
+    text-decoration: underline;
+
+}
+
+.textospeq7 {
+
+    font-size: 11px; COLOR: #FFFFFF; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-ALIGN: justify; text-decoration: none
+
+}
+a.textospeq7:hover {
+    text-decoration: underline;
+}
+.icon2{
+    cursor: pointer
+}

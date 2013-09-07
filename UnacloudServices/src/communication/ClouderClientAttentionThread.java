@@ -1,5 +1,6 @@
 package communication;
 
+import com.losandes.communication.messages.UnaCloudAbstractMessage;
 import com.losandes.communication.security.AbstractCommunicator;
 import com.losandes.persistence.PersistenceServices;
 import com.losandes.utils.VirtualMachineCPUStates;
@@ -51,7 +52,7 @@ public class ClouderClientAttentionThread extends Thread {
             }catch(Throwable a){}
 
             if (operationDomain != 0 && operationDomain < 3) {
-                if (operationDomain == DATABASE_OPERATION) {
+                if (operationDomain == UnaCloudAbstractMessage.DATABASE_OPERATION) {
                     int OperationType = 0;
                     if (clouderClientRequestSplitted[1] != null && !clouderClientRequestSplitted[1].equals("")) {
                         OperationType = Integer.parseInt(clouderClientRequestSplitted[1]);
@@ -94,7 +95,7 @@ public class ClouderClientAttentionThread extends Thread {
                             clouderClientOperationResult += ERROR_MESSAGE + "The Clouder Client operation request is invalid: " + OperationType;
                             System.err.println(clouderClientOperationResult);
                     }
-                } else if (operationDomain == PHYSICAL_MACHINE_OPERATION) {
+                } else if (operationDomain == UnaCloudAbstractMessage.PHYSICAL_MACHINE_OPERATION) {
                     System.out.println("The Clouder Server operation request is physical machine type");
                     // TODO por definirse
                     int physicalOperationType = 0;

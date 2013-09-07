@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:a4j="http://richfaces.org/a4j">
+    <f:view>
+        <h:body>
+            <h:form>
+                <rich:panel>
+                    <h:outputLabel value="Mail settings" styleClass="titulos2" />
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Enable:" styleClass="textospeq5" />
+                        <p:selectBooleanCheckbox value="#{mailConfigurationBean.mailEnable}">
+                            <a4j:ajax event="valueChange" render="mailprotocol" execute="@this" />
+                        </p:selectBooleanCheckbox>
+                    </h:panelGrid>
+                    <rich:panel id="mailprotocol" style="border: 0">
+                        <h:panelGrid columns="3" rendered="#{mailConfigurationBean.mailEnable}">
+                            <h:outputLabel value="SMTP server:" styleClass="textospeq5" />
+                            <h:inputText id="dir" value="#{mailConfigurationBean.smtpServer}" required="#{mailConfigurationBean.mailEnable}" requiredMessage="SMTP server is required"/>
+                            <rich:message for="dir"/>
+                            <h:outputLabel value="Server port:" styleClass="textospeq5" />
+                            <h:inputText value="#{mailConfigurationBean.serverPort}" validatorMessage="Port must be between 1 and 65535"  id="port">
+                                <f:converter converterId="javax.faces.Integer" />
+                                <f:validateLongRange minimum="1" maximum="65535"  />
+                                <rich:validator />
+                            </h:inputText>
+                            <rich:message for="port"/>
+                            <h:outputLabel value="Authentication:" styleClass="textospeq5" />
+                            <p:selectBooleanCheckbox value="#{mailConfigurationBean.authentication}">
+                                <a4j:ajax event="valueChange" render="mailprotocol" execute="@this" />
+                            </p:selectBooleanCheckbox>
+                            <p:spacer height="10" />
+                            <h:outputLabel value="User:" styleClass="textospeq5"  rendered="#{mailConfigurationBean.mailEnable and mailConfigurationBean.authentication}"/>
+                            <h:inputText id="user" value="#{mailConfigurationBean.user}" rendered="#{mailConfigurationBean.mailEnable and mailConfigurationBean.authentication}" required="#{mailConfigurationBean.mailEnable and mailConfigurationBean.authentication}" requiredMessage="User is required"/>
+                            <rich:message for="user" rendered="#{mailConfigurationBean.mailEnable and mailConfigurationBean.authentication}"/>
+                            <h:outputLabel value="Password:" styleClass="textospeq5" rendered="#{mailConfigurationBean.mailEnable and mailConfigurationBean.authentication}"/>
+                            <h:inputSecret id="pass" value="#{mailConfigurationBean.password}" required="#{mailConfigurationBean.mailEnable and mailConfigurationBean.authentication}" rendered="#{mailConfigurationBean.mailEnable and mailConfigurationBean.authentication}" requiredMessage="Password is required"/>
+                            <rich:message for="pass" rendered="#{mailConfigurationBean.mailEnable and mailConfigurationBean.authentication}"/>
+                            <h:outputLabel value="TLS:" styleClass="textospeq5" rendered="#{mailConfigurationBean.mailEnable and mailConfigurationBean.authentication}"/>
+                            <p:selectBooleanCheckbox value="#{mailConfigurationBean.tls}" rendered="#{mailConfigurationBean.mailEnable and mailConfigurationBean.authentication}"/>
+                        </h:panelGrid>
+                        <h:panelGrid style="float: right" columns="2">
+                            <h:commandButton value="Test" action="#{mailConfigurationBean.test}"/>
+                            <h:commandButton value="Save" action="#{mailConfigurationBean.save}"/>
+                        </h:panelGrid>
+                        
+                    </rich:panel>
+
+
+                </rich:panel>
+            </h:form>
+
+        </h:body>
+    </f:view>
+
+</ui:composition>

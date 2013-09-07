@@ -4,6 +4,7 @@
  */
 package com.losandes.virtualmachine;
 
+import com.losandes.communication.messages.UnaCloudAbstractMessage;
 import com.losandes.communication.security.utils.*;
 import com.losandes.communication.security.SecureSocket;
 import com.losandes.fileTransfer.Destination;
@@ -181,7 +182,7 @@ public class VirtualMachineOperations implements VirtualMachineOperationsLocal {
                 continue;
             }
             try {
-                communication.writeUTF("" + VIRTUAL_MACHINE_OPERATION,
+                communication.writeUTF("" + UnaCloudAbstractMessage.VIRTUAL_MACHINE_OPERATION,
                         "" + VM_TURN_ON,
                         virtualMachineExecution.getVirtualMachineExecutionCode(),
                         "" + virMac.getHypervisor().getHypervisorCode(),

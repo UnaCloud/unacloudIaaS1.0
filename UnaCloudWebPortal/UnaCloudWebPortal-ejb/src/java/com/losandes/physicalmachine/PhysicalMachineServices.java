@@ -1,5 +1,6 @@
 package com.losandes.physicalmachine;
 
+import com.losandes.communication.messages.UnaCloudAbstractMessage;
 import com.losandes.communication.security.utils.*;
 import com.losandes.communication.security.SecureServerStream;
 import com.losandes.communication.security.SecureSocket;
@@ -94,7 +95,7 @@ public class PhysicalMachineServices implements IPhysicalMachineServices {
         String result = "";
         for (PhysicalMachine phyMac : physicalMachines) {
             if (!phyMac.getLaboratory().getLaboratoryType().getLaboratoryTypeName().toLowerCase().equals("Virtual")) {
-                if (sendMessageToPhysicalMachine(phyMac.getPhysicalMachineIP(), PHYSICAL_MACHINE_OPERATION + MESSAGE_SEPARATOR_TOKEN + PM_TURN_OFF + MESSAGE_SEPARATOR_TOKEN)) {
+                if (sendMessageToPhysicalMachine(phyMac.getPhysicalMachineIP(), UnaCloudAbstractMessage.PHYSICAL_MACHINE_OPERATION + MESSAGE_SEPARATOR_TOKEN + PM_TURN_OFF + MESSAGE_SEPARATOR_TOKEN)) {
                     phyMac.setPhysicalMachineState(0);
                     phyMac.setPhysicalMachineUser(NOTHING_AVAILABLE);
                     persistenceServices.update(phyMac);
@@ -118,7 +119,7 @@ public class PhysicalMachineServices implements IPhysicalMachineServices {
         String result = "";
         for (PhysicalMachine phyMac : physicalMachines) {
             if (!phyMac.getLaboratory().getLaboratoryType().getLaboratoryTypeName().toLowerCase().equals("default")) {
-                if (sendMessageToPhysicalMachine(phyMac.getPhysicalMachineIP(), PHYSICAL_MACHINE_OPERATION + MESSAGE_SEPARATOR_TOKEN + PM_RESTART + MESSAGE_SEPARATOR_TOKEN)) {
+                if (sendMessageToPhysicalMachine(phyMac.getPhysicalMachineIP(), UnaCloudAbstractMessage.PHYSICAL_MACHINE_OPERATION + MESSAGE_SEPARATOR_TOKEN + PM_RESTART + MESSAGE_SEPARATOR_TOKEN)) {
                     phyMac.setPhysicalMachineState(0);
                     phyMac.setPhysicalMachineUser(NOTHING_AVAILABLE);
                     persistenceServices.update(phyMac);
@@ -146,7 +147,7 @@ public class PhysicalMachineServices implements IPhysicalMachineServices {
         String result = "";
         for (PhysicalMachine phyMac : physicalMachines) {
             if (!phyMac.getLaboratory().getLaboratoryType().getLaboratoryTypeName().toLowerCase().equals("default")) {
-                if (sendMessageToPhysicalMachine(phyMac.getPhysicalMachineIP(), PHYSICAL_MACHINE_OPERATION + MESSAGE_SEPARATOR_TOKEN + PM_LOGOUT + MESSAGE_SEPARATOR_TOKEN)) {
+                if (sendMessageToPhysicalMachine(phyMac.getPhysicalMachineIP(), UnaCloudAbstractMessage.PHYSICAL_MACHINE_OPERATION + MESSAGE_SEPARATOR_TOKEN + PM_LOGOUT + MESSAGE_SEPARATOR_TOKEN)) {
                     phyMac.setPhysicalMachineUser(NOTHING_AVAILABLE);
                     persistenceServices.update(phyMac);
                 }
@@ -252,7 +253,7 @@ public class PhysicalMachineServices implements IPhysicalMachineServices {
         System.out.println("updatePhysicalMachineAgent "+physicalMachines.size());
         String result = null;
         for (PhysicalMachine phyMac : physicalMachines) {
-            if (!sendMessageToPhysicalMachine(phyMac.getPhysicalMachineIP(), ""+UPDATE_OPERATION)) {
+            if (!sendMessageToPhysicalMachine(phyMac.getPhysicalMachineIP(), ""+UnaCloudAbstractMessage.UPDATE_OPERATION)) {
                 if(result==null)result = UNSUCCESSFUL_OPERATION+" on";
                 result+= " "+phyMac.getPhysicalMachineName();
             }
@@ -266,7 +267,7 @@ public class PhysicalMachineServices implements IPhysicalMachineServices {
         String result = "";
         for (PhysicalMachine phyMac : physicalMachines) {
             if (!phyMac.getLaboratory().getLaboratoryType().getLaboratoryTypeName().toLowerCase().equals("default")) {
-                if (sendMessageToPhysicalMachine(phyMac.getPhysicalMachineIP(), PHYSICAL_MACHINE_OPERATION + MESSAGE_SEPARATOR_TOKEN + PM_MONITOR + MESSAGE_SEPARATOR_TOKEN + "START" + MESSAGE_SEPARATOR_TOKEN + 60 + MESSAGE_SEPARATOR_TOKEN + 60)) {
+                if (sendMessageToPhysicalMachine(phyMac.getPhysicalMachineIP(), UnaCloudAbstractMessage.PHYSICAL_MACHINE_OPERATION + MESSAGE_SEPARATOR_TOKEN + PM_MONITOR + MESSAGE_SEPARATOR_TOKEN + "START" + MESSAGE_SEPARATOR_TOKEN + 60 + MESSAGE_SEPARATOR_TOKEN + 60)) {
                     //TODO colocar la maquina en monitoreo.
                 }
             } else {
@@ -287,7 +288,7 @@ public class PhysicalMachineServices implements IPhysicalMachineServices {
         String result = "";
         for (PhysicalMachine phyMac : physicalMachines) {
             if (!phyMac.getLaboratory().getLaboratoryType().getLaboratoryTypeName().toLowerCase().equals("default")) {
-                if (sendMessageToPhysicalMachine(phyMac.getPhysicalMachineIP(), PHYSICAL_MACHINE_OPERATION + MESSAGE_SEPARATOR_TOKEN + PM_MONITOR + MESSAGE_SEPARATOR_TOKEN + "STOP")) {
+                if (sendMessageToPhysicalMachine(phyMac.getPhysicalMachineIP(), UnaCloudAbstractMessage.PHYSICAL_MACHINE_OPERATION + MESSAGE_SEPARATOR_TOKEN + PM_MONITOR + MESSAGE_SEPARATOR_TOKEN + "STOP")) {
                     //TODO colocar la maquina en NO monitoreo.
                 }
             } else {
@@ -347,7 +348,7 @@ public class PhysicalMachineServices implements IPhysicalMachineServices {
 
     @Override
     public void turnOnPhysicalMachine(PhysicalMachine bridge, PhysicalMachine... toWake) {
-        String msg = PHYSICAL_MACHINE_OPERATION + MESSAGE_SEPARATOR_TOKEN + PM_TURN_ON;
+        String msg = UnaCloudAbstractMessage.PHYSICAL_MACHINE_OPERATION + MESSAGE_SEPARATOR_TOKEN + PM_TURN_ON;
         for (PhysicalMachine pm : toWake) {
             msg += MESSAGE_SEPARATOR_TOKEN + pm.getPhysicalMachineMAC();
         }
@@ -409,7 +410,7 @@ public class PhysicalMachineServices implements IPhysicalMachineServices {
         new PhysicalMachineServices().turnOnPhysicalMachine("157.253.201.144","2c41388b1536","3cd92b76eb24","2c41388b1515","3cd92b76eb28","3cd92b76eb52","3cd92b76eb1d","3cd92b76eb55","2c41388b14be","3cd92b76eb00","2c41388b1527","3cd92b76eb2c","3cd92b76eb5b","2c41388b152e","3cd92b76eb25","3cd92b76eb30","3cd92b76eaf6","3cd92b76eb1a","3cd92b76eb58","3cd92b76eb20","3cd92b76eac4","000FFE946110","2c41388b1530","000FFE94613F","3cd92b76eb29","3cd92b76eb50","3cd92b76eb66","3cd92b76eadb","3cd92b76eb1c","3cd92b76eb37","3cd92b76eb22","2c41388b146b","3cd92b76eb38","3cd92b76ead7","3cd92b76eb21","3cd92b76eac5","3cd92b76eb56","2c41388b1520","2c41388b1509");
     }
     public void turnOnPhysicalMachine(String bridge, String... toWake) {
-        String msg = PHYSICAL_MACHINE_OPERATION + MESSAGE_SEPARATOR_TOKEN + PM_TURN_ON;
+        String msg = UnaCloudAbstractMessage.PHYSICAL_MACHINE_OPERATION + MESSAGE_SEPARATOR_TOKEN + PM_TURN_ON;
         for (String pm : toWake) {
             msg += MESSAGE_SEPARATOR_TOKEN + pm;
         }

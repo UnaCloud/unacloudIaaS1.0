@@ -1,0 +1,40 @@
+<ui:composition template="/Pages/Grid/VirtualGridPhysicalMachine.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <ui:define name="templatemenubar">
+        <rich:toolbar height="26" itemSeparator="disc" id="menuBar" >
+            <rich:toolbarGroup>
+                <p:selectOneMenu id="template" value="#{gridDeploymentBean.templateSelected}" >
+                    <a4j:ajax event="valueChange" render="menuBar" execute="@this" />
+                    <f:selectItems value="#{gridDeploymentBean.fastGridTemplates}"/>
+                </p:selectOneMenu>
+            </rich:toolbarGroup>
+            <rich:toolbarGroup>
+                <p:selectOneMenu id="applications" style="min-width: 150px" >
+                    <f:selectItems value="#{gridDeploymentBean.gridApplications}"/>
+                </p:selectOneMenu>
+            </rich:toolbarGroup>
+            <rich:toolbarGroup>
+                <p:selectOneMenu id="time" value="#{gridDeploymentBean.executionTimeSelected}" style="width: 75px" >
+                    <f:selectItems value="#{constantsBean.executionTimes}" />
+                </p:selectOneMenu>
+            </rich:toolbarGroup>
+            <rich:toolbarGroup location="right">
+                <h:outputText id="selectNumber" value="Selected: #{gridDeploymentBean.fastVirtualMachinesAviableOverTotal}" />
+            </rich:toolbarGroup>
+            <rich:toolbarGroup location="right">
+                <a4j:commandButton id="turnOnButton" image="/img/turnOn.png" action="#{gridDeploymentBean.turnOnFastVirtualMachineGrid}" title="Turn On">
+                    <rich:componentControl event="oncomplete" target="panelBloquear" operation="hide" />
+                </a4j:commandButton>
+            </rich:toolbarGroup>
+            <rich:toolbarGroup location="right">
+                <h:commandButton image="/img/back.png" action="#{gridDeploymentBean.backFromLaboratory}" title="Back" rendered="#{gridDeploymentBean.laboratorySelected}" />
+            </rich:toolbarGroup>
+        </rich:toolbar>
+    </ui:define>
+</ui:composition>

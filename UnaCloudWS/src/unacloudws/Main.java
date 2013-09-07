@@ -6,6 +6,8 @@
 package unacloudws;
 
 import com.losandes.unacloudws.development.*;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.List;
 
 
@@ -18,12 +20,13 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args){
+        System.setErr(new PrintStream(new ByteArrayOutputStream()));
         UnaCloudOperationsTest unacloudOp=new UnaCloudOperationsTest("ga.sotelo69", "asdasdasd");
         List<TemplateWS> ts=unacloudOp.getTemplateLists();
         for(TemplateWS t:ts)System.out.println(t.getTemplateName()+" "+t.getTemplateCode());
         //UnaCloudOperations.turnOnVirtualCluster("ga.sotelo69", "asdasdasd",63,20,0,0,0,24*3);
-        for(VirtualMachineExecutionWS vme:unacloudOp.getVirtualMachineExecutions(63)){
+        for(VirtualMachineExecutionWS vme:unacloudOp.getVirtualMachineExecutions(64)){
             System.out.println(vme.getVirtualMachineExecutionCode());
         }
         /*System.out.println(UnaCloudOperations.getTotalUnaCloudResources(20,4,1024));

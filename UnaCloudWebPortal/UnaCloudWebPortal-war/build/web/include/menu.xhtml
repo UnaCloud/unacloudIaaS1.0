@@ -1,0 +1,78 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <f:view>
+        <h:body>
+            <h:form>
+                <rich:toolbar height="26px">
+                    <rich:toolbarGroup location="left" rendered="#{SecurityBean.logedIn}">
+                        <rich:dropDownMenu disabled="#{SecurityBean.disabledCloud}" label="Cloud IaaS" mode="ajax">
+                            <rich:menuItem styleClass="login" label="Customize IaaS" action="#{ClouderBean.clearComponents}" />
+                            <rich:menuItem styleClass="login" label="Deploy IaaS" action="FastClouderAdmin"/>
+                            <rich:menuItem styleClass="login" label="My Cloud IaaS" action="CloudManagement"/>
+                        </rich:dropDownMenu>
+                        <rich:dropDownMenu disabled="#{SecurityBean.disabledGrid}" label="Grid" mode="ajax">
+                            <rich:menuItem styleClass="login" label="Customize Located IaaS" action="DeployManualCloudIaaS"/>
+                            <rich:menuItem styleClass="login" label="Deploy Located IaaS" action="DeployFastManualCloudIaaS"/>
+                            <rich:menuItem styleClass="login" label="My Cloud IaaS" action="CloudManagement"/>
+                        </rich:dropDownMenu>
+                        <rich:dropDownMenu disabled="#{SecurityBean.disabledAdministrator}" label="Administration" mode="ajax">
+                            <rich:menuItem styleClass="login"  label="Manage Laboratories Information" action="ManageLaboratories"/>
+                            <rich:menuItem styleClass="login"  label="Manage Physical Machines Information" action="ManagePhysicalMachine"/>
+                            <rich:menuItem styleClass="login"  label="Manage Physical Infrastructure" action="OperateInfrastructure"/>
+                            <rich:menuItem styleClass="login"  label="Manage Templates Information" action="Template"/>
+                            <rich:menuItem styleClass="login"  label="Manage Hypervisors Information" action="ManageHypervisors"/>
+                            <rich:menuItem styleClass="login"  label="Manage Security Access Information" action="ManageSecurityAccess"/>
+                            <rich:menuItem styleClass="login"  label="Manage Operating Systems Information" action="ManageOperatingSystems"/>
+                            <rich:menuItem styleClass="login"  label="Manage Applications Information" action="ManageApplications"/>
+                            <rich:menuItem styleClass="login"  label="Manage Virtual Machines Information" action="ManageVirtualMachine"/>
+                            <rich:menuItem styleClass="login"  label="Manage System Users Information" action="ManageSystemUsers"/>
+                            <rich:menuItem styleClass="login"  label="IaaS Traceability" action="MonitorCloudIaaS"/>
+                            <rich:menuItem styleClass="login"  label="View Infrastructure Usage" action="Statistics"/>
+                        </rich:dropDownMenu>
+                        <rich:dropDownMenu disabled="#{SecurityBean.disabledAdministrator}" label="Configuration" mode="ajax">
+                            <rich:menuItem styleClass="login" label="Server configuration" action="serverConfiguration"/>
+                            <rich:menuItem styleClass="login" label="QoS configuration" action="qosConfiguration"/>
+                            <rich:menuItem styleClass="login" label="Security configuration" action="securityConfiguration"/>
+                            <rich:menuItem styleClass="login" label="Client Installation Guide" action="clientInstallGuide"/>
+                        </rich:dropDownMenu>
+                    </rich:toolbarGroup>
+                    <rich:toolbarGroup location="right" rendered="#{SecurityBean.logedIn}">
+                        <h:commandButton image="/img/user.png" action="userSettings" title="My account" />
+                        <h:commandButton image="/img/home.png" action="administrator" title="home" />
+                        <h:commandLink value="Exit" action="#{logoutBean.doLogout}" title="exit" />
+                    </rich:toolbarGroup>
+                    <rich:toolbarGroup location="right" rendered="#{SecurityBean.loggedOff}">
+                        <h:commandLink value="login" title="login">
+                            <rich:componentControl target="loginPanel" operation="show" />
+                        </h:commandLink>
+                    </rich:toolbarGroup>
+                </rich:toolbar>
+            </h:form>
+            <rich:popupPanel id="loginPanel" autosized="true" resizeable="false" modal="true" moveable="false" >
+                <f:facet name="header">
+                    <h:outputText value="Login" />
+                </f:facet>
+                <f:facet name="controls">
+                    <h:outputLink value="#" onclick="#{rich:component('loginPanel')}.hide(); return false;">
+                        X
+                    </h:outputLink>
+                </f:facet>
+                <form action="j_security_check" method="POST">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel styleClass="login" value="User Name:" />
+                        <input type="text" name="j_username"  />
+                        <h:outputLabel styleClass="login" value="Password:" />
+                        <input type="password" name="j_password"  />
+                    </h:panelGrid>
+                    <br/>
+                    <input type="submit" value="Login" style="float: right"  />
+                    <br/>
+                </form>
+            </rich:popupPanel>
+        </h:body>
+    </f:view>
+</ui:composition>

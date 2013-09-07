@@ -52,6 +52,7 @@ public class UnaCloudWS {
         if(cores<0)return null;
         if(hdSize<0)return null;
         if(time<1)return null;
+        System.out.println("turnOnVirtualCluster "+username+" "+templateID+" "+size);
         VirtualMachineExecution[] vmes = ivms.turnOnVirtualClusterBySize(templateID,time, size, cores, hdSize, ram, username,true);
         List<VirtualMachineExecutionWS> ret = new ArrayList<VirtualMachineExecutionWS>();
         for(VirtualMachineExecution vme:vmes){

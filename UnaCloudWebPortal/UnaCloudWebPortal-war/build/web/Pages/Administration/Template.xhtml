@@ -1,0 +1,103 @@
+<ui:composition template="/Pages/Administration/EntityTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <ui:param name="dialogSize" value="640" />
+    <ui:param name="clase" value="#{TemplateBean}" />
+    <ui:param name="formId" value="Template" />
+    <ui:param name="editTitle" value="Templates Information Management" />
+    <ui:define name="editionPane" >
+        <h:graphicImage url="/img/Template.jpg" />
+        <h:panelGrid columns="2" id="infoGrid">
+            <h:outputLabel value="Template Name:" styleClass="textospeq" />
+            <h:inputText maxlength="50" id="name" value="#{TemplateBean.template.templateName}" required="true" requiredMessage="*" style="width: 400px" />
+            <h:outputLabel value="Operating System:" styleClass="textospeq" />
+            <p:selectOneMenu id="listOpereting" value="#{TemplateBean.operatingSystem.operatingSystemCode}" required="true" requiredMessage="Operating system required" style="width: 150px">
+                <f:selectItems value="#{TemplateBean.allOperetingSystems}" />
+            </p:selectOneMenu>
+            <h:outputLabel value="Template Type:" styleClass="textospeq" />
+            <p:selectOneMenu id="listTemplate" value="#{TemplateBean.templateType.templateTypeCode}" required="true" requiredMessage="Template type required" style="width: 150px">
+                <f:selectItems value="#{TemplateBean.allTemplatesType}" />
+            </p:selectOneMenu>
+            <h:outputLabel value="Image location:" styleClass="textospeq" />
+            <h:inputText value="#{TemplateBean.template.vmxFileLocation}" style="width: 400px"/>
+            <h:outputLabel value="Customizable" styleClass="textospeq" />
+            <h:selectBooleanCheckbox value="#{TemplateBean.template.customizable}" />
+            <h:outputLabel value="High availability" styleClass="textospeq" />
+            <h:selectBooleanCheckbox value="#{TemplateBean.template.highAvailability}" />
+            <h:outputLabel value="Applications:" styleClass="textospeq" />
+            <rich:pickList value="#{TemplateBean.template.applications}" sourceCaption="Applications" targetCaption="Template apps" listWidth="200px" listHeight="200px">
+                <f:selectItems value="#{TemplateBean.allApplications}" var="app" itemValue="#{app}" itemLabel="#{app.applicationName}" />
+                <f:converter converterId="applicationConverter"/>
+            </rich:pickList>
+            <h:inputHidden value="#{TemplateBean.template.templateCode}" />
+        </h:panelGrid>
+    </ui:define>
+    <ui:define name="dataView">
+        <rich:dataTable id="tblObject" value="#{TemplateBean.allTemplates}" var="cr" rows="20">
+            <rich:column width="300">
+                <f:facet name="header">
+                    <h:outputText value="Template Name"/>
+                </f:facet>
+                <h:outputText value="#{cr.templateName}" />
+            </rich:column>
+            <rich:column width="300">
+                <f:facet name="header">
+                    <h:outputText value="Template Type"/>
+                </f:facet>
+                <h:outputText value="#{cr.templateType.templateTypeName}"/>
+            </rich:column>
+            <rich:column width="200" >
+                <f:facet name="header" >
+                    <h:outputText value="Options"/>
+                </f:facet>
+                <h:graphicImage title="Elastic rule" value="/img/grow.png" onclick="createElasticRule(#{cr.templateCode})" styleClass="icon" style="cursor: pointer" />
+                <p:spacer width="4" height="10" />
+                <h:graphicImage title="Edit" value="/img/edit.png" onclick="srcById(#{cr.templateCode})" styleClass="icon" style="cursor: pointer" />
+            </rich:column>
+            <f:facet name="footer">
+                <rich:dataScroller id="scroller" />
+            </f:facet>
+        </rich:dataTable>
+        <a4j:jsFunction name="createElasticRule" action="#{TemplateBean.findByID}" oncomplete="elasticRule.show();" render="elasticGrid" >
+            <a4j:param name="p1" assignTo="#{TemplateBean.id}" />
+        </a4j:jsFunction>
+        <h:form id="elasticRuleForm">
+            <p:dialog id="elasticRule" widgetVar="elasticRule" modal="true" header="Template Elastic Rule" width="400"  >
+                <center>
+                    <h:graphicImage url="/img/OperatingSystems.png" />
+                    <p:messages autoUpdate="true" />
+                    <h:panelGrid columns="2" id="elasticGrid">
+                        <h:outputLabel value="Elastic rule for :" styleClass="textospeq" />
+                        <h:outputLabel value="#{TemplateBean.template.templateName}" styleClass="textospeq" />
+                        <h:outputLabel value="Active :" styleClass="textospeq" />
+                        <h:selectBooleanCheckbox value="#{TemplateBean.template.elasticRule.active}" />
+                        <h:outputLabel value="Elastic rule type :" styleClass="textospeq" />
+                        <p:selectOneMenu  value="#{TemplateBean.elacticRuleType}" >
+                            <f:selectItem itemLabel="Adition" itemValue="1" />
+                            <f:selectItem itemLabel="Multiply" itemValue="1" />
+                        </p:selectOneMenu>
+                        <h:outputLabel value="Elastic rule factor :" styleClass="textospeq"/>
+                        <p:inputText maxlength="50" value="#{TemplateBean.template.elasticRule.factor}" styleClass="textospeq5" required="true" requiredMessage="Elastic factor required"/>
+                        <h:outputLabel value="Lower limit :" styleClass="textospeq" />
+                        <p:inputText maxlength="50" value="#{TemplateBean.template.elasticRule.lowerLimit}" styleClass="textospeq5" required="true" requiredMessage="Lower limit required"/>
+                        <h:outputLabel value="Upper limit :" styleClass="textospeq" />
+                        <p:inputText maxlength="50" value="#{TemplateBean.template.elasticRule.upperLimit}" styleClass="textospeq5" required="true" requiredMessage="Upper limit required"/>
+                    </h:panelGrid>
+                </center>
+                <br/>
+                <h:panelGrid columns="2" border="0" style="float: right">
+                    <h:form>
+                        <p:commandButton value="Cancel" title="Cancel" onclick="elasticRule.hide();" update="#{formId}:growl"/>
+                    </h:form>
+                    <p:commandButton value="Save" title="Save" action="#{TemplateBean.createOrUpdate}" onclick="handleLoginRequest(xhr, status, args, stpEdit, elasticRule);updateTable();" update="growl"/>
+                </h:panelGrid>
+            </p:dialog>
+            <a4j:jsFunction name="updateTable" render="tblObject" />
+        </h:form>
+    </ui:define>
+</ui:composition>

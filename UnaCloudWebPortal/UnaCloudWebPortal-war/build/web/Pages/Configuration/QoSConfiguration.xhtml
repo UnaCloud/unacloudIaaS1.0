@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition
+    template="/Pages/main-template.xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:a4j="http://richfaces.org/a4j">
+    <ui:define name="body">
+        <h:form>
+            <p:growl id="growl" sticky="false" life="2000" />
+            <h:outputLabel value="QoS settings" styleClass="titulos2" />
+            <h:panelGrid columns="2">
+                <h:outputLabel value="QoS enable" />
+                <p:selectBooleanCheckbox value="#{serverConfigurationBean.properties['String.MONITORING_ENABLE']}" >
+                    <a4j:ajax id="f" event="valueChange" render="qosOptions" execute="@this" />
+                </p:selectBooleanCheckbox>
+            </h:panelGrid>
+            <rich:panel id="qosOptions" style="border: 0">
+                <h:panelGrid columns="2" rendered="#{serverConfigurationBean.properties['String.MONITORING_ENABLE']}">
+                    <h:outputLabel value="Database server IP:" styleClass="textospeq5" />
+                    <h:inputText id="databaseIp" value="#{serverConfigurationBean.properties['String.MONITORING_SERVER_IP']}" required="true" requiredMessage="Monitor server IP required"/>
+                    <h:outputLabel value="Database name (schema):" styleClass="textospeq5" />
+                    <h:inputText id="databaseName" value="#{serverConfigurationBean.properties['String.MONITORING_DATABASE_NAME']}" required="true" requiredMessage="Monitor database name required"/>
+                    <h:outputLabel value="Database username :" styleClass="textospeq5" />
+                    <h:inputText id="databaseUser" value="#{serverConfigurationBean.properties['String.MONITORING_DATABASE_USER']}" required="true" requiredMessage="Monitor database user required"/>
+                    <h:outputLabel value="Database user password:" styleClass="textospeq5" />
+                    <h:inputText id="databasePassword" value="#{serverConfigurationBean.properties['String.MONITORING_DATABASE_PASSWORD']}" required="true" requiredMessage="Monitor database password required"/>
+                    <h:outputLabel value="Monitor frequency (seconds):" styleClass="textospeq5" />
+                    <h:inputText id="monitorFeq" value="#{serverConfigurationBean.properties['Integer.MONITOR_FREQUENCY']}" required="true" requiredMessage="Monitor frequency required"/>
+                    <h:outputLabel value="Register frequency (seconds):" styleClass="textospeq5" />
+                    <h:inputText id="regFeq" value="#{serverConfigurationBean.properties['Integer.MONITOR_REGISTER_FREQUENCY']}" required="true" requiredMessage="Register frequency required"/>
+                </h:panelGrid>
+                <h:panelGrid style="float: right" columns="2">
+                    <h:commandButton value="Save" action="#{serverConfigurationBean.save}"/>
+                </h:panelGrid>
+            </rich:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

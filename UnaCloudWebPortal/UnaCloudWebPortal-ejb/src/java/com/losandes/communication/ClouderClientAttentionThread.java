@@ -1,5 +1,6 @@
 package com.losandes.communication;
 
+import com.losandes.communication.messages.UnaCloudAbstractMessage;
 import com.losandes.communication.security.utils.*;
 import com.losandes.persistence.entity.PhysicalMachine;
 import com.losandes.physicalmachine.IPhysicalMachineServices;
@@ -49,7 +50,7 @@ public class ClouderClientAttentionThread extends Thread {
             System.out.println("Entro 4");
 
             if (operationDomain != 0 && operationDomain < 3) {
-                if (operationDomain == DATABASE_OPERATION) {
+                if (operationDomain == UnaCloudAbstractMessage.DATABASE_OPERATION) {
                     System.out.println("The Clouder Server operation request is database operation");
                     int databaseOperationType = 0;
                     String physicalMachineName ="";
@@ -121,7 +122,7 @@ public class ClouderClientAttentionThread extends Thread {
                             clouderServerOperationResult += ERROR_MESSAGE + "The Clouder Client database operation is invalid: " + databaseOperationType;
                             System.err.println(clouderServerOperationResult);
                     }
-                } else if (operationDomain == REGISTRATION_OPERATION) {
+                } else if (operationDomain == UnaCloudAbstractMessage.REGISTRATION_OPERATION) {
                     System.out.println("The Clouder Server operation request is registration type");
                     int registrationOperationType = 0;
                     if (clouderServerRequestSplitted.length > 1) {

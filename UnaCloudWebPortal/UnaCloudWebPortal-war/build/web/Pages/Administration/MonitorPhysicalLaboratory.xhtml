@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <body>
+        <ui:composition template="/Pages/main-template.xhtml">
+            <ui:define name="body">
+                <ui:include src="/include/menu.xhtml"/>
+                <a4j:form>
+                    <table width="800" border="0" align="center" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="800" height="19" valign="top"><div align="center">
+
+                                    <rich:toolBar height="26" itemSeparator="disc">
+                                         <rich:toolBarGroup>
+                                            <h:graphicImage title="Back" value="/img/back.png"  onclick="backObject()" styleClass="icon" />
+                                        </rich:toolBarGroup>
+                                    </rich:toolBar>
+                                </div></td>
+                        </tr>
+                        <tr>
+                            <td height="19" valign="center"><div align="center">
+                                    <h:outputText id = "execution" value="#{LaboratoryBean.executionMachineError}"/>
+                                </div></td>
+                        </tr>
+                        <tr>
+                            <td height="19" align="center" valign="top">
+                                <rich:dataGrid value="#{LaboratoryBean.laboratory.physicalMachine}" var="car" columns="#{LaboratoryBean.laboratory.laboratoryColumns}">
+                                    <rich:panel bodyClass="pbody">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{car.physicalMachineName}"></h:outputText>
+                                        </f:facet>
+                                        <h:panelGrid>
+                                            <h:graphicImage title="Monitor" value="/img/Computer/pc#{car.physicalMachineState}.jpg" onclick="srcById(#{car.physicalMachineName})" styleClass="icon"></h:graphicImage>
+                                        </h:panelGrid>
+                                     </rich:panel>
+                                    <f:facet name="footer">
+                                    <rich:datascroller></rich:datascroller>
+                                    </f:facet>
+                                </rich:dataGrid>
+                                <a4j:jsFunction name="backObject" action="#{LaboratoryBean.returnMonitorLaboratorySelection}" reRender="grid, execution"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="19" valign="top"><div align="center">
+                                    <a4j:jsFunction name="srcById" action="#{LaboratoryBean.findByIDPhysicalMachineMonitor}" reRender="stpEdit" oncomplete="" >
+                                        <a4j:actionparam name="p1" assignTo="#{LaboratoryBean.idPhysicalMachine}" />
+                                    </a4j:jsFunction>
+                                </div></td>
+                        </tr>
+                    </table>
+                </a4j:form>
+                
+                <ui:include src="/include/down.xhtml"/>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

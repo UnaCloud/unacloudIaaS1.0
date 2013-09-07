@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition
+    template="/Pages/main-template.xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:a4j="http://richfaces.org/a4j">
+    <ui:define name="body">
+        <rich:panel id="serverConf" >
+            <h:form>
+                <p:growl id="growl" sticky="false" life="2000" />
+                <h:outputLabel value="Server settings" styleClass="titulos2" />
+                <h:panelGrid columns="3">
+                    <h:outputLabel value="Server IP:" styleClass="textospeq5" />
+                    <h:inputText id="serverIp" value="#{serverConfigurationBean.properties['String.CLOUDER_SERVER_IP']}" required="true" requiredMessage="*"/>
+                    <rich:message for="serverIp"/>
+                    <h:outputLabel value="Server port:" styleClass="textospeq5" />
+                    <h:inputText id="serverPort" value="#{serverConfigurationBean.properties['Integer.CLOUDER_SERVER_PORT']}" required="true" requiredMessage="*"/>
+                    <rich:message for="serverPort"/>
+                    <h:outputLabel value="Client port:" styleClass="textospeq5" />
+                    <h:inputText id="clientPort" value="#{serverConfigurationBean.properties['Integer.CLOUDER_CLIENT_PORT']}" required="true" requiredMessage="*"/>
+                    <rich:message for="clientPort"/>
+                    <h:outputLabel value="File transfer port:" styleClass="textospeq5" />
+                    <h:inputText id="filePort" value="#{serverConfigurationBean.properties['Integer.FILE_TRANSFER_SOCKET']}" required="true" requiredMessage="*"/>
+                    <rich:message for="filePort"/>
+                    <h:outputLabel value="File transfer data port:" styleClass="textospeq5" />
+                    <h:inputText id="fileDataPort" value="#{serverConfigurationBean.properties['Integer.DATA_SOCKET']}" required="true" requiredMessage="*"/>
+                    <rich:message for="fileDataPort"/>
+                    <h:outputLabel value="Version manager port:" styleClass="textospeq5" />
+                    <h:inputText id="verMagPort" value="#{serverConfigurationBean.properties['Integer.VERSION_MANAGER_PORT']}" required="true" requiredMessage="*"/>
+                    <rich:message for="verMagPort"/>
+                    <h:outputLabel value="Log port:" styleClass="textospeq5" />
+                    <h:inputText id="logPort" value="#{serverConfigurationBean.properties['Integer.LOG_SOCKET']}" required="true" requiredMessage="*"/>
+                    <rich:message for="logPort"/>
+                </h:panelGrid>
+                <br/>
+                <h:panelGrid style="float: right" columns="2">
+                    <h:commandButton value="Save" action="#{serverConfigurationBean.save}"/>
+                </h:panelGrid>
+                <br/>
+            </h:form>
+        </rich:panel>
+    </ui:define>
+</ui:composition>

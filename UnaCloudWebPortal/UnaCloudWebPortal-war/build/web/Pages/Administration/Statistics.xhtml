@@ -1,0 +1,21 @@
+<ui:composition template="/Pages/main-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <ui:define name="body">
+        <h:panelGrid columns="2">
+            <p:pieChart value="#{staticticsBean.pieModelUsedCores}" legendPosition="e" title="Used cores" style="width:400px;height:300px" sliceMargin="3" />
+            <p:pieChart value="#{staticticsBean.pieModelUsedRAM}" legendPosition="e" title="Used ram (GB)" style="width:400px;height:300px" sliceMargin="3" />
+            <p:pieChart value="#{staticticsBean.pieModelUsedCoresByUsers}" legendPosition="e" title="Used cores by user" style="width:400px;height:300px" sliceMargin="3" />
+            <p:pieChart value="#{staticticsBean.pieModelUsedRAMByUsers}" legendPosition="e" title="Used ram by user (GB)" style="width:400px;height:300px" sliceMargin="3" />
+            <p:pieChart value="#{staticticsBean.pieModelUsedCoresByTemplate}" legendPosition="e" title="Used cores by template" style="width:400px;height:300px" sliceMargin="3" />
+            <p:pieChart value="#{staticticsBean.pieModelUsedRAMByTemplate}" legendPosition="e" title="Used ram by template (GB)" style="width:400px;height:300px" sliceMargin="3" />
+            
+        </h:panelGrid>
+        
+    </ui:define>
+</ui:composition>

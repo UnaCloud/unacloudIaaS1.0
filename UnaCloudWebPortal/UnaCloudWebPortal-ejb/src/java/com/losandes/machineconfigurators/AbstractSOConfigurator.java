@@ -4,6 +4,7 @@
  */
 package com.losandes.machineconfigurators;
 
+import com.losandes.communication.messages.UnaCloudAbstractMessage;
 import com.losandes.communication.security.utils.*;
 import com.losandes.communication.security.SecureSocket;
 import com.losandes.deploy.IPGenerationPolicy;
@@ -88,7 +89,7 @@ public abstract class AbstractSOConfigurator {
         try {
             SecureSocket socket = new SecureSocket(virtualMachine.getPhysicalMachine().getPhysicalMachineIP(),clientPort);
             AbstractCommunicator communication = socket.connect();
-            communication.writeUTF("" + VIRTUAL_MACHINE_CONFIGURATION,VMC_WRITE_FILE, virtualMachine.getHypervisor().getHypervisorCode().intValue()+"", virtualMachine.getVirtualMachinePath(),
+            communication.writeUTF("" + UnaCloudAbstractMessage.VIRTUAL_MACHINE_CONFIGURATION,VMC_WRITE_FILE, virtualMachine.getHypervisor().getHypervisorCode().intValue()+"", virtualMachine.getVirtualMachinePath(),
                     virtualMachine.getVirtualMachineSecurity().getVirtualMachineSecurityUser(),
                     virtualMachine.getVirtualMachineSecurity().getVirtualMachineSecurityPassword(),
                     path, virtualMachine.getPhysicalMachine().getPhysicalMachineHypervisorPath());
@@ -111,7 +112,7 @@ public abstract class AbstractSOConfigurator {
         try {
             SecureSocket socket = new SecureSocket(virtualMachine.getPhysicalMachine().getPhysicalMachineIP(),clouderClientPort);
             AbstractCommunicator communication = socket.connect();
-            communication.writeUTF("" + VIRTUAL_MACHINE_CONFIGURATION,VMC_START, virtualMachine.getHypervisor().getHypervisorCode().intValue()+"", virtualMachine.getVirtualMachinePath(), virtualMachine.getPhysicalMachine().getPhysicalMachineHypervisorPath());
+            communication.writeUTF("" + UnaCloudAbstractMessage.VIRTUAL_MACHINE_CONFIGURATION,VMC_START, virtualMachine.getHypervisor().getHypervisorCode().intValue()+"", virtualMachine.getVirtualMachinePath(), virtualMachine.getPhysicalMachine().getPhysicalMachineHypervisorPath());
             communication.readUTF();
             communication.close();
             Thread.sleep(30000);
@@ -127,7 +128,7 @@ public abstract class AbstractSOConfigurator {
         try {
             SecureSocket socket = new SecureSocket(virtualMachine.getPhysicalMachine().getPhysicalMachineIP(),clouderClientPort);
             AbstractCommunicator communication = socket.connect();
-            communication.writeUTF(new String[]{"" + VIRTUAL_MACHINE_CONFIGURATION,VMC_STOP, virtualMachine.getHypervisor().getHypervisorCode().intValue()+"",virtualMachine.getVirtualMachinePath(), virtualMachine.getPhysicalMachine().getPhysicalMachineHypervisorPath()});
+            communication.writeUTF(new String[]{"" + UnaCloudAbstractMessage.VIRTUAL_MACHINE_CONFIGURATION,VMC_STOP, virtualMachine.getHypervisor().getHypervisorCode().intValue()+"",virtualMachine.getVirtualMachinePath(), virtualMachine.getPhysicalMachine().getPhysicalMachineHypervisorPath()});
             communication.readUTF();
             communication.close();
         } catch (ConnectionException ex) {
@@ -144,7 +145,7 @@ public abstract class AbstractSOConfigurator {
             SecureSocket socket = new SecureSocket(virtualMachine.getPhysicalMachine().getPhysicalMachineIP(),clouderClientPort);
             AbstractCommunicator communication = socket.connect();
             String[] peticion = new String[8 + comandos.length];
-            peticion[0] = "" + VIRTUAL_MACHINE_CONFIGURATION;
+            peticion[0] = "" + UnaCloudAbstractMessage.VIRTUAL_MACHINE_CONFIGURATION;
             peticion[1] = VMC_COMMAND;
             peticion[2] = virtualMachine.getHypervisor().getHypervisorCode().intValue()+"";
             peticion[3] = virtualMachine.getVirtualMachinePath();
@@ -168,7 +169,7 @@ public abstract class AbstractSOConfigurator {
             SecureSocket socket = new SecureSocket(virtualMachine.getPhysicalMachine().getPhysicalMachineIP(),clouderClientPort);
             AbstractCommunicator communication = socket.connect();
             String[] peticion = new String[6];
-            peticion[0] = "" + VIRTUAL_MACHINE_CONFIGURATION;
+            peticion[0] = "" + UnaCloudAbstractMessage.VIRTUAL_MACHINE_CONFIGURATION;
             peticion[1] = VMC_TAKE_SNAPSHOT;
             peticion[2] = virtualMachine.getHypervisor().getHypervisorCode().intValue()+"";
             peticion[3] = virtualMachine.getVirtualMachinePath();
