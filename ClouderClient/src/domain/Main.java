@@ -3,7 +3,7 @@ package domain;
 import com.losandes.communication.messages.UnaCloudAbstractMessage;
 import com.losandes.communication.security.utils.ConnectionException;
 import com.losandes.dataChannel.DataServerSocket;
-import monitoring.Reporter;
+import monitoring.PhysicalMachineStateReporter;
 import communication.ClouderClientAttention;
 import execution.PersistentExecutionManager;
 import fileTransfer.TreeDistributionChannelManager;
@@ -57,7 +57,7 @@ public class Main {
                 PhysicalMachineMonitor.restart();
                 state.reportPhysicalMachine(turnOnMessage,true);
                 DataServerSocket.init();
-                new Reporter(Network.getHostname(),state.getREPORT_DELAY()).start();
+                new PhysicalMachineStateReporter(Network.getHostname(),state.getREPORT_DELAY()).start();
                 new Thread(){
                 @Override
                 public void run() {

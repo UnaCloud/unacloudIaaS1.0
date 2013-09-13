@@ -9,8 +9,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Date;
+import java.util.HashMap;
 
 import org.hyperic.sigar.Cpu;
+import org.hyperic.sigar.CpuInfo;
 import org.hyperic.sigar.CpuPerc;
 import org.hyperic.sigar.Mem;
 import org.hyperic.sigar.NetInterfaceStat;
@@ -34,9 +36,20 @@ public class MonitorReportGenerator extends SigarCommandBase {
 		// com.sun.security.auth.module.NTSystem NTSystem = new
 		// com.sun.security.auth.module.NTSystem();
 		// Evalua una sola CPU
-		org.hyperic.sigar.CpuInfo[] infos;
+                CpuInfo[] infos;
 		try {
 			infos = instance.sigar.getCpuInfoList();
+                        RepetitionCounter cpuModel=new RepetitionCounter();
+                        RepetitionCounter cpuVendor=new RepetitionCounter();
+                        RepetitionCounter cpuMhz=new RepetitionCounter();
+                        
+                        for(CpuInfo cpu:infos){
+                            cpuModel.add(cpu.getModel());
+                            cpuVendor.add(cpu.getVendor());
+                            cpuMhz.add(""+cpu.getMhz());
+                            
+                        }
+                        
 			org.hyperic.sigar.CpuInfo CPU1 = infos[0];
 			// System.out.println("Iniciando Carga de Batch Inicial");
 			String domain = "Corregir domain";
@@ -45,9 +58,9 @@ public class MonitorReportGenerator extends SigarCommandBase {
 					monitor.operatingSystem.getOperatingSystemName(),
 					monitor.operatingSystem.getOperatingSystemVersion(),
 					monitor.operatingSystem.getOperatingSystemArchitect(),
-					monitor.cpu.getCPUModel(), monitor.cpu.getCPUVendor(),
+					cpuModel.toString(), cpuVendor.toString(),
 					monitor.cpu.getCPUCores(), CPU1.getTotalSockets(),
-					monitor.cpu.getCPUMhz(), CPU1.getCoresPerSocket(),
+					cpuMhz.toString(), CPU1.getCoresPerSocket(),
 					monitor.memory.getRAMMemorySize(),
 					monitor.memory.getSwapMemorySize(),
 					monitor.hardDisk.getHardDiskSpace(),
@@ -56,22 +69,38 @@ public class MonitorReportGenerator extends SigarCommandBase {
 		} catch (SigarException e) {
 			e.printStackTrace();
 		}
-		return null;
+                return null;
 	}
+        private static class RepetitionCounter extends HashMap<String,Integer>{
+            public void add(String input){
+                Integer n=get(input);
+                if(n==null)n=0;
+                n++;
+                put(input,n);
+            }
 
+            @Override
+            public String toString() {
+                String ret=null;
+                for(java.util.Map.Entry<String,Integer> ent:entrySet()){
+                    ret=(ret!=null?";":"")+ent.getKey()+" x"+ent.getValue();
+                }
+                return ret==null?"":ret;
+            }
+            
+        }
+        
 	public static MonitorReport generateStateReport() {
 		String username=getUserName();
 		LinpackJava.Linpack CPUMflops = new LinpackJava.Linpack();
 		CPUMflops.run_benchmark();
 		PhysicalMachine monitor = new PhysicalMachine();
-		java.util.Date date;
-		date = new Date();
+		java.util.Date date = new Date();
 		java.sql.Timestamp timest = new java.sql.Timestamp(date.getTime());
 		contadorRegistros++;
-		Cpu CPU3;
 		try {
-			CPU3 = instance.sigar.getCpu();
-			CpuPerc CPU2 = instance.sigar.getCpuPerc();
+			Cpu cpu = instance.sigar.getCpu();
+                        CpuPerc CPU2 = instance.sigar.getCpuPerc();
 			Uptime UPTIME = instance.sigar.getUptime();
 			Mem MEM = instance.sigar.getMem();
 			NetInterfaceStat NET = instance.sigar
@@ -81,8 +110,8 @@ public class MonitorReportGenerator extends SigarCommandBase {
 					CPUMflops.getTimeinSecs(), CPU2.getIdle() * 100,
 					(100 - (CPU2.getIdle() * 100)), CPU2.getUser() * 100,
 					CPU2.getSys() * 100, CPU2.getNice() * 100,
-					CPU2.getWait() * 100, CPU2.getCombined() * 100, CPU3.getUser(),
-					CPU3.getSys(), CPU3.getNice(), CPU3.getWait(), CPU3.getIdle(),
+					CPU2.getWait() * 100, CPU2.getCombined() * 100, cpu.getUser(),
+					cpu.getSys(), cpu.getNice(), cpu.getWait(), cpu.getIdle(),
 					monitor.memory.getRAMMemoryFree(),
 					monitor.memory.getRAMMemoryUsed(), MEM.getFreePercent(),
 					MEM.getUsedPercent(), monitor.memory.getSwapMemoryFree(),

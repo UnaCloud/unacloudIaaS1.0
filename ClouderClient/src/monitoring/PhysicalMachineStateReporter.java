@@ -11,7 +11,7 @@ import static com.losandes.utils.Constants.*;
  * Class responsible for report this physical machine status. Every 30 seconds this class sends a keep alive message to UnaCloud server.
  * @author Clouder
  */
-public class Reporter extends Thread{
+public class PhysicalMachineStateReporter extends Thread{
 
     /**
      * Period time for the reporing process
@@ -28,7 +28,7 @@ public class Reporter extends Thread{
      * @param id Id to be used to report this physical machine, It corresponds to the physical machine name
      * @param sleep How much should the reporter wait between reports
      */
-    public Reporter(String id,int sleep){
+    public PhysicalMachineStateReporter(String id,int sleep){
         this.sleepTime = sleep;
         this.id=id;
     }
@@ -40,7 +40,7 @@ public class Reporter extends Thread{
     public void run() {
        int fails = 0;SecureSocket conection;
        try{
-           conection=new SecureSocket(VariableManager.getStringValue("CLOUDER_SERVER_IP"),VariableManager.getIntValue("CLOUDER_SERVER_PORT"));;
+           conection=new SecureSocket(VariableManager.getStringValue("CLOUDER_SERVER_IP"),VariableManager.getIntValue("CLOUDER_SERVER_PORT"));
        }catch(ConnectionException e){
            return;
        }
