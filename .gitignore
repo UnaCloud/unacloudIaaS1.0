@@ -1,1 +1,10 @@
 /ClouderClient/dist/
+/UnaCloudWebPortal/UnaCloudWebPortal-ejb/build/
+/UnaCloudWebPortal/UnaCloudWebPortal-ejb/dist/
+/UnaCloudWebPortal/build/
+/UnaCloudWebPortal/UnaCloudWebPortal-war/build/
+/UnaCloudWebPortal/UnaCloudWebPortal-war/dist/
+/UnaCloudWSClient/build/
+/UnaCloudWSClient/dist/
+/CommonShares/build/
+/CommonShares/dist/

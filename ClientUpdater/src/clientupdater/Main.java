@@ -42,7 +42,6 @@ public class Main {
     public static void main(String... args) throws FileNotFoundException{
         if(args.length>0&&args[0]!=null&&args[0].length()<2)System.setOut(new PrintStream("logActualizador"+args[0]));
         else System.setOut(new PrintStream("logActualizador"));
-        System.out.println("InicioActualizador "+Arrays.toString(args)+" "+new Date(System.currentTimeMillis())+" "+new File("./").getAbsolutePath());
         VariableManager.init("./vars");
         SERVER_PORT=VariableManager.getIntValue("VERSION_MANAGER_PORT");
         CLIENT_PORT = VariableManager.getIntValue("CLOUDER_CLIENT_PORT");

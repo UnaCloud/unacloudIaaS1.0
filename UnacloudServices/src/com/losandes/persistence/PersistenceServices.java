@@ -12,13 +12,16 @@
 package com.losandes.persistence;
 import com.losandes.beans.*;
 import com.losandes.utils.VirtualMachineCPUStates;
-import java.util.Properties;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import java.util.*;
-import javax.persistence.FlushModeType;
-import unacloudws.UnaCloudOperations;
 import static com.losandes.utils.Constants.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  * Prueba la implementacion de la interfaz SecurityServiceTest proveida por la aplicación
  * @author German Sotelo
@@ -26,31 +29,26 @@ import static com.losandes.utils.Constants.*;
 public class PersistenceServices {
 
     EntityManager em;
+    
     /**
      * Constructor de la prueba
      * Pide la instancia de la unidad de persistencia a la aplicación
      */
     public PersistenceServices(){
+        
         em =Persistence.createEntityManagerFactory("UnacloudServicesPU").createEntityManager();
     }
 
     public void updatePhysicalMachineState(int state,String ... machineIds){
-        for(String machineId:machineIds){
-            updatePhysicalMachine(state, machineId);
+        try(Connection con=DatabaseConnection.getConnection();PreparedStatement st=con.prepareStatement("update `physicalmachine` set `PHYSICALMACHINESTATE`=? where `PHYSICALMACHINENAME`=?;")){
+            for(String machineId:machineIds){
+                st.setInt(1,state);
+                st.setString(2,machineId);
+                st.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PersistenceServices.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    private void updatePhysicalMachine(int state,String machineId) {
-        Physicalmachine p = (Physicalmachine)em.find(Physicalmachine.class, machineId);
-        if(p==null){
-            System.out.println("Not found");
-            return;
-        }
-        em.getTransaction().begin();
-        p.setPhysicalmachinestate(state);
-        em.merge(p);
-        em.flush();
-        em.getTransaction().commit();
     }
     
     public void InsertNodeStateLog(String machineName, String option, String value ){
@@ -69,42 +67,58 @@ public class PersistenceServices {
             n.setServicesNotRunning(value);
     }
     
-    public void logginPhysicalMachineUser(Object machineId, String user) {
-        Physicalmachine p = (Physicalmachine)em.find(Physicalmachine.class, machineId);
-        em.getTransaction().begin();
-        if(p==null){
-            p=new Physicalmachine();
-            p.setPhysicalmachinename((String)machineId);
-            em.persist(p);
-            em.flush();
-            return;
+    public void logginPhysicalMachineUser(String machineId, String user){
+        if(user!=null&&user.equals("null"))user=null;
+        try(Connection con=DatabaseConnection.getConnection();PreparedStatement st=con.prepareStatement("update `physicalmachine` set `PHYSICALMACHINESTATE`=?,`PHYSICALMACHINEUSER`=? where `PHYSICALMACHINENAME`=?;")){
+            st.setInt(1,ON_STATE);
+            st.setString(2,user);
+            st.setString(3,machineId);
+            st.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(PersistenceServices.class.getName()).log(Level.SEVERE, null, ex);
         }
-        p.setPhysicalmachineuser(user);
-        p.setPhysicalmachinestate(ON_STATE);
-        em.merge(p);
-        em.flush();
-        em.getTransaction().commit();
     }
 
-    public void updateVirtualMachineState(Object virtualMachineExecutionCode, int state, String message) {
-        Virtualmachineexecution vme = (Virtualmachineexecution)em.find(Virtualmachineexecution.class,virtualMachineExecutionCode);
-        if(vme!=null){
-            em.getTransaction().begin();
-            if(state==OFF_STATE)vme.getVirtualmachine().getPhysicalmachine().setPhysicalmachinestate(VM_TURN_ON);
-            if(state==ERROR_STATE){
-                vme.getVirtualmachine().getPhysicalmachine().setPhysicalmachinestate(VM_TURN_ON);
-                vme.getVirtualmachine().setTurnoncount(0);
+    public void updateVirtualMachineState(String virtualMachineExecutionCode, int state, String message) {
+        try(Connection con=DatabaseConnection.getConnection();){
+            String physicalMachineName=null,virtualMachineCode=null;
+            try(PreparedStatement st=con.prepareStatement("select `PHYSICALMACHINE_PHYSICALMACHINENAME`,vm.`VIRTUALMACHINECODE` from `virtualmachine` vm, `virtualmachineexecution` vme where vme.`VIRTUALMACHINE_VIRTUALMACHINECODE` = vm.`VIRTUALMACHINECODE` and vme.`VIRTUALMACHINEEXECUTIONCODE` = ?;")){
+                 st.setString(1,virtualMachineExecutionCode);
+                 try(ResultSet rs=st.executeQuery()){
+                     if(rs.next()){
+                         physicalMachineName=rs.getString(1);
+                         virtualMachineCode=rs.getString(2);
+                     }
+                 }
             }
-            if(state==ON_STATE){
-                vme.getVirtualmachine().setVirtualmachinestate(ON_STATE);
-                vme.getVirtualmachine().setTurnoncount(vme.getVirtualmachine().getTurnoncount()+1);
+            try(PreparedStatement ps=con.prepareStatement("update `physicalmachine` set `PHYSICALMACHINESTATE` = ? where `PHYSICALMACHINENAME` = ?;")){
+                ps.setInt(1,VM_TURN_ON);
+                ps.setString(2,physicalMachineName);
+                ps.executeUpdate();
             }
-            em.merge(vme.getVirtualmachine());
-            vme.setVirtualmachineexecutionstatus(state);
-            vme.setVirtualmachineexecutionstatusmessage(message);
-            em.merge(vme);
-            em.flush();
-            em.getTransaction().commit();
+            switch(state){
+                case ERROR_STATE:
+                    try(PreparedStatement ps=con.prepareStatement("update `virtualmachine` set `TURNONCOUNT` = 0 where `VIRTUALMACHINECODE` = ?;")){
+                        ps.setString(1,virtualMachineCode);
+                        ps.executeUpdate();
+                    }
+                    break;
+                case ON_STATE:
+                    try(PreparedStatement ps=con.prepareStatement("update `virtualmachine` set `TURNONCOUNT` = `TURNONCOUNT`+1,`VIRTUALMACHINESTATE`=? where `VIRTUALMACHINECODE` = ?;")){
+                        ps.setInt(1, ON_STATE);
+                        ps.setString(2,virtualMachineCode);
+                        ps.executeUpdate();
+                    }
+                    break;
+            }
+            try(PreparedStatement ps=con.prepareStatement("update `virtualmachineexecution` set `VIRTUALMACHINEEXECUTIONSTATUS` = ?,`VIRTUALMACHINEEXECUTIONSTATUSMESSAGE`=? where `VIRTUALMACHINEEXECUTIONCODE` = ?;")){
+                ps.setInt(1,state);
+                ps.setString(2,message);
+                ps.setString(3,virtualMachineExecutionCode);
+                ps.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PersistenceServices.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

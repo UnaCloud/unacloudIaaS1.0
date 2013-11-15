@@ -5,10 +5,10 @@
 
 package com.losandes.communication.security;
 
+import com.losandes.communication.security.utils.AbstractCommunicator;
+import com.losandes.communication.security.utils.ConnectionException;
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -22,7 +22,7 @@ public class SecureServerSocket {
         ss = new ServerSocket(port);
     }
 
-    public AbstractCommunicator accept() throws ConectionException, IOException{
+    public AbstractCommunicator accept() throws ConnectionException, IOException{
         SecureServerStream ssss = new SecureServerStream();
         ssss.connect(ss.accept());
         return ssss;

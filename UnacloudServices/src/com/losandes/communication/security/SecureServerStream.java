@@ -9,16 +9,14 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.PrintWriter;
 import java.math.BigInteger;
-import java.net.ServerSocket;
 import java.security.KeyFactory;
 import java.security.Security;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.spec.RSAPrivateKeySpec;
-import java.util.Arrays;
-import java.util.Random;
 import javax.crypto.Cipher;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-
+import com.losandes.communication.security.utils.AbstractCommunicator;
+import com.losandes.communication.security.utils.ConnectionException;
 /**
  *
  * @author Clouder
@@ -50,7 +48,7 @@ public class SecureServerStream extends AbstractCommunicator{
         }
         return false;
     }
-    public SecureServerStream()throws ConectionException{
+    public SecureServerStream()throws ConnectionException{
         Security.addProvider(new BouncyCastleProvider());
             RSAPrivateKeySpec privKeySpec = new RSAPrivateKeySpec(modulus,exponent);
             
@@ -58,12 +56,12 @@ public class SecureServerStream extends AbstractCommunicator{
             KeyFactory keyFactory = KeyFactory.getInstance("RSA", "BC");
             key = (RSAPrivateKey) keyFactory.generatePrivate(privKeySpec);
         } catch (Exception ex) {
-            throw new ConectionException("Unable to create key");
+            throw new ConnectionException("Unable to create key");
         }
         try {
             cipher = Cipher.getInstance("RSA/None/NoPadding", "BC");
         } catch (Exception ex) {
-            throw new ConectionException("Unable to create cipher");
+            throw new ConnectionException("Unable to create cipher");
         }
     }
 

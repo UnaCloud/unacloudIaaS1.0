@@ -1,6 +1,7 @@
 package com.losandes.communication.messages.monitoring;
 
 import com.losandes.communication.messages.UnaCloudAbstractMessage;
+import com.losandes.communication.messages.UnaCloudMessage;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
@@ -17,7 +18,6 @@ public class MonitorInitialReport extends UnaCloudAbstractMessage implements Ser
     private String UUID;
     private Timestamp timest;
     private String hostname;
-    private String domain;
     private String operatingSystemName;
     private String operatingSystemVersion;
     private String operatingSystemArchitect;
@@ -33,12 +33,11 @@ public class MonitorInitialReport extends UnaCloudAbstractMessage implements Ser
     private String hardDiskFileSystem;
     private String networkMACAddress;
 
-    public MonitorInitialReport(String uUID, Timestamp timest, String hostname, String domain, String operatingSystemName, String operatingSystemVersion, String operatingSystemArchitect, String cPUModel, String cPUVendor, int cPUCores, int totalSockets, String cPUMhz, int coresPerSocket, float rAMMemorySize, float swapMemorySize, long hardDiskSpace, String hardDiskFileSystem, String networkMACAddress) {
+    public MonitorInitialReport(String uUID, Timestamp timest, String hostname, String operatingSystemName, String operatingSystemVersion, String operatingSystemArchitect, String cPUModel, String cPUVendor, int cPUCores, int totalSockets, String cPUMhz, int coresPerSocket, float rAMMemorySize, float swapMemorySize, long hardDiskSpace, String hardDiskFileSystem, String networkMACAddress) {
         super(REGISTRATION_OPERATION,0);
         UUID = uUID;
         this.timest = timest;
         this.hostname = hostname;
-        this.domain = domain;
         this.operatingSystemName = operatingSystemName;
         this.operatingSystemVersion = operatingSystemVersion;
         this.operatingSystemArchitect = operatingSystemArchitect;
@@ -77,14 +76,6 @@ public class MonitorInitialReport extends UnaCloudAbstractMessage implements Ser
 
     public void setHostname(String hostname) {
         this.hostname = hostname;
-    }
-
-    public String getDomain() {
-        return domain;
-    }
-
-    public void setDomain(String domain) {
-        this.domain = domain;
     }
 
     public String getOperatingSystemName() {
@@ -202,6 +193,11 @@ public class MonitorInitialReport extends UnaCloudAbstractMessage implements Ser
     
     @Override
     public String toString() {
-        return "MonitorInitialReport{" + "UUID=" + UUID + ", timest=" + timest + ", hostname=" + hostname + ", domain=" + domain + ", operatingSystemName=" + operatingSystemName + ", operatingSystemVersion=" + operatingSystemVersion + ", operatingSystemArchitect=" + operatingSystemArchitect + ", cPUModel=" + cPUModel + ", cPUVendor=" + cPUVendor + ", cPUCores=" + cPUCores + ", totalSockets=" + totalSockets + ", cPUMhz=" + cPUMhz + ", coresPerSocket=" + coresPerSocket + ", rAMMemorySize=" + rAMMemorySize + ", swapMemorySize=" + swapMemorySize + ", hardDiskSpace=" + hardDiskSpace + ", hardDiskFileSystem=" + hardDiskFileSystem + ", networkMACAddress=" + networkMACAddress + '}';
+        return "MonitorInitialReport{" + "UUID=" + UUID + ", timest=" + timest + ", hostname=" + hostname + ", operatingSystemName=" + operatingSystemName + ", operatingSystemVersion=" + operatingSystemVersion + ", operatingSystemArchitect=" + operatingSystemArchitect + ", cPUModel=" + cPUModel + ", cPUVendor=" + cPUVendor + ", cPUCores=" + cPUCores + ", totalSockets=" + totalSockets + ", cPUMhz=" + cPUMhz + ", coresPerSocket=" + coresPerSocket + ", rAMMemorySize=" + rAMMemorySize + ", swapMemorySize=" + swapMemorySize + ", hardDiskSpace=" + hardDiskSpace + ", hardDiskFileSystem=" + hardDiskFileSystem + ", networkMACAddress=" + networkMACAddress + '}';
+    }
+
+    @Override
+    public void processMessage(UnaCloudMessage message) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

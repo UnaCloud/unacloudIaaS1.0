@@ -53,18 +53,24 @@ public class MachineStateManager {
     }
 
     private void searchLossedConnections() {
-        ArrayList<String> aDesconectar = new ArrayList<String>();
+        ArrayList<String> aDesconectar = new ArrayList<>();
         long l = System.currentTimeMillis();
-        synchronized (syncLastReports) {
+        synchronized (syncLastReports){
+            boolean b=false;
             Set<Map.Entry<String, Long>> es = syncLastReports.entrySet();
             Iterator<Map.Entry<String, Long>> it = es.iterator();
             while(it.hasNext()) {
                 Map.Entry<String, Long> e = it.next();
                 if (l - e.getValue() > period * limitFail) {
                     aDesconectar.add(e.getKey());
-                    System.out.println("Desconectar: "+e.getKey());
+                    if(!b){
+                        System.out.print("Desconectar: ");
+                        b=true;
+                    }
+                    System.out.print(" "+e.getKey());
                 }
             }
+            if(b)System.out.println("");
             for(String h:aDesconectar)syncLastReports.remove(h);
         }
         if(!aDesconectar.isEmpty()) {

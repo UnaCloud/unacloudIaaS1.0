@@ -46,7 +46,6 @@ public class PhysicalMachineMonitor{
 	 * @param windowSize time in secconds between each data comit
 	 */
 	public static void start(final int frecuency, final int windowSize) {
-            	System.out.println("start monitoreo");
 		if (monitor == null) {
 			monitor = new MonitorAgent();
 			try {

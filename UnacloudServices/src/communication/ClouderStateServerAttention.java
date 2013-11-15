@@ -1,12 +1,10 @@
 package communication;
 
-import com.losandes.communication.security.AbstractCommunicator;
-import com.losandes.communication.security.ConectionException;
+import com.losandes.communication.security.utils.AbstractCommunicator;
+import com.losandes.communication.security.utils.ConnectionException;
 import com.losandes.communication.security.SecureServerSocket;
 import com.losandes.utils.VariableManager;
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import static com.losandes.utils.Constants.*;
@@ -41,7 +39,7 @@ public class ClouderStateServerAttention {
             }
         } catch (IOException ex) {
             System.err.println(ERROR_MESSAGE + "UnaCloud Client server socket connection failed: " + ex.getMessage());
-        } catch (ConectionException ex) {
+        } catch (ConnectionException ex) {
             System.err.println(ERROR_MESSAGE + "UnaCloud Client server socket connection failed: " + ex.getMessage());
         }
     }

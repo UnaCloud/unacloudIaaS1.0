@@ -6,7 +6,6 @@ package com.losandes.machineconfigurators;
 
 import com.losandes.utils.AddressUtility;
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
 /**
@@ -36,7 +35,7 @@ public class Debian extends AbstractSOConfigurator implements MachineConfigurato
         pw.println("gateway " + au.getGateway());
         pw.close();
         writeMachineFile("/etc/network/interfaces",bos.toByteArray());
-        executeCommandInMachine("/sbin/ifdown eth0", "/sbin/ifup eth0");
+        executeCommandInMachine("/etc/init.d/networking restart");
     }
 
     /**

@@ -379,7 +379,13 @@ public class PhysicalMachine implements Serializable {
     public void setMaxvirtualmachineson(int maxvirtualmachineson) {
         this.maxvirtualmachineson = maxvirtualmachineson;
     }
-
+    public String getStatusImage(){
+        if(physicalMachineState==ON_STATE)return "/img/green.png";
+        if(physicalMachineState==ERROR_STATE)return "/img/red.png";
+        if(physicalMachineState==DEPLOYING_STATE)return "/img/amber.png";
+        if(physicalMachineState==OFF_STATE)return "/img/gray.png";
+        return "/img/blue.png";
+    }
     
 
 }//end of PhysicalMachine

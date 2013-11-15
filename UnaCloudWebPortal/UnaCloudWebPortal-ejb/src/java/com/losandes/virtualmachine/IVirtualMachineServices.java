@@ -56,5 +56,19 @@ public interface IVirtualMachineServices {
     public List<VirtualMachine> getAllOnVirtualMachines();
 
     public void writeFileOnVirtualMachine(String virtualMachineExecutionId,String path,String content);
+    
+    /**
+     * Este método fue creado temporalmente para ejecutar unas pruebas de benchmarking: 23/09/2013.
+     * @param template
+     * @param executionTime
+     * @param numberInstances
+     * @param vmCores
+     * @param HDsize
+     * @param vmRAM
+     * @param userName
+     * @param retry
+     * @return 
+     */
+    public VirtualMachineExecution[] turnOnVirtualClusterBySizeAndUsers(int template, int executionTime, int numberInstances, int vmCores, int HDsize, int vmRAM, String userName,int usedPms,int notUsedPms);
 }// end of IVirtualMachineServices
 

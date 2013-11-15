@@ -1,7 +1,8 @@
 package communication;
 
 import com.losandes.communication.messages.UnaCloudAbstractMessage;
-import com.losandes.communication.security.AbstractCommunicator;
+import com.losandes.communication.messages.UnaCloudMessage;
+import com.losandes.communication.security.utils.AbstractCommunicator;
 import com.losandes.persistence.PersistenceServices;
 import com.losandes.utils.VirtualMachineCPUStates;
 import java.net.Socket;
@@ -36,97 +37,69 @@ public class ClouderClientAttentionThread extends Thread {
     public void run() {
         try {
             //receiving a operation request from the Clouder Server
-            String clouderServerRequest = communication.readUTF();
+            UnaCloudMessage clouderServerRequest = communication.readUTFList();
             if(clouderServerRequest==null)return;
-            //spliting the message in a processable vector
-            String[] clouderClientRequestSplitted = clouderServerRequest.split(MESSAGE_SEPARATOR_TOKEN);
             //clouderClientOperationResult is the result variable for responding to Clouder Server
             String clouderClientOperationResult = "";
             // operationDomain = {VIRTUAL_MACHINE_OPERATION, PHYSICAL_MACHINE_OPERATION}
-            int operationDomain = 0;
-            if (clouderClientRequestSplitted[0] != null && !clouderClientRequestSplitted[0].equals("")) {
-                operationDomain = Integer.parseInt(clouderClientRequestSplitted[0]);
-            }
-            try{
-                if(clouderClientRequestSplitted.length>1&&Integer.parseInt(clouderClientRequestSplitted[1])!=4)System.out.println(Arrays.toString(clouderClientRequestSplitted)+" "+sdf.format(new Date(System.currentTimeMillis())));
-            }catch(Throwable a){}
+            int operationDomain = clouderServerRequest.getInteger(0);
 
             if (operationDomain != 0 && operationDomain < 3) {
                 if (operationDomain == UnaCloudAbstractMessage.DATABASE_OPERATION) {
-                    int OperationType = 0;
-                    if (clouderClientRequestSplitted[1] != null && !clouderClientRequestSplitted[1].equals("")) {
-                        OperationType = Integer.parseInt(clouderClientRequestSplitted[1]);
-                    }
-                    String physicalMachineName = "";
-                    if (clouderClientRequestSplitted[2] != null && !clouderClientRequestSplitted[2].equals("")) {
-                        physicalMachineName = clouderClientRequestSplitted[2];
-                    }
+                    int OperationType = clouderServerRequest.getInteger(1);
+                    String physicalMachineName = clouderServerRequest.getString(2);
                     PersistenceServices persistence = new PersistenceServices();
                     switch (OperationType) {
                         case TURN_ON_DB:
                             persistence.updatePhysicalMachineState(ON_STATE,physicalMachineName);
                             //REPORT_DELAY,REPORT_FAIL_LIMIT
                             communication.writeUTF(MachineStateManager.period+MESSAGE_SEPARATOR_TOKEN+MachineStateManager.limitFail);
-
                             break;
                         case TURN_OFF_DB:
                             persistence.updatePhysicalMachineState(OFF_STATE,physicalMachineName);
                             break;
                         case LOGIN_DB:
-                            if (clouderClientRequestSplitted[3] != null && !clouderClientRequestSplitted[3].equals("")) {
-                                String physicalMachineUser = clouderClientRequestSplitted[3];
-                                persistence.logginPhysicalMachineUser(physicalMachineName, physicalMachineUser);
-                            }
+                            String physicalMachineUser=clouderServerRequest.getString(3);
+                            persistence.logginPhysicalMachineUser(physicalMachineName, physicalMachineUser);
+                            machineManager.reportMachine(physicalMachineName);
                             break;
                         case LOGOUT_DB:
                             persistence.logginPhysicalMachineUser(physicalMachineName, NOTHING_AVAILABLE);
                             break;
-                        case REPORT_DB:
-                            machineManager.reportMachine(physicalMachineName);
-                            break;
                         case VIRTUAL_MACHINE_STATE_DB:
-                            persistence.updateVirtualMachineState(clouderClientRequestSplitted[3],Integer.parseInt(clouderClientRequestSplitted[4]),clouderClientRequestSplitted[5]);
+                            persistence.updateVirtualMachineState(clouderServerRequest.getString(3),clouderServerRequest.getInteger(4),clouderServerRequest.getString(5));
                             machineManager.reportMachine(physicalMachineName);
                             break;
                         case VIRTUAL_MACHINE_CPU_STATE:
-                            persistence.updateVirtualMachineCPUState(clouderClientRequestSplitted[3],VirtualMachineCPUStates.valueOf(clouderClientRequestSplitted[4]));
+                            persistence.updateVirtualMachineCPUState(clouderServerRequest.getString(3),VirtualMachineCPUStates.valueOf(clouderServerRequest.getString(4)));
                             break;
                         default:
                             clouderClientOperationResult += ERROR_MESSAGE + "The Clouder Client operation request is invalid: " + OperationType;
                             System.err.println(clouderClientOperationResult);
+                            System.out.println(clouderServerRequest);
                     }
                 } else if (operationDomain == UnaCloudAbstractMessage.PHYSICAL_MACHINE_OPERATION) {
                     System.out.println("The Clouder Server operation request is physical machine type");
                     // TODO por definirse
-                    int physicalOperationType = 0;
-                    if (clouderClientRequestSplitted.length > 1) {
-                        if (clouderClientRequestSplitted[1] != null && !clouderClientRequestSplitted[1].equals("")) {
-                            physicalOperationType = Integer.parseInt(clouderClientRequestSplitted[1]);
-                        }
-                    }
+                    int physicalOperationType = clouderServerRequest.getInteger(1);
                     switch (physicalOperationType) {
                         case PM_TURN_OFF:
-
                             break;
-
                         case PM_RESTART:
-
                             break;
-
                         case PM_LOGOUT:
-
                             break;
-
                         case PM_MONITOR:
                             break;
-
                         default:
                             clouderClientOperationResult += ERROR_MESSAGE + "The Clouder Server physical machine operation request is invalid: " + physicalOperationType;
                             System.err.println(clouderClientOperationResult);
+                            System.out.println(clouderServerRequest);
                     }
                 } else {
                     clouderClientOperationResult += ERROR_MESSAGE + "The Clouder Server request type is invalid: " + operationDomain;
                     System.err.println(clouderClientOperationResult);
+                    System.out.println(clouderServerRequest);
                 }
             } else {
                 clouderClientOperationResult += ERROR_MESSAGE + "The Clouder Server request is null or an invalid number: " + operationDomain;

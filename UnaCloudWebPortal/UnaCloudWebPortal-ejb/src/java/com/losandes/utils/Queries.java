@@ -275,7 +275,7 @@ public class Queries {
                 "pm.physicalMachineCores >= " + virtualMachineCores + " AND " +
                 "pm.physicalMachineRAMMemory > " + virtualMachineRAM + " AND " +
                 "pm.PHYSICALMACHINEVIRTUALMACHINESON < pm.maxvirtualmachineson AND " +
-                "pm.physicalMachineState = " + ON_STATE + " order by vm.TURNONCOUNT desc;";
+                "pm.physicalMachineState = " + ON_STATE + " AND vm.TURNONCOUNT > 0;";
         return query;
     }
 

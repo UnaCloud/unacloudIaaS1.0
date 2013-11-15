@@ -46,9 +46,11 @@ public class PhysicalMachineStateReporter extends Thread{
        }
 
        while(true){
+           
            try{
+               String username=MonitorReportGenerator.getUserName();
                AbstractCommunicator ac = conection.connect();
-               ac.writeUTF(""+UnaCloudAbstractMessage.DATABASE_OPERATION,""+REPORT_DB,id);
+               ac.writeUTF(UnaCloudAbstractMessage.DATABASE_OPERATION,LOGIN_DB,id,username);
                ac.close();
                fails=0;
            }catch(ConnectionException sce){

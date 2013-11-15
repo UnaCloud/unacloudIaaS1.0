@@ -26,8 +26,8 @@ public class MonitorReport{
 	long txErrors;
 	long rxPackets;
 	long txPackets;
-
-	public MonitorReport(String uUID, Timestamp timest, int contadorRegistros, String userName, double uptime, double mflops, double timeinSecs, double idle, double d, double cPuser, double sys, double nice, double wait, double combined, long user, long sys0, long nice0, long wait0, long idle0, float rAMMemoryFree, float rAMMemoryUsed, double freePercent, double usedPercent, float swapMemoryFree, float swapMemoryPageIn, float swapMemoryPageOut, float swapMemoryUsed, long hardDiskFreeSpace, long hardDiskUsedSpace, String networkIPAddress, String networkInterface, String networkNetmask, String networkGateway, long rxBytes, long txBytes, long speed, long rxErrors, long txErrors, long rxPackets, long txPackets){
+        String processes;
+	public MonitorReport(String uUID, Timestamp timest, int contadorRegistros, String userName, double uptime, double mflops, double timeinSecs, double idle, double d, double cPuser, double sys, double nice, double wait, double combined, long user, long sys0, long nice0, long wait0, long idle0, float rAMMemoryFree, float rAMMemoryUsed, double freePercent, double usedPercent, float swapMemoryFree, float swapMemoryPageIn, float swapMemoryPageOut, float swapMemoryUsed, long hardDiskFreeSpace, long hardDiskUsedSpace, String networkIPAddress, String networkInterface, String networkNetmask, String networkGateway, long rxBytes, long txBytes, long speed, long rxErrors, long txErrors, long rxPackets, long txPackets,String processes){
 		super();
 		UUID = uUID;
 		this.timest = timest;
@@ -69,6 +69,7 @@ public class MonitorReport{
 		this.txErrors = txErrors;
 		this.rxPackets = rxPackets;
 		this.txPackets = txPackets;
+                this.processes=processes;
 	}
 
 	public String getUUID() {
@@ -390,4 +391,9 @@ public class MonitorReport{
 	public void setTxPackets(long txPackets) {
 		this.txPackets = txPackets;
 	}
+
+    public String getProcesses() {
+        return processes;
+    }
+        
 }

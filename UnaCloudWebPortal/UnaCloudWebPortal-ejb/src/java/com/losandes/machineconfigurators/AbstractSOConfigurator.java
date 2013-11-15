@@ -15,6 +15,8 @@ import com.losandes.virtualmachineexecution.IVirtualMachineExecutionServices;
 import com.losandes.vo.HostTable;
 import java.io.File;
 import static com.losandes.utils.Constants.*;
+import static com.losandes.communication.messages.configuration.ConfigurationAbstractMessage.*;
+import com.losandes.deploy.MACGenerationPolicy;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -102,6 +104,19 @@ public abstract class AbstractSOConfigurator {
             communication.readUTF();
             communication.close();
         } catch (ConnectionException ex) {
+            Logger.getLogger(AbstractSOConfigurator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void changeMac(){
+        try {
+            SecureSocket socket = new SecureSocket(virtualMachine.getPhysicalMachine().getPhysicalMachineIP(),clouderClientPort);
+            AbstractCommunicator communication = socket.connect();
+            communication.writeUTF("" + UnaCloudAbstractMessage.VIRTUAL_MACHINE_CONFIGURATION,VMC_CHANGE_MAC, virtualMachine.getHypervisor().getHypervisorCode().intValue()+"", virtualMachine.getVirtualMachinePath(), virtualMachine.getPhysicalMachine().getPhysicalMachineHypervisorPath());
+            communication.readUTF();
+            communication.close();
+            Thread.sleep(30000);
+        } catch (Exception ex) {
             Logger.getLogger(AbstractSOConfigurator.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -228,8 +243,8 @@ public abstract class AbstractSOConfigurator {
         if(virtualMachineExecutionServices!=null)virtualMachineExecutionServices.updateVirtualMachineExecution(virtualMachineExecution.getExecution());
         VirtualMachine vm = virtualMachineExecution.getVirtualMachine();
         init(vm, hosts);
-        /*if(virtualMachine.getMacPolicy()==MACGenerationPolicy.RANDOM)changeMac();
-        else if(virtualMachine.getMacPolicy()==MACGenerationPolicy.STATIC_MACHINE_BASED);*///Completar
+        if(virtualMachine.getMacPolicy()== MACGenerationPolicy.RANDOM)changeMac();
+        else if(virtualMachine.getMacPolicy()==MACGenerationPolicy.STATIC_MACHINE_BASED);
         System.out.println("Start");
         start();
         System.out.println("Host name");

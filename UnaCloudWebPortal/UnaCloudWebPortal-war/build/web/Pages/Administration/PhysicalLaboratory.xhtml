@@ -6,7 +6,7 @@
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:a4j="http://richfaces.org/a4j">
     <ui:define name="body">
-        <h:outputStylesheet>
+        <h:outputStylesheet name="asd">
             .rf-dg, .rf-dg-c{
             border:none;
             }
@@ -25,7 +25,33 @@
             </rich:toolbar>
             <h:outputText id="execution" styleClass="errorText" value="#{LaboratoryBean.executionMachineError}"/>
             <rich:panel>
-                <rich:dataGrid id="grid" value="#{LaboratoryBean.laboratory.physicalMachine}" var="car" columns="#{LaboratoryBean.laboratory.laboratoryColumns}" style="border: 0">
+                <rich:dataTable id="grid" value="#{LaboratoryBean.laboratory.physicalMachine}" var="car">
+                    <rich:column>
+                        <h:selectBooleanCheckbox value="#{car.physicalMachineEnable}" />
+                    </rich:column>
+                    <rich:column>
+                        <f:facet name="header"><h:outputText value="Name" /></f:facet>
+                        <h:outputText value="#{car.physicalMachineName}" />
+                    </rich:column>
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="State" />
+                        </f:facet>
+                        <h:graphicImage value="#{car.statusImage}" styleClass="icon" />
+                    </rich:column>
+                    <rich:column>
+                        <f:facet name="header"><h:outputText value="User" /></f:facet>
+                        <h:outputLabel value="#{car.physicalMachineUser}" />
+                    </rich:column>
+                    <rich:column>
+                        <f:facet name="header"><h:outputText value="Slots" /></f:facet>
+                        <rich:dataGrid value="#{car.executionsSlots}" var="vme" style="padding: 0;border: 0">
+                            <h:graphicImage title="#{vme.message}" value="#{vme.statusImage}" styleClass="icon" />
+                        </rich:dataGrid>
+                    </rich:column>
+                    
+                </rich:dataTable>
+                <!--<rich:dataGrid id="grid" value="#{LaboratoryBean.laboratory.physicalMachine}" var="car" columns="#{LaboratoryBean.laboratory.laboratoryColumns}" style="border: 0">
                     <rich:panel>
                         <f:facet name="header">
                             <h:outputText value="#{car.physicalMachineName}"></h:outputText>
@@ -39,7 +65,7 @@
                             <h:selectBooleanCheckbox value="#{car.physicalMachineEnable}" />
                         </h:panelGrid>
                     </rich:panel>
-                </rich:dataGrid>
+                </rich:dataGrid>-->
                 <a4j:jsFunction name="turnOffObject" action="#{LaboratoryBean.turnOffPhysicalMachine}" render="grid, execution"/>
                 <a4j:jsFunction name="logOutObject" action="#{LaboratoryBean.logOutPhysicalMachine}" render="grid, execution"/>
                 <a4j:jsFunction name="lockObject" action="#{LaboratoryBean.lockPhysicalMachine}" render="grid, execution"/>

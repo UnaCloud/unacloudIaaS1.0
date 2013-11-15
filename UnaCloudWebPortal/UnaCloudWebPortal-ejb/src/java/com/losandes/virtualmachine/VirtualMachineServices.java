@@ -11,7 +11,6 @@ import com.losandes.user.IUserServices;
 import com.losandes.utils.Queries;
 import com.losandes.virtualmachineexecution.IVirtualMachineExecutionServices;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
@@ -19,8 +18,11 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.ejb.TransactionManagement;
 import static com.losandes.utils.Constants.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * @author Edgar Eduardo Rosales Rosero
@@ -42,6 +44,7 @@ public class VirtualMachineServices implements IVirtualMachineServices {
     /**
      * Responsible for exposing the Virtual Machine create persistence services
      */
+    @Override
     public boolean createVirtualMachine(VirtualMachine virtualMachine) {
         //return true;
         return persistenceServices.create(virtualMachine);
@@ -50,6 +53,7 @@ public class VirtualMachineServices implements IVirtualMachineServices {
     /**
      * Responsible for exposing the Virtual Machine Execution update persistence services
      */
+    @Override
     public boolean updateVirtualMachineExecution(VirtualMachineExecution virtualMachineExecution) {
         return persistenceServices.update(virtualMachineExecution)!=null;
     }
@@ -57,6 +61,7 @@ public class VirtualMachineServices implements IVirtualMachineServices {
     /**
      * Responsible for exposing the Virtual Machine update persistence services
      */
+    @Override
     public boolean updateVirtualMachine(VirtualMachine virtualMachine) {
         System.out.println("updateVirtualMachine");
         return persistenceServices.update(virtualMachine)!=null;
@@ -65,6 +70,7 @@ public class VirtualMachineServices implements IVirtualMachineServices {
     /**
      * Responsible for exposing the Virtual Machine delete persistence services
      */
+    @Override
     public boolean deleteVirtualMachine(int code) {
         //return true;
         VirtualMachine virtualMachine = getVirtualMachineByID(code);
@@ -74,6 +80,7 @@ public class VirtualMachineServices implements IVirtualMachineServices {
     /**
      * Responsible for exposing the Virtual Machine query by id
      */
+    @Override
     public VirtualMachine getVirtualMachineByID(int VirtualMachineCode) {
         //return null;
         return (VirtualMachine) persistenceServices.findById(VirtualMachine.class, VirtualMachineCode);
@@ -82,6 +89,7 @@ public class VirtualMachineServices implements IVirtualMachineServices {
     /**
      * Responsible for exposing all the Virtual Machines available
      */
+    @Override
     public List getVirtualMachines() {
         return persistenceServices.findAll(VirtualMachine.class);
     }
@@ -115,6 +123,7 @@ public class VirtualMachineServices implements IVirtualMachineServices {
     /**
      * Responsible for extending a Virtual Machines execution time
      */
+    @Override
     public String extendVirtualMachineExecutionTime(int executionTime, VirtualMachineExecution... virtualMachineExecutions) {
         System.out.println("extendVirtualMachineExecutionTime "+executionTime );
         String result = "";
@@ -147,6 +156,7 @@ public class VirtualMachineServices implements IVirtualMachineServices {
     /**
      * Responsible for exposing all the Virtual Machine Hard Disks available for execution
      */
+    @Override
     public List getAvailableVirtualHardDisk(int templateSelected) {
         return persistenceServices.executeNativeSQLList(Queries.getVirtualHardDiskAvailable(templateSelected), null);
     }
@@ -154,6 +164,7 @@ public class VirtualMachineServices implements IVirtualMachineServices {
     /**
      * Responsible for exposing all the Grid Virtual Machine Hard Disks available for execution
      */
+    @Override
     public List getGridAvailableVirtualHardDisk(int templateSelected, String systemUserName) {
         return persistenceServices.executeNativeSQLList(Queries.getGridVirtualHardDiskAvailable(templateSelected, systemUserName), null);
     }
@@ -161,6 +172,7 @@ public class VirtualMachineServices implements IVirtualMachineServices {
     /**
      * Responsible for exposing all the Virtual Machines available for execution
      */
+    @Override
     public List getAvailableVirtualMachines(int templateSelected, int virtualMachineDisk, int virtualMachineCores, int virtualMachineRAM) {
         if (virtualMachineCores == 0 || virtualMachineDisk == 0 || virtualMachineRAM == 0) {
             return persistenceServices.executeNativeSQLList(Queries.getFastVirtualMachineAvailable(templateSelected), VirtualMachine.class);
@@ -171,6 +183,7 @@ public class VirtualMachineServices implements IVirtualMachineServices {
     /**
      * Responsible for exposing all the Grid Virtual Machines available for execution
      */
+    @Override
     public List getGridAvailableVirtualMachines(int templateSelected, int virtualMachineDisk, int virtualMachineCores, int virtualMachineRAM, String systemUserName) {
         if (virtualMachineCores == 0 || virtualMachineDisk == 0 || virtualMachineRAM == 0) {
             return persistenceServices.executeNativeSQLList(Queries.getFastGridVirtualMachineAvailable(templateSelected, systemUserName), VirtualMachine.class);
@@ -181,6 +194,7 @@ public class VirtualMachineServices implements IVirtualMachineServices {
     /**
      * Responsible for exposing all the Virtual Machines executions for a System User
      */
+    @Override
     public List getVirtualMachineExecutions(String systemUserName) {
         return persistenceServices.executeNativeSQLList(Queries.getConsistentVirtualMachines(systemUserName), VirtualMachineExecution.class);
     }
@@ -188,6 +202,7 @@ public class VirtualMachineServices implements IVirtualMachineServices {
     /**
      * Responsible for exposing all the Virtual Machines executions for a System User an a Virtual Machine Code
      */
+    @Override
     public VirtualMachineExecution getVirtualMachineExecution(String systemUserName, int virtualMachineCode) {
         List<VirtualMachineExecution> virtualMachineExecutions = getVirtualMachineExecutions(systemUserName);
         VirtualMachineExecution virtualMachineExecution = null;
@@ -216,6 +231,7 @@ public class VirtualMachineServices implements IVirtualMachineServices {
         }
     }
 
+    @Override
     public void setVirtualMachineExecutionState(int executionId, int state, String message) {
         VirtualMachineExecution vme = (VirtualMachineExecution) persistenceServices.findById(VirtualMachineExecution.class, executionId);
         vme.setVirtualMachineExecutionStatus(state);
@@ -287,7 +303,53 @@ public class VirtualMachineServices implements IVirtualMachineServices {
         VirtualMachine[] avms = new VirtualMachine[Math.min(numberInstances, vms.size())];
         for (int e = 0; e < avms.length; e++)avms[e] = vms.get(e);
         if(retry&&numberInstances-avms.length>0)virtualMachineOperations.turnOnPhysicalMachines(template, executionTime, numberInstances-avms.length, vmCores, HDsize, vmRAM, userName);
-        for(VirtualMachine vm:vms)System.out.println(vm);
+        return virtualMachineOperations.turnOnCluster(vmCores, vmRAM, executionTime, userServices.getUserByID(userName), avms);
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    @Override
+    public VirtualMachineExecution[] turnOnVirtualClusterBySizeAndUsers(int template, int executionTime, int numberInstances, int vmCores, int HDsize, int vmRAM, String userName,int usedPms,int notUsedPms){
+        
+        List<VirtualMachine> vms = getAvailableVirtualMachines(template, HDsize, vmCores, vmRAM);
+        {
+            Collections.sort(vms,new Comparator<VirtualMachine>(){
+
+                @Override
+                public int compare(VirtualMachine o1, VirtualMachine o2) {
+                    return o1.getVirtualMachineName().compareTo(o2.getVirtualMachineName());
+                }
+            });
+            String h="";
+            for(VirtualMachine vm:vms)h+=(vm.getVirtualMachineName()+", ");
+            System.out.println(h);
+            List<VirtualMachine> withUser=new ArrayList<VirtualMachine>();
+            List<VirtualMachine> withNoUser=new ArrayList<VirtualMachine>();
+            for(VirtualMachine vm:vms)(vm.getPhysicalMachine().getPhysicalMachineUser()==null?withNoUser:withUser).add(vm);
+            int total=vms.size();
+            vms.clear();
+            if(withUser.isEmpty()||usedPms<=0){
+                vms.addAll(withNoUser);
+                vms.addAll(withUser);
+            }else if(withNoUser.isEmpty()||notUsedPms<=0){
+                vms.addAll(withUser);
+                vms.addAll(withNoUser);
+            }else{
+                for(int e=0,u=0,nu=0;e<total;e++){
+                    for(int i=0;i<usedPms&&u<withUser.size();i++)vms.add(withUser.get(u++));
+                    for(int i=0;i<notUsedPms&&nu<withNoUser.size();i++)vms.add(withNoUser.get(nu++));
+                }
+            }
+            
+        }
+        //String h="";
+        //    for(VirtualMachine vm:vms)h+=(vm.getVirtualMachineName()+", ");
+        //    System.out.println(h);
+        VirtualMachine[] avms = new VirtualMachine[Math.min(numberInstances, vms.size())];
+        for (int e = 0; e < avms.length; e++)avms[e] = vms.get(e);
+        //h="";
+         //   for(VirtualMachine vm:avms)h+=(vm.getVirtualMachineName()+", ");
+          //  System.out.println(h);
+        if(numberInstances-avms.length>0)virtualMachineOperations.turnOnPhysicalMachines(template, executionTime, numberInstances-avms.length, vmCores, HDsize, vmRAM, userName);
         return virtualMachineOperations.turnOnCluster(vmCores, vmRAM, executionTime, userServices.getUserByID(userName), avms);
     }
 

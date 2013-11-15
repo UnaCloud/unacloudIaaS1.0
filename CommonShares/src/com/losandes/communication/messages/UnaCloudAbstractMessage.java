@@ -8,10 +8,11 @@ package com.losandes.communication.messages;
  *
  * @author Clouder
  */
-public class UnaCloudAbstractMessage {
+public abstract class UnaCloudAbstractMessage<T>{
     //UnaCloud Server operation request constants
     public static final int VIRTUAL_MACHINE_OPERATION = 1;
     public static final int PHYSICAL_MACHINE_OPERATION = 2;
+    
     //UnaCloud Client operation request constants
     public static final int DATABASE_OPERATION = 1;
     public static final int REGISTRATION_OPERATION = 2;
@@ -22,9 +23,14 @@ public class UnaCloudAbstractMessage {
     private int mainOp;
     private int subOp;
 
-    public UnaCloudAbstractMessage(int mainOp, int subOp) {
+    public UnaCloudAbstractMessage(int mainOp, int subOp){
         this.mainOp = mainOp;
         this.subOp = subOp;
+    }
+
+    public UnaCloudAbstractMessage(int mainOp, int subOp,UnaCloudMessage message){
+        this(mainOp,subOp);
+        processMessage(message);
     }
     public int getMainOp() {
         return mainOp;
@@ -41,4 +47,5 @@ public class UnaCloudAbstractMessage {
     public void setSubOp(int subOp) {
         this.subOp = subOp;
     }
+    protected abstract void processMessage(UnaCloudMessage message);
 }
