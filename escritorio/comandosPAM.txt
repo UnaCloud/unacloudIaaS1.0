@@ -1,0 +1,56 @@
+apt-get install git-core
+mkdir pam
+cd pam
+wget http://www.kernel.org/pub/linux/libs/pam/pre/library/Linux-PAM-0.99.9.0.tar.gz
+wget http://www.fastriver.net/~ryo/slackware/slackware-12.0/ryo/source/Linux-PAM-0.99.9.0/
+wget http://www.fastriver.net/~ryo/slackware/slackware-12.0/ryo/source/Linux-PAM-0.99.9.0/Linux-PAM-0.99.9.0.tar.gz
+wget http://mirror.anl.gov/pub/linux/utils/util-linux/v2.12/util-linux-2.12r.tar.gz
+wget http://ufpr.dl.sourceforge.net/project/flex/flex/flex-2.5.35/flex-2.5.35.tar.gz
+git clone http://git.savannah.gnu.org/r/m4.git
+git checkout -b branch-1.6 origin/branch-1.6
+rm index.html 
+tar xzf Linux-PAM-0.99.9.0.tar.gz
+tar xzf util-linux-2.12r.tar.gz
+cd Linux-PAM-0.99.9.0
+./configure
+make
+cd ..
+tar xvzf flex-2.5.35.tar.gz 
+cd flex-2.5.35
+./configure --prefix=/usr && ;
+./configure --prefix=/usr
+cd ..
+cd m4/
+set CFLAGS to "-O2 -funsigned-char"
+./configure --prefix=${prefix}
+cd ..
+git clone git://git.sv.gnu.org/m4
+wget ftp://ftp.gnu.org/gnu/m4/m4-1.4.16.tar.gz
+rm -rf m4
+tar xvzf m4-1.4.16.tar.gz 
+cd m4-1.4.16
+set CFLAGS to "-O2 -funsigned-char".
+set CFLAGS to "-O2 -funsigned-char"
+./configure --prefix=/usr
+make
+strip src/m4
+make check
+make install
+cd ..
+cd flex-2.5.35
+./configure --prefix=/usr
+make
+make install
+cd ..
+cd Linux-PAM-0.99.9.0
+./configure
+make
+make install
+ln /lib/security/pam_unix.so /lib/security/pam_unix2.so
+cd /lib/security/
+ln /lib/security/pam_unix.so /lib/security/pam_unix2.so
+ln /lib/security/pam_unix2.so /lib/security/pam_unix.so
+ln /lib/security/pam_unix.so /lib/security/pam_unix2.so
+ln /lib/security/pam_unix2.so /lib/security/pam_unix.so
+ln /lib/security/pam_unix.so /lib/security/pam_unix2.so
+

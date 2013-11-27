@@ -1,0 +1,25 @@
+1	Windows Default applications
+2	Linux Default applications
+3	Mozilla Firefox
+4	7-Zip
+5	Adobe Reader
+6	Java SE JDK 1.6
+7	Eclipse Galileo IDE
+8	Netbeans IDE
+9	Eclipse APO IDE
+10	Eclipse DATOS IDE
+11	Microsoft Office 2007
+12	Dreamweaver CS4 Trial
+13	Condor
+14	BLAST
+15	Microsoft Visual Studio 2008
+16	Microsoft SQL Server 2008 Enterprise
+17	MySQL Community Server 5
+18	IBM DB2
+19	Enterprise Achitect
+20	FileZilla Client
+21	Wireshark
+22	NS2
+23	IBM Rational Software Architect
+24	SUN Grid Engine
+25	VMware Tools

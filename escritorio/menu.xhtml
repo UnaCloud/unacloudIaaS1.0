@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ajax="https://ajax4jsf.dev.java.net/ajax">
+    <head>
+        <a4j:loadStyle src="/css/cssmda.css" />
+    </head>
+    <body>
+        <ui:composition>
+            <table width="800" border="0" align="center" cellpadding="0" cellspacing="0" class="borde_tabla">
+                <h:form>
+                    <tr>
+                        <td width="150" height="25" valign="middle">
+                            <rich:dropDownMenu disabled="#{SecurityBean.enabledCloud}" styleClass="#{SecurityBean.styleCloud}" value="Cloud IaaS" direction="bottom-right" jointPoint="tr" horizontalOffset="-150" verticalOffset="25">
+                                <rich:menuItem styleClass="login" submitMode="ajax" value="Customize IaaS" action="#{ClouderBean.clearComponents}"/>
+                                <rich:menuItem styleClass="login" submitMode="ajax" value="Deploy IaaS" action="FastClouderAdmin"/>
+                                <rich:menuItem styleClass="login" submitMode="ajax" value="My Cloud IaaS" action="CloudManagement"/>
+                            </rich:dropDownMenu>
+                        </td>
+                        <td width="150" valign="middle">
+                            <rich:dropDownMenu disabled="#{SecurityBean.enabledGrid}" styleClass="#{SecurityBean.styleGrid}" value="Grid" direction="bottom-right" jointPoint="tr" horizontalOffset="-150" verticalOffset="25">
+                                 <rich:menuItem styleClass="login" submitMode="ajax" value="Customize Located IaaS" action="DeployManualCloudIaaS"/>
+                                 <rich:menuItem styleClass="login" submitMode="ajax" value="Deploy Located IaaS" action="DeployFastManualCloudIaaS"/>
+                                 <rich:menuItem styleClass="login" submitMode="ajax" value="My Cloud IaaS" action="CloudManagement"/>
+                            </rich:dropDownMenu>
+                        </td>
+                        <td width="150" valign="middle">
+                            <rich:dropDownMenu disabled="#{SecurityBean.enabledAdministrator}" styleClass="#{SecurityBean.styleAdministrator}" value="Administrator" direction="bottom-right" jointPoint="tr" horizontalOffset="-150" verticalOffset="25">
+                                <rich:menuItem styleClass="login" submitMode="ajax" value="Manage Laboratories Information" action="#{LaboratoryBean.clearComponents}"/>
+                                <rich:menuItem styleClass="login" submitMode="ajax" value="Manage Physical Machines Information" action="#{PhysicalMachineBean.clearComponents}"/>
+                                <rich:menuItem styleClass="login" submitMode="ajax" value="Manage Physical Infrastructure" action="OperateInfrastructure"/>
+                                <rich:menuItem styleClass="login" submitMode="ajax" value="Manage Templates Information" action="#{TemplateBean.clearComponents}"/>
+                                 <rich:menuItem styleClass="login" submitMode="ajax" value="Manage Hypervisors Information" action="ManageHypervisors"/>
+                                <rich:menuItem styleClass="login" submitMode="ajax" value="Manage Security Access Information" action="ManageSecurityAccess"/>
+                                <rich:menuItem styleClass="login" submitMode="ajax" value="Manage Operating Systems Information" action="ManageOperatingSystems"/>
+                                <rich:menuItem styleClass="login" submitMode="ajax" value="Manage Applications Information" action="ManageApplications"/>
+                                <rich:menuItem styleClass="login" submitMode="ajax" value="Manage Virtual Machines Information" action="#{VirtualMachineBean.clearComponents}"/>
+                                <rich:menuItem styleClass="login" submitMode="ajax" value="Manage System Users Information" action="#{UserBean.clearComponents}"/>
+                                <rich:menuItem styleClass="login" submitMode="ajax" value="IaaS Traceability" action="MonitorCloudIaaS"/>
+                                <rich:menuItem styleClass="login" submitMode="ajax" value="Monitor Physical Infrastructure" action="MonitorInfrastructure"/>                                
+                            </rich:dropDownMenu>
+                        </td>
+                        <td width="250" valign="middle"></td>
+                        <td width="57" valign="middle">
+                            <h:commandLink value="Exit" action="#{SecurityBean.logout}"/>
+                        </td>
+                    </tr>
+                </h:form>
+            </table>
+            <table width="800" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td width="800" height="14" valign="middle"><hr /></td>
+                </tr>
+            </table>
+        </ui:composition>
+    </body>
+</html>
+
